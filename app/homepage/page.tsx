@@ -35,7 +35,7 @@ const featuredProducts: FeaturedProduct[] = [
 
 const HomeSection: React.FC = () => {
   return (
-    <div className="bg-whiter">
+    <div className="">
       <div className="site-section home-section">
         <div className="container">
           <div className="row">
