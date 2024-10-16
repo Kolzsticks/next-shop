@@ -1,6 +1,7 @@
 "use client";
+import React, { useState, useEffect, useCallback } from "react";
 import ModalProduct from "./ModalProduct";
-import React, { useState } from "react";
+import FancyBoxPreview from "./FancyBoxPreview";
 
 interface Product {
   id: number;
@@ -10,23 +11,28 @@ interface Product {
 }
 
 const ProductCard: React.FC<Product> = ({ id, title, price, image }) => {
-  const [showProductPreviewModal, setShowProductPreviewModal] =
-    useState<boolean>(false);
+  const [showProductPreviewModal, setShowProductPreviewModal] = useState<boolean>(false);
+  const [showFullScreenPreview, setShowFullScreenPreview] = useState<boolean>(false);
 
-  const handleShowProductPreviewModal = () => {
-    setShowProductPreviewModal((prev) => !prev);
-    console.log("Button clicked"); // Ensure this log is triggered
-  };
-
-  const handleClickWithOverflow = () => {
-    if (document.body.style.overflow === "hidden") {
-      document.body.style.overflow = "";
-    } else {
+  useEffect(() => {
+    if (showProductPreviewModal || showFullScreenPreview) {
       document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
     }
 
-    handleShowProductPreviewModal();
-  };
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showProductPreviewModal, showFullScreenPreview]);
+
+  const toggleProductPreviewModal = useCallback(() => {
+    setShowProductPreviewModal((prev) => !prev);
+  }, []);
+
+  const toggleFullScreenPreview = useCallback(() => {
+    setShowFullScreenPreview((prev) => !prev);
+  }, []);
 
   return (
     <>
@@ -39,21 +45,23 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image }) => {
             <div className="btn btn-fab btn-sm">
               <span className="icon-shopping-cart" />
             </div>
-            <div className="btn btn-fab btn-sm">
+            <div className="btn btn-fab btn-sm" onClick={toggleFullScreenPreview}>
               <span className="icon-fullscreen fs-normal" />
             </div>
           </div>
+
           <div className="card-body">
             <div className="img-place">
               <img src={image} alt={title} />
             </div>
             <button
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-              onClick={handleClickWithOverflow}
+              onClick={toggleProductPreviewModal}
             >
               Quick View
             </button>
           </div>
+
           <div className="card-footer">
             <div className="caption">
               <a href="product-details.html" className="product-title">
@@ -64,11 +72,16 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image }) => {
           </div>
         </div>
       </div>
+
+      {showFullScreenPreview && (
+        <FancyBoxPreview imageUrl={image} handleClose={toggleFullScreenPreview} />
+      )}
+
       {showProductPreviewModal && (
-        <ModalProduct handleClose={handleClickWithOverflow} />
+        <ModalProduct handleClose={toggleProductPreviewModal} />
       )}
     </>
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);
