@@ -1,4 +1,8 @@
 
+
+html, body{
+  scroll-behavior: smooth !important;
+}
 /* SFUI Text Light */
 @font-face {
   font-family: 'SFUI Text';

@@ -23,9 +23,9 @@ const FilterProduct: React.FC<FilterProductSection> = ({
         <div
           className="card-filter-btn text-center"
         >
-          <button className="btn btn-theme btn-block" onClick={handleShowFilterProducts}>Filter Product</button>
+          <a href="#filtered" className="btn btn-theme btn-block" onClick={handleShowFilterProducts}>Filter Product</a>
         </div>
-        <div className={`card p-20 d-lg-block  ${showFilterProducts? '' : 'd-none'}`}>
+        <div id="filtered" className={`card p-20 d-lg-block  ${showFilterProducts? '' : 'd-none'}`}>
           <div className="card-header d-flex flex-row justify-content-between py-2">
             <h5>Search Filter</h5>
             <a href="#">Clear All</a>

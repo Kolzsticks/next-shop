@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import Link from "next/link";
 
 interface MobileMenuProps {
