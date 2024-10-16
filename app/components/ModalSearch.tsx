@@ -1,9 +1,11 @@
-'use client'
+"use client";
 interface SearchButtonProps {
   handleShowSearchModal: () => void; // Update type to match usage
 }
 
-const ModalSearch: React.FC<SearchButtonProps> = ({ handleShowSearchModal}) => {
+const ModalSearch: React.FC<SearchButtonProps> = ({
+  handleShowSearchModal,
+}) => {
   return (
     <>
       <div
@@ -12,12 +14,16 @@ const ModalSearch: React.FC<SearchButtonProps> = ({ handleShowSearchModal}) => {
         tabIndex={-1}
         role="dialog"
         aria-hidden="true"
-        style={{display:'block'}}
+        style={{ display: "block" }}
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-body">
-              <button onClick={handleShowSearchModal} className="close"  aria-label="Close">
+              <button
+                onClick={handleShowSearchModal}
+                className="close"
+                aria-label="Close"
+              >
                 <span aria-hidden="true" className="icon-close2" />
               </button>
               <form className="container my-3">

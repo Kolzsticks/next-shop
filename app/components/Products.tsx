@@ -8,9 +8,10 @@ interface Product {
   title: string;
   price: number;
   image: string;
+  isColumn: boolean;
 }
 
-const ProductCard: React.FC<Product> = ({ id, title, price, image }) => {
+const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = false }) => {
   const [showProductPreviewModal, setShowProductPreviewModal] = useState<boolean>(false);
   const [showFullScreenPreview, setShowFullScreenPreview] = useState<boolean>(false);
 
@@ -36,7 +37,7 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image }) => {
 
   return (
     <>
-      <div className="col-sm-6 col-md-4">
+      <div className={`col-sm-6 col-md-4 ${isColumn? 'col-lg-12': ''}`}>
         <div className="card card-product">
           <div className="card-header">
             <div className="btn btn-fab btn-sm">
