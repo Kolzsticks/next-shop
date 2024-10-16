@@ -63,11 +63,12 @@
     height: 100svh;
     width: 100%;
   }
+  
   body {
       position: relative;
       font-weight: 400;
       font-family: 'SFUI Text', sans-serif;
-      line-height: 1.5;git 
+      line-height: 1.5;
       overflow-x: hidden;
       height: 100vh;
     }
