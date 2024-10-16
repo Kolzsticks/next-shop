@@ -1,57 +1,53 @@
-import React from "react";
-
+"use client";
+import { motion } from "framer-motion";
 const Secure = () => {
+  const infoCards = [
+    {
+      imgSrc: "/img/svg/payment.svg",
+      title: "100% Secure Payments",
+      description:
+        "We offer competitive prices on our 100 million plus product range.",
+    },
+    {
+      imgSrc: "/img/svg/around-world.svg",
+      title: "World Wide Delivery",
+      description:
+        "We offer competitive prices on our 100 million plus product range.",
+    },
+    {
+      imgSrc: "/img/svg/customer-service.svg",
+      title: "24/7 Help Center",
+      description:
+        "We offer competitive prices on our 100 million plus product range.",
+    },
+  ];
+
   return (
-    <>
-      <div className="site-section info-section bg-light">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-4">
+    <div className="site-section info-section bg-light">
+      <div className="container">
+        <div className="row">
+          {infoCards.map((card, index) => (
+            <motion.div
+              initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+              className="col-lg-4"
+              key={index}
+            >
               <div className="card card-info text-center border-0">
                 <div className="card-body">
                   <div className="img-place">
-                    <img src="/img/svg/payment.svg" alt="" />
+                    <img src={card.imgSrc} alt={card.title} />
                   </div>
-                  <h5>100% Secure Payments</h5>
-                  <p>
-                    We offer competitive prices on our 100 million plus product
-                    range.
-                  </p>
+                  <h5>{card.title}</h5>
+                  <p>{card.description}</p>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card card-info text-center">
-                <div className="card-body">
-                  <div className="img-place">
-                    <img src="/img/svg/around-world.svg" alt="" />
-                  </div>
-                  <h5>World Wide Delivery</h5>
-                  <p>
-                    We offer competitive prices on our 100 million plus product
-                    range.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card card-info text-center">
-                <div className="card-body">
-                  <div className="img-place">
-                    <img src="/img/svg/customer-service.svg" alt="" />
-                  </div>
-                  <h5>24/7 Help Center</h5>
-                  <p>
-                    We offer competitive prices on our 100 million plus product
-                    range.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

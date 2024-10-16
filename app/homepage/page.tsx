@@ -36,9 +36,6 @@ const featuredProducts: FeaturedProduct[] = [
 ];
 
 const HomeSection: React.FC = () => {
-
-  
-
   const renderProductCard = (product: FeaturedProduct, index: number) => (
     <ProductCard
       id={product.id}
@@ -50,7 +47,7 @@ const HomeSection: React.FC = () => {
   );
 
   return (
-    <div>
+    <>
       <div className="site-section home-section">
         <div className="container">
           <div className="row">
@@ -213,12 +210,7 @@ const HomeSection: React.FC = () => {
           </div>
         </div>
       </div>
-
-    
-      <Parallax />
-      <NewSection />
-      <Secure />
-    </div>
+    </>
   );
 };
 

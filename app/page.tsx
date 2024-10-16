@@ -1,4 +1,7 @@
 import HomeSection from "./homepage/page";
+import Parallax from "@/app/components/Parallax";
+import NewSection from "@/app/NewFonts/NewSection";
+import Secure from "@/app/components/Secure";
 
 // Sample featuredProducts array (replace this with your actual data)
 const featuredProducts = [
@@ -53,6 +56,9 @@ const Page = () => {
   return (
     <main>
       <HomeSection />
+      <Parallax />
+      <NewSection />
+      <Secure />
       {/* Add JSON-LD to your page */}
       <script
         type="application/ld+json"
