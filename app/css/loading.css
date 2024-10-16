@@ -22,7 +22,7 @@
     position: absolute;
     inset: 8px;
     margin: auto;
-    background: #222b32;
+    /* background: #222b32; */
   }
   .loader:before{
     content: '';
