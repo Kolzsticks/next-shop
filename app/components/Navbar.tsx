@@ -83,7 +83,7 @@ const Navbar: React.FC = () => {
         <span className="icon-angle-up" />
       </div>   
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm">
         <div className="container py-2">
           <Link href="/" className="navbar-brand mb-2 mb-sm-0">
             <span className="fg-theme">Shop</span>erce
