@@ -81,11 +81,16 @@ const Navbar: React.FC = () => {
       {/* Button Back to top */}
       <div className="back-to-top">
         <span className="icon-angle-up" />
-      </div>   
+      </div>
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm">
         <div className="container py-2">
           <Link href="/" className="navbar-brand mb-2 mb-sm-0">
+            <img
+              style={{ width: "30px" }}
+              src="/img/logo.png"
+              alt="shoperce logo"
+            />
             <span className="fg-theme">Shop</span>erce
           </Link>
           <div className="navbar-collapse collapse" id="mobileNav">
@@ -160,11 +165,7 @@ const Navbar: React.FC = () => {
                 className="nav-item px-1 d-none d-lg-block"
                 onClick={handleShowSearchModal}
               >
-                <div
-                  className="btn btn-fab text-secondary"
-                  
-                  
-                >
+                <div className="btn btn-fab text-secondary">
                   <span className="icon icon-search" />
                 </div>
               </li>
@@ -202,11 +203,7 @@ const Navbar: React.FC = () => {
                 </div>
               </li>
               <li onClick={handleCartClick} className="nav-item px-1">
-                <div
-                  className="btn btn-fab text-secondary"
-                  
-                  
-                >
+                <div className="btn btn-fab text-secondary">
                   <span className="icon icon-shopping-cart" />
                   <div className="badge badge-theme">2</div>
                 </div>
@@ -215,11 +212,7 @@ const Navbar: React.FC = () => {
                 onClick={handleShowMobileMenu}
                 className="nav-item d-lg-none px-1"
               >
-                <div
-                  className="btn btn-fab text-secondary"
-                  
-                  
-                >
+                <div className="btn btn-fab text-secondary">
                   <span className="icon icon-menu" />
                 </div>
               </li>

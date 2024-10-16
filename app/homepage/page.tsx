@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Parallax from "@/app/components/Parallax";
@@ -36,29 +36,30 @@ const featuredProducts: FeaturedProduct[] = [
 ];
 
 const HomeSection: React.FC = () => {
- 
+
   
+
   const renderProductCard = (product: FeaturedProduct, index: number) => (
-   
-      <ProductCard
-        id={product.id}
-        title={product.title}
-        price={product.price}
-        image={product.image}
-        isColumn={false}
-      />
+    <ProductCard
+      id={product.id}
+      title={product.title}
+      price={product.price}
+      image={product.image}
+      isColumn={false}
+    />
   );
 
   return (
     <div>
-      <motion.div
-         initial={{opacity: 0, x: -50 }}
-        whileInView={{opacity: 1, x: 0,transition: { duration: 1 }}}
-        viewport={{ once: false }}
-      >
+      <div className="site-section home-section">
         <div className="container">
           <div className="row">
-            <div className="col-lg-8">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+              className="col-lg-8"
+            >
               <div className="tiles-wrapper tiles-2">
                 <div className="img-place">
                   <img src="/img/hero-img_1.jpg" alt="" />
@@ -74,7 +75,8 @@ const HomeSection: React.FC = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
+
             <div className="col-lg-4">
               {[
                 {
@@ -86,7 +88,17 @@ const HomeSection: React.FC = () => {
                   title: "Family Sweater",
                 },
               ].map((item, index) => (
-                <div key={index} className="tiles-wrapper tiles-4">
+                <motion.div
+                  initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                    transition: { duration: 1 },
+                  }}
+                  viewport={{ once: false }}
+                  key={index}
+                  className="tiles-wrapper tiles-4"
+                >
                   <div className="img-place">
                     <img src={item.img} alt="" />
                   </div>
@@ -96,12 +108,12 @@ const HomeSection: React.FC = () => {
                       {item.title}
                     </a>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
-        </motion.div>
+      </div>
 
       <div className="site-section py-5">
         <div className="container">
@@ -187,13 +199,22 @@ const HomeSection: React.FC = () => {
             </div>
           </div>
           <div className="text-center mt-4">
-            <Link href="/product" className="btn btn-theme px-5">
-              View All
-            </Link>
+            <motion.button
+              style={{
+                border: "none",
+                background: "transparent",
+                outline: "none",
+              }}
+            >
+              <Link href="/product" className="btn btn-theme px-5">
+                View All
+              </Link>
+            </motion.button>
           </div>
         </div>
       </div>
 
+    
       <Parallax />
       <NewSection />
       <Secure />
