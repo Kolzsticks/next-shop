@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ModalProduct from "./ModalProduct";
 import FancyBoxPreview from "./FancyBoxPreview";
-
+import { motion } from "framer-motion";
 interface Product {
   id: number;
   title: string;
@@ -38,7 +38,12 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = fa
   return (
     <>
       <div className={`col-sm-6 col-md-4 ${isColumn? 'col-lg-12': ''}`}>
-        <div className="card card-product">
+        <motion.div
+         className="card card-product"
+         initial={{opacity: 0, x: -50 }}
+         whileInView={{opacity: 1, x: 0,transition: { duration: 1 }}}
+         viewport={{ once: false }}
+         >
           <div className="card-header">
             <div className="btn btn-fab btn-sm">
               <span className="icon-heart" />
@@ -71,7 +76,7 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = fa
               <p className="fg-theme">${price.toFixed(2)}</p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {showFullScreenPreview && (

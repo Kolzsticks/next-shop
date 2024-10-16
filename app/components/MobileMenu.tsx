@@ -83,11 +83,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                 </Link>
               </li>
               <li className="nav-item px-lg-2 dropdown-hover dropdown-custom">
-                <Link href="/product" className="nav-link dropdown-toggle-hover">
+                <span className="nav-link dropdown-toggle-hover">
                   <div className="sr-only">
                     <span className="icon-format_list_bulleted" />
                   </div> Category
-                </Link>
+                </span>
                 <div className="dropdown-menu">
                   <div className="container py-2">
                     <div className="row px-md-4">
@@ -117,11 +117,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                 </Link>
               </li>
               <li className="nav-item px-lg-2 dropdown-hover">
-                <Link href="/product" className="nav-link dropdown-toggle-hover mb-0">
+                <span  className="nav-link dropdown-toggle-hover mb-0">
                   <div className="sr-only">
                     <span className="icon-format_list_bulleted" />
                   </div> Pages
-                </Link>
+                </span>
                 <div className="dropdown-menu">
                   {pageLinks.map((pageLink, idx) => (
                     <Link key={idx} href={pageLink.href} className="dropdown-item">

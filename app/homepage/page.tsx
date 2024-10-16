@@ -1,4 +1,6 @@
+'use client'
 import Link from "next/link";
+import { motion } from "framer-motion";
 import Parallax from "@/app/components/Parallax";
 import NewSection from "@/app/NewFonts/NewSection";
 import Secure from "@/app/components/Secure";
@@ -34,20 +36,26 @@ const featuredProducts: FeaturedProduct[] = [
 ];
 
 const HomeSection: React.FC = () => {
+ 
+  
   const renderProductCard = (product: FeaturedProduct, index: number) => (
-    <ProductCard
-      key={index}
-      id={product.id}
-      title={product.title}
-      price={product.price}
-      image={product.image}
-      isColumn={false}
-    />
+   
+      <ProductCard
+        id={product.id}
+        title={product.title}
+        price={product.price}
+        image={product.image}
+        isColumn={false}
+      />
   );
 
   return (
     <div>
-      <div className="site-section home-section">
+      <motion.div
+         initial={{opacity: 0, x: -50 }}
+        whileInView={{opacity: 1, x: 0,transition: { duration: 0.5 }}}
+        viewport={{ once: false }}
+      >
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
@@ -93,7 +101,7 @@ const HomeSection: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+        </motion.div>
 
       <div className="site-section py-5">
         <div className="container">
