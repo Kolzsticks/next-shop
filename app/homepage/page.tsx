@@ -1,9 +1,6 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Parallax from "@/app/components/Parallax";
-import NewSection from "@/app/NewFonts/NewSection";
-import Secure from "@/app/components/Secure";
 import ProductCard from "../components/Products";
 
 interface FeaturedProduct {
@@ -12,6 +9,8 @@ interface FeaturedProduct {
   price: number;
   image: string;
 }
+
+
 
 const featuredProducts: FeaturedProduct[] = [
   {
@@ -63,7 +62,7 @@ const HomeSection: React.FC = () => {
                 </div>
                 <div className="caption fg-white">
                   <p className="mb-1">Late Summer Edition</p>
-                  <h1 className="fw-light">New Summer Arrivals</h1>
+                  <p className="custom-font-size1 fw-light">New Summer Arrivals</p>
                   <h4 className="mb-4">
                     Get <span className="fg-theme">40%</span> Off
                   </h4>
@@ -114,7 +113,7 @@ const HomeSection: React.FC = () => {
 
       <div className="site-section py-5">
         <div className="container">
-          <h3 className="title-section">Featured Product</h3>
+          <h1 className="title-section custom-font-size2">Trendy Fashion for Every Style – Shop Now!</h1>
           <div className="row justify-content-center mt-2">
             {featuredProducts.slice(0, 3).map((product, index) => (
               <ProductCard
@@ -147,7 +146,7 @@ const HomeSection: React.FC = () => {
                       </div>
                       <div className="caption fg-white">
                         <p className="mb-1">Find the best Blazer Collection</p>
-                        <h1 className="fw-semibold">BLAZER</h1>
+                        <p className="display-3 fw-semibold">BLAZER</p>
                       </div>
                       <a href="product.html" className="btn btn-link">
                         Shop Now <span className="icon icon-angle-right" />
