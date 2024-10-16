@@ -40,7 +40,7 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = fa
       <div className={`col-sm-6 col-md-4 ${isColumn? 'col-lg-12': ''}`}>
         <motion.div
          className="card card-product"
-         initial={{opacity: 0, x: -50 }}
+         initial={{opacity: 0, x: id % 2 === 0 ? 50 : -50}}
          whileInView={{opacity: 1, x: 0,transition: { duration: 1 }}}
          viewport={{ once: false }}
          >
