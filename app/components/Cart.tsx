@@ -1,17 +1,17 @@
+import Link from "next/link";
 
 interface CartButtonProps {
   handleCartClick: () => void;
 }
 
-const Cart: React.FC<CartButtonProps> = ({handleCartClick}) => {
-
+const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
   return (
     <>
       <>
         {/* Cart */}
         <div className="charm right show" id="cartView">
           <div className="charm-header bg-white fg-dark">
-            <span onClick={handleCartClick} className="btn-back" >
+            <span onClick={handleCartClick} className="btn-back">
               <span className="icon-arrow_back fs-large" />
             </span>
             <p className="ml-3 mb-0 fs-large">
@@ -94,9 +94,13 @@ const Cart: React.FC<CartButtonProps> = ({handleCartClick}) => {
                 <span className="text-right text-secondary">$39.91</span>
               </h5>
               <div className="text-center mt-4">
-                <a href="/checkout" className="btn btn-theme btn-block">
+                <Link
+                  href="/checkout"
+                  onClick={handleCartClick}
+                  className="btn btn-theme btn-block"
+                >
                   Proceed Checkout
-                </a>
+                </Link>
               </div>
             </div>
           </div>
