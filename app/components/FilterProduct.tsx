@@ -1,3 +1,6 @@
+'use client'
+import { useState } from "react";
+
 interface FilterProductSection {
   categories: { name: string; count: number }[];
   sizes: string[];
@@ -9,17 +12,20 @@ const FilterProduct: React.FC<FilterProductSection> = ({
   sizes,
   colors,
 }) => {
+  const [showFilterProducts, setShowFilterProducts] = useState(false);
+
+  const handleShowFilterProducts = () => {
+    setShowFilterProducts((prev) => !prev);
+  }
+
   return (
-    <>
       <div className="col-lg-4">
         <div
           className="card-filter-btn text-center"
-          
-          
         >
-          <button className="btn btn-theme btn-block">Filter Product</button>
+          <button className="btn btn-theme btn-block" onClick={handleShowFilterProducts}>Filter Product</button>
         </div>
-        <div className="card card-filter">
+        <div className={`card p-20 d-lg-block  ${showFilterProducts? '' : 'd-none'}`}>
           <div className="card-header d-flex flex-row justify-content-between py-2">
             <h5>Search Filter</h5>
             <a href="#">Clear All</a>
@@ -79,7 +85,6 @@ const FilterProduct: React.FC<FilterProductSection> = ({
           </div>
         </div>
       </div>
-    </>
   );
 };
 

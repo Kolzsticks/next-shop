@@ -1,5 +1,7 @@
 import React from "react";
 import FilterProduct from "../components/FilterProduct";
+import ProductCard from "../components/Products";
+
 
 interface Product {
   id: number;
@@ -29,25 +31,25 @@ const products: Product[] = [
     image: "img/Cargo_Joggers_(1).jpg",
   },
   {
-    id: 2,
+    id: 4,
     title: "Oversized Shirt Jacket",
     price: 19.99,
     image: "img/Oversized_Shirt_Jacket_(2).jpg",
   },
-  { id: 3, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
+  { id: 5, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
   {
-    id: 1,
+    id: 6,
     title: "Cargo Joggers",
     price: 19.99,
     image: "img/Cargo_Joggers_(1).jpg",
   },
   {
-    id: 2,
+    id: 7,
     title: "Oversized Shirt Jacket",
     price: 19.99,
     image: "img/Oversized_Shirt_Jacket_(2).jpg",
   },
-  { id: 3, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
+  { id: 8, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
 ];
 
 const categories: { name: string; count: number }[] = [
@@ -67,47 +69,7 @@ const collectionTiles = [
 ];
 const pagination = [1, 2, 3, 4, "Next"];
 
-const ProductCard: React.FC<Product> = ({ title, price, image }) => (
-  <div className="col-sm-6 col-md-4">
-    <div className="card card-product">
-      <div className="card-header">
-        <div
-          className="btn btn-fab btn-sm"
-                            >
-          <span className="icon-heart" />
-        </div>
-        <div
-          className="btn btn-fab btn-sm"
-                            >
-          <span className="icon-shopping-cart" />
-        </div>
-        <div
-          className="btn btn-fab btn-sm"
-                            >
-          <span className="icon-fullscreen fs-normal" />
-        </div>
-      </div>
-      <div className="card-body">
-        <div className="img-place">
-          <img src={image} alt={title} />
-        </div>
-        <button
-          className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-                            >
-          Quick View
-        </button>
-      </div>
-      <div className="card-footer">
-        <div className="caption">
-          <a href="product-details.html" className="product-title">
-            {title}
-          </a>
-          <p className="fg-theme">${price.toFixed(2)}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+
 
 const Page: React.FC = () => {
   return (
@@ -139,8 +101,8 @@ const Page: React.FC = () => {
                 </div>
               </div>
               <div className="row mt-3">
-                {products.map((product) => (
-                  <ProductCard key={product.id} {...product} />
+                {products.map((product, index) => (
+                  <ProductCard key={index} id={product.id} title={product.title} price={product.price} image={product.image} />
                 ))}
               </div>
               <nav>

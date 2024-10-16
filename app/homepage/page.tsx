@@ -2,6 +2,7 @@ import React from "react";
 import Parallax from "@/app/components/Parallax";
 import NewSection from "@/app/NewFonts/NewSection";
 import Secure from "@/app/components/Secure";
+import ProductCard from "../components/Products";
 
 interface FeaturedProduct {
   id: number;
@@ -34,7 +35,7 @@ const featuredProducts: FeaturedProduct[] = [
 
 const HomeSection: React.FC = () => {
   return (
-    <div className="">
+    <div >
       <div className="site-section home-section">
         <div className="container">
           <div className="row">
@@ -87,38 +88,14 @@ const HomeSection: React.FC = () => {
         <div className="container">
           <h3 className="title-section">Featured Product</h3>
           <div className="row justify-content-center mt-2">
-            {featuredProducts.map((product, index) => (
-              <div key={index} className="col-sm-6 col-md-4 col-lg-3">
-                <div className="card card-product">
-                  <div className="card-header">
-                    <div className="btn btn-fab btn-sm" title="">
-                      <span className="icon-heart" />
-                    </div>
-                    <div className="btn btn-fab btn-sm" title="">
-                      <span className="icon-shopping-cart" />
-                    </div>
-                    <div className="btn btn-fab btn-sm" title="">
-                      <span className="icon-fullscreen fs-normal" />
-                    </div>
-                  </div>
-                  <div className="card-body">
-                    <div className="img-place">
-                      <img src={product.image} alt="" />
-                    </div>
-                    <button className="btn btn-theme btn-rounded btn-sm btn-noanimate">
-                      Quick View
-                    </button>
-                  </div>
-                  <div className="card-footer">
-                    <div className="caption">
-                      <a href="product-details.html" className="product-title">
-                        {product.title}
-                      </a>
-                      <p className="fg-theme">${product.price}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {featuredProducts.slice(0, 3).map((product, index) => (
+              <ProductCard
+                key={index}
+                id={product.id}
+                title={product.title}
+                price={product.price}
+                image={product.image}
+              />
             ))}
           </div>
         </div>
@@ -467,7 +444,7 @@ const HomeSection: React.FC = () => {
             </div>
           </div>
           <div className="text-center mt-4">
-            <a href="/" className="btn btn-theme px-5">
+            <a href="/product" className="btn btn-theme px-5">
               View All
             </a>
           </div>
