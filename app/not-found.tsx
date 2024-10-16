@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const NotFound = () => {
   return (
-    <section className="d-flex items-center justify-center bg-white min-vh-100">
+    <section className="not-found">
       <div className="py-8 px-4 mx-auto container-lg">
         <div className="mx-auto text-center" style={{ maxWidth: 576 }}>
           <h1

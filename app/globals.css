@@ -54,11 +54,20 @@
   .bg-whiter{
     background-color: rgb(229 231 235);
   }
+
+  .not-found{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    background-color: white;
+    height: 100svh;
+    width: 100%;
+  }
   body {
       position: relative;
       font-weight: 400;
       font-family: 'SFUI Text', sans-serif;
-      line-height: 1.5;
+      line-height: 1.5;git 
       overflow-x: hidden;
       height: 100vh;
     }
