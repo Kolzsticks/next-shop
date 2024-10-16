@@ -102,7 +102,7 @@ const Page: React.FC = () => {
               </div>
               <div className="row mt-3">
                 {products.map((product, index) => (
-                  <ProductCard key={index} id={product.id} title={product.title} price={product.price} image={product.image} />
+                  <ProductCard key={index} id={product.id} title={product.title} price={product.price} image={product.image} isColumn={false} />
                 ))}
               </div>
               <nav>
