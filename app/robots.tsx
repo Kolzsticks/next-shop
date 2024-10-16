@@ -16,6 +16,6 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: './sitemap.xml', // Replace with your actual domain
+    sitemap: `${process.env.NEXT_LIVE_SITE_URL}/sitemap.xml`, // Replace with your actual domain
   }
 }
