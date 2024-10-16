@@ -1,4 +1,3 @@
-'use client'
 interface FilterProductSection {
   categories: { name: string; count: number }[];
   sizes: string[];

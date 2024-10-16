@@ -1,4 +1,4 @@
-'use client'
+
 interface CartButtonProps {
   handleCartClick: () => void;
 }
@@ -94,7 +94,7 @@ const Cart: React.FC<CartButtonProps> = ({handleCartClick}) => {
                 <span className="text-right text-secondary">$39.91</span>
               </h5>
               <div className="text-center mt-4">
-                <a href="checkout.html" className="btn btn-theme btn-block">
+                <a href="/checkout" className="btn btn-theme btn-block">
                   Proceed Checkout
                 </a>
               </div>
