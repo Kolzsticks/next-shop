@@ -34,7 +34,7 @@ const ModalSearch: React.FC<SearchButtonProps> = ({ handleShowSearchModal}) => {
                       </button>
                     </div>
                     <ul className="list-unstyled list-inline mt-2">
-                      <li className="list-inline-item text-dark">
+                      <li className="list-inline-item text-white">
                         Popular Search:{" "}
                       </li>
                       <li className="list-inline-item">
