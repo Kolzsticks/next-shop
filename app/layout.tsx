@@ -7,18 +7,18 @@ import "./globals.css";
 const liveSite = process.env.NEXT_LIVE_SITE_URL;
 
 const currentDate = () => {
-  return new Date().toISOString(); // Or any other format you need
+  return new Date().toISOString();
 };
 
 export const metadata: Metadata = {
   title: "Shoperce",
   description: "Shop the latest summer arrivals with great discounts.",
-  keywords: ["fashion", "clothing", "summer sale", "discounts"], // Add relevant keywords
-  metadataBase: liveSite ? new URL(liveSite) : undefined, // Ensure liveSite is valid
+  keywords: ["fashion", "clothing", "summer sale", "discounts"],
+  metadataBase: liveSite ? new URL(liveSite) : undefined,
   openGraph: {
     title: "Shop the latest summer arrivals with great discounts.",
-    description: "Discover trendy summer clothing with amazing deals.", // Add a meaningful description
-    url: liveSite || "", // Provide a fallback if liveSite is undefined
+    description: "Discover trendy summer clothing with amazing deals.",
+    url: liveSite || "",
     type: "website",
     images: [
       {
@@ -38,6 +38,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta property="og:site_name" content="Shoperce" />
+      </head>
       <body>
         <Providers>
           <Navbar />

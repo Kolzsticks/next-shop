@@ -1,4 +1,4 @@
-import HomeSection from "./homepage/page";
+import HomeSection from "./(main)/homepage/page";
 import Parallax from "@/app/components/Parallax";
 import NewSection from "@/app/NewFonts/NewSection";
 import Secure from "@/app/components/Secure";
@@ -21,8 +21,7 @@ const featuredProducts = [
 ];
 
 const Page = () => {
-  // Construct base URL
-  const baseUrl = "https://yourwebsite.com"; // Replace with your actual website URL
+  const baseUrl = process.env.NEXT_LIVE_SITE_URL;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -34,15 +33,15 @@ const Page = () => {
       "@type": "ItemList",
       itemListElement: featuredProducts.map((product, index) => ({
         "@type": "ListItem",
-        position: index + 1, // Position starts from 1
+        position: index + 1,
         item: {
           "@type": "Product",
           name: product.title,
-          image: `${baseUrl}/${product.image}`, // Full URL for image
-          description: `Buy ${product.title} for $${product.price}.`,
+          image: `${baseUrl}/${product.image}`,
+          description: `Buy ${product.title} for ₦${product.price}.`,
           offers: {
             "@type": "Offer",
-            priceCurrency: "NAIRA",
+            priceCurrency: "NGN", // Correct currency code for Naira
             price: product.price.toString(),
             availability: "https://schema.org/InStock",
             itemCondition: "https://schema.org/NewCondition",

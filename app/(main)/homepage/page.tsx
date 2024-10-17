@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import ProductCard from "../components/Products";
+import ProductCard from "../../components/Products";
 
 interface FeaturedProduct {
   id: number;

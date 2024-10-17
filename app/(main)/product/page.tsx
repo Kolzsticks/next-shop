@@ -1,6 +1,6 @@
 import React from "react";
-import FilterProduct from "../components/FilterProduct";
-import ProductCard from "../components/Products";
+import FilterProduct from "../../components/FilterProduct";
+import ProductCard from "../../components/Products";
 
 
 interface Product {
