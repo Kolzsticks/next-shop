@@ -8,13 +8,13 @@ const featuredProducts = [
   {
     id: 1,
     title: "Summer Dress",
-    image: "images/summer-dress.jpg", // Adjust the path as needed
+    image: "/img/summer-dress.jpg", // Adjust the path as needed
     price: 30,
   },
   {
     id: 2,
     title: "Beach Hat",
-    image: "images/beach-hat.jpg", // Adjust the path as needed
+    image: "/img/beach-hat.jpg", // Adjust the path as needed
     price: 15,
   },
   // Add more products as needed
