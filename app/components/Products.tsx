@@ -4,23 +4,43 @@ import ModalProduct from "./ModalProduct";
 import FancyBoxPreview from "./FancyBoxPreview";
 import { motion } from "framer-motion";
 import { Product } from "../types/types";
+import { useCart } from "./CartContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+interface CartItem {
+  id: number;
+  name: string;
+  image: string;
+  quantity: number;
+  price: number;
+}
 
 const ProductCard: React.FC<Product> = ({
   uid,
   id,
   image,
   name,
-  rating,
   priceCents,
-  category,
-  subCategory,
-  keywords,
   isColumn = false,
 }) => {
   const [showProductPreviewModal, setShowProductPreviewModal] =
     useState<boolean>(false);
   const [showFullScreenPreview, setShowFullScreenPreview] =
     useState<boolean>(false);
+
+  const { setTotalItems } = useCart();
+
+  const notify = (message: string) =>
+    toast.success(message, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+    });
 
   useEffect(() => {
     if (showProductPreviewModal || showFullScreenPreview) {
@@ -42,6 +62,34 @@ const ProductCard: React.FC<Product> = ({
     setShowFullScreenPreview((prev) => !prev);
   }, []);
 
+  const handleAddToCart = () => {
+    const existingCartItems = JSON.parse(
+      localStorage.getItem("cartItems") || "[]"
+    );
+
+    // Check if the product already exists in the cart
+    const existingItem = existingCartItems.find(
+      (item: CartItem) => item.id === id
+    );
+
+    const updatedCartItems = existingItem
+      ? existingCartItems.map((item: CartItem) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      : [
+          ...existingCartItems,
+          { id, name, image, quantity: 1, price: priceCents / 100 },
+        ];
+
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    setTotalItems(updatedCartItems.length);
+    if (existingItem) {
+      notify(`Item already exists in cart!`);
+    } else {
+      notify(`Added ${name} to cart!`);
+    }
+  };
+
   return (
     <>
       <div className={`col-sm-6 col-md-4 ${isColumn ? "col-lg-12" : ""}`}>
@@ -52,11 +100,11 @@ const ProductCard: React.FC<Product> = ({
           viewport={{ once: false }}
         >
           <div className="card-header">
-            <div className="btn btn-fab btn-sm">
-              <span className="icon-heart" />
+            <div className="btn btn-fab btn-sm" onClick={handleAddToCart}>
+              <span className="icon-shopping-cart" />
             </div>
             <div className="btn btn-fab btn-sm">
-              <span className="icon-shopping-cart" />
+              <span className="icon-heart" />
             </div>
             <div
               className="btn btn-fab btn-sm"
@@ -83,8 +131,7 @@ const ProductCard: React.FC<Product> = ({
               <a href="product-details.html" className="product-title">
                 {name}
               </a>
-              <p className="fg-theme">${priceCents.toFixed(2)}</p>{" "}
-              {/* Updated to priceCents */}
+              <p className="fg-theme">${(priceCents / 100).toFixed(2)}</p>
             </div>
           </div>
         </motion.div>

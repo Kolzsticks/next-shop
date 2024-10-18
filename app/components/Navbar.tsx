@@ -4,7 +4,8 @@ import MobileMenu from "./MobileMenu";
 import ModalSearch from "./ModalSearch";
 import Modal from "./Modal";
 import Cart from "./Cart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useCart } from "./CartContext";
 
 const categories = [
   {
@@ -63,6 +64,13 @@ const Navbar: React.FC = () => {
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showSearchModal, setShowSearchModal] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+  const {totalItems} = useCart();
+
+  useEffect(() => {
+    // Update local storage whenever totalItems changes
+    localStorage.setItem('totalCartItems', totalItems.toString());
+  }, [totalItems]);
+
 
   const handleCartClick = () => {
     document.body.classList.toggle("toggle-overflow");
@@ -207,7 +215,7 @@ const Navbar: React.FC = () => {
               <li onClick={handleCartClick} className="nav-item px-1">
                 <div className="btn btn-fab text-secondary">
                   <span className="icon icon-shopping-cart" />
-                  <div className="badge badge-theme">2</div>
+                  <div className="badge badge-theme">{totalItems}</div>
                 </div>
               </li>
               <li
@@ -225,7 +233,7 @@ const Navbar: React.FC = () => {
       {showCart && (
         <>
           <Modal handleClicks={handleCartClick} />
-          <Cart handleCartClick={handleCartClick} />
+          <Cart handleCartClick={handleCartClick}  />
         </>
       )}
       {showSearchModal && (

@@ -4,6 +4,7 @@ export const fetchProducts = async (): Promise<Product[]> => {
   try {
     const res = await fetch("https://kolzsticks.github.io/Free-Ecommerce-Products-Api/main/products.json", {
       // next: { revalidate: 10 }
+      cache: 'force-cache'
     });
     
     if (!res.ok) {
