@@ -3,17 +3,37 @@ import React, { useState, useEffect, useCallback } from "react";
 import ModalProduct from "./ModalProduct";
 import FancyBoxPreview from "./FancyBoxPreview";
 import { motion } from "framer-motion";
+
+interface Rating {
+  stars: number;
+  count: number;
+}
+
 interface Product {
-  id: number;
-  title: string;
-  price: number;
+  uid: number;
+  id: string;
   image: string;
+  name: string;
+  rating: Rating;
+  priceNGN: number;
+  keywords: string[];
   isColumn: boolean;
 }
 
-const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = false }) => {
-  const [showProductPreviewModal, setShowProductPreviewModal] = useState<boolean>(false);
-  const [showFullScreenPreview, setShowFullScreenPreview] = useState<boolean>(false);
+const ProductCard: React.FC<Product> = ({
+  uid,
+  id,
+  image,
+  name,
+  rating,
+  priceNGN,
+  keywords,
+  isColumn = false,
+}) => {
+  const [showProductPreviewModal, setShowProductPreviewModal] =
+    useState<boolean>(false);
+  const [showFullScreenPreview, setShowFullScreenPreview] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (showProductPreviewModal || showFullScreenPreview) {
@@ -37,13 +57,13 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = fa
 
   return (
     <>
-      <div className={`col-sm-6 col-md-4 ${isColumn? 'col-lg-12': ''}`}>
+      <div className={`col-sm-6 col-md-4 ${isColumn ? "col-lg-12" : ""}`}>
         <motion.div
-         className="card card-product"
-         initial={{opacity: 0, x: id % 2 === 0 ? 50 : -50}}
-         whileInView={{opacity: 1, x: 0,transition: { duration: 1 }}}
-         viewport={{ once: false }}
-         >
+          className="card card-product"
+          initial={{ opacity: 0, x: uid % 2 === 0 ? 50 : -50 }}
+          whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+          viewport={{ once: false }}
+        >
           <div className="card-header">
             <div className="btn btn-fab btn-sm">
               <span className="icon-heart" />
@@ -51,14 +71,17 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = fa
             <div className="btn btn-fab btn-sm">
               <span className="icon-shopping-cart" />
             </div>
-            <div className="btn btn-fab btn-sm" onClick={toggleFullScreenPreview}>
+            <div
+              className="btn btn-fab btn-sm"
+              onClick={toggleFullScreenPreview}
+            >
               <span className="icon-fullscreen fs-normal" />
             </div>
           </div>
 
           <div className="card-body">
             <div className="img-place">
-              <img src={image} alt={title} />
+              <img src={image} alt={name} />
             </div>
             <button
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
@@ -71,16 +94,20 @@ const ProductCard: React.FC<Product> = ({ id, title, price, image, isColumn = fa
           <div className="card-footer">
             <div className="caption">
               <a href="product-details.html" className="product-title">
-                {title}
+                {name}
               </a>
-              <p className="fg-theme">${price.toFixed(2)}</p>
+              <p className="fg-theme">${priceNGN.toFixed(2)}</p>{" "}
+              {/* Updated to priceNGN */}
             </div>
           </div>
         </motion.div>
       </div>
 
       {showFullScreenPreview && (
-        <FancyBoxPreview imageUrl={image} handleClose={toggleFullScreenPreview} />
+        <FancyBoxPreview
+          imageUrl={image}
+          handleClose={toggleFullScreenPreview}
+        />
       )}
 
       {showProductPreviewModal && (

@@ -1,47 +1,41 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ProductCard from "../../components/Products";
-
-interface FeaturedProduct {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
-
-
-
-const featuredProducts: FeaturedProduct[] = [
-  {
-    id: 1,
-    title: "Cargo Joggers",
-    price: 19.99,
-    image: "img/Cargo_Joggers_(1).jpg",
-  },
-  {
-    id: 2,
-    title: "Oversized Shirt Jacket",
-    price: 19.99,
-    image: "img/Oversized_Shirt_Jacket_(2).jpg",
-  },
-  { id: 3, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
-  {
-    id: 4,
-    title: "Super Slim Fit Pants",
-    price: 19.99,
-    image: "img/Super_Slim-fit_Pants_(1).jpg",
-  },
-];
+import { fetchProducts } from "@/app/utils/functions";
+import { Product as FeaturedProduct } from "@/app/types/types";
 
 const HomeSection: React.FC = () => {
-  const renderProductCard = (product: FeaturedProduct, index: number) => (
+  const [featuredProducts, setFeaturedProducts] = useState<FeaturedProduct[]>(
+    []
+  );
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await fetchProducts();
+      setFeaturedProducts(products);
+    };
+
+    getProducts();
+  }, []);
+
+  // Helper function to render a single ProductCard
+  const renderProductCard = (
+    product: FeaturedProduct,
+    index: number,
+    isColumn: boolean
+  ) => (
     <ProductCard
+      key={index}
+      uid={index}
       id={product.id}
-      title={product.title}
-      price={product.price}
+      name={product.name}
+      priceNGN={product.priceNGN}
       image={product.image}
-      isColumn={false}
+      rating={product.rating}
+      keywords={product.keywords}
+      isColumn={isColumn}
     />
   );
 
@@ -62,7 +56,9 @@ const HomeSection: React.FC = () => {
                 </div>
                 <div className="caption fg-white">
                   <p className="mb-1">Late Summer Edition</p>
-                  <p className="custom-font-size1 fw-light">New Summer Arrivals</p>
+                  <p className="custom-font-size1 fw-light">
+                    New Summer Arrivals
+                  </p>
                   <h4 className="mb-4">
                     Get <span className="fg-theme">40%</span> Off
                   </h4>
@@ -113,18 +109,15 @@ const HomeSection: React.FC = () => {
 
       <div className="site-section py-5">
         <div className="container">
-          <h1 className="title-section custom-font-size2">Trendy Fashion for Every Style – Shop Now!</h1>
+          <h1 className="title-section custom-font-size2">
+            Trendy Fashion for Every Style – Shop Now!
+          </h1>
           <div className="row justify-content-center mt-2">
-            {featuredProducts.slice(0, 3).map((product, index) => (
-              <ProductCard
-                key={index}
-                id={product.id}
-                title={product.title}
-                price={product.price}
-                image={product.image}
-                isColumn={false}
-              />
-            ))}
+            {featuredProducts
+              .slice(0, 3)
+              .map((product, index) =>
+                renderProductCard(product, index, false)
+              )}
           </div>
         </div>
       </div>
@@ -137,8 +130,19 @@ const HomeSection: React.FC = () => {
               <div className="row mt-2">
                 {featuredProducts
                   .slice(0, 4)
-                  .map((product, index) => renderProductCard(product, index))}
-                <div className="col-12 col-md-8">
+                  .map((product, index) =>
+                    renderProductCard(product, index, false)
+                  )}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                    transition: { duration: 1 },
+                  }}
+                  viewport={{ once: false }}
+                  className="col-12 col-md-8"
+                >
                   <div className="card card-collection-tiles">
                     <div className="card-body">
                       <div className="img-place">
@@ -153,10 +157,20 @@ const HomeSection: React.FC = () => {
                       </a>
                     </div>
                   </div>
-                </div>
+                </motion.div>
                 <div className="col-12 col-md-8  no-gutters">
                   {["Accessories", "Casual Clothes"].map((title, index) => (
-                    <div key={index} className="col-12">
+                    <motion.div
+                      initial={{ opacity: 0, x: -50 }}
+                      whileInView={{
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 1 },
+                      }}
+                      viewport={{ once: false }}
+                      key={index}
+                      className="col-12"
+                    >
                       <div className="card card-collection-tiles_2">
                         <div className="card-body">
                           <div className="img-place">
@@ -170,10 +184,14 @@ const HomeSection: React.FC = () => {
                           </a>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
-                {renderProductCard(featuredProducts[3], 3)}
+                {featuredProducts
+                  .slice(3, 4)
+                  .map((product, index) =>
+                    renderProductCard(product, index, false)
+                  )}
               </div>
             </div>
             <div className="col-12 col-lg-3">
@@ -181,16 +199,11 @@ const HomeSection: React.FC = () => {
                 Best Sellers
               </h3>
               <div className="row mt-2">
-                {featuredProducts.slice(0, 3).map((product, index) => (
-                  <ProductCard
-                    key={index}
-                    id={product.id}
-                    title={product.title}
-                    price={product.price}
-                    image={product.image}
-                    isColumn={true}
-                  />
-                ))}
+                {featuredProducts
+                  .slice(0, 3)
+                  .map((product, index) =>
+                    renderProductCard(product, index, true)
+                  )}
               </div>
             </div>
           </div>

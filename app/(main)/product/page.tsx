@@ -1,56 +1,12 @@
 import React from "react";
 import FilterProduct from "../../components/FilterProduct";
 import ProductCard from "../../components/Products";
+import { Product } from "@/app/types/types";
+import { fetchProducts } from "@/app/utils/functions";
 
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
 
-const products: Product[] = [
-  {
-    id: 1,
-    title: "Cargo Joggers",
-    price: 19.99,
-    image: "img/Cargo_Joggers_(1).jpg",
-  },
-  {
-    id: 2,
-    title: "Oversized Shirt Jacket",
-    price: 19.99,
-    image: "img/Oversized_Shirt_Jacket_(2).jpg",
-  },
-  { id: 3, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
-  {
-    id: 1,
-    title: "Cargo Joggers",
-    price: 19.99,
-    image: "img/Cargo_Joggers_(1).jpg",
-  },
-  {
-    id: 4,
-    title: "Oversized Shirt Jacket",
-    price: 19.99,
-    image: "img/Oversized_Shirt_Jacket_(2).jpg",
-  },
-  { id: 5, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
-  {
-    id: 6,
-    title: "Cargo Joggers",
-    price: 19.99,
-    image: "img/Cargo_Joggers_(1).jpg",
-  },
-  {
-    id: 7,
-    title: "Oversized Shirt Jacket",
-    price: 19.99,
-    image: "img/Oversized_Shirt_Jacket_(2).jpg",
-  },
-  { id: 8, title: "Skinny Fit", price: 19.99, image: "img/Skinny_Fit_(1).jpg" },
-];
+
 
 const categories: { name: string; count: number }[] = [
   { name: "Mens", count: 90 },
@@ -64,14 +20,15 @@ const categories: { name: string; count: number }[] = [
 const sizes: string[] = ["XS", "S", "M", "L", "XL"];
 const colors: string[] = ["danger", "warning", "success", "primary", "dark"];
 const collectionTiles = [
-  { title: "Accessories", image: "img/image_1.jpg", link: "product.html" },
-  { title: "Casual Clothes", image: "img/image_2.jpg", link: "product.html" },
+  { title: "Accessories", image: "img/image_1.jpg", link: "/product" },
+  { title: "Casual Clothes", image: "img/image_2.jpg", link: "/product" },
 ];
 const pagination = [1, 2, 3, 4, "Next"];
 
 
 
-const Page: React.FC = () => {
+const Page: React.FC = async () => {
+  const products: Product[] = await fetchProducts();
   return (
     <>
       <div className="site-section py-5">
@@ -102,7 +59,17 @@ const Page: React.FC = () => {
               </div>
               <div className="row mt-3">
                 {products.map((product, index) => (
-                  <ProductCard key={index} id={product.id} title={product.title} price={product.price} image={product.image} isColumn={false} />
+                  <ProductCard
+                  key={index}
+                  uid={index}
+                  id={product.id}
+                  name={product.name}
+                  priceNGN={product.priceNGN} // Ensure this matches
+                  image={product.image}
+                  rating={product.rating} // Ensure you are using the correct rating access
+                  keywords={product.keywords}
+                  isColumn={false}
+                />
                 ))}
               </div>
               <nav>
