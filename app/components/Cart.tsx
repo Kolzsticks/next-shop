@@ -1,113 +1,129 @@
 import Link from "next/link";
+import { useState } from "react";
+
+interface CartItem {
+  id: number;
+  name: string;
+  image: string;
+  quantity: number;
+  price: number;
+}
 
 interface CartButtonProps {
   handleCartClick: () => void;
 }
 
+const initialCartItems: CartItem[] = [
+  {
+    id: 1,
+    name: "Super Slim-fit Pants",
+    image: "/img/Super_Slim-fit_Pants.jpg",
+    quantity: 4,
+    price: 19.99,
+  },
+  {
+    id: 2,
+    name: "Faux Fur Jacket",
+    image: "/img/Faux_Fur_Jacket.jpg",
+    quantity: 2,
+    price: 19.99,
+  },
+];
+
 const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
+  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+
+  const handleQuantityChange = (id: number, delta: number) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(0, item.quantity + delta) }
+          : item
+      )
+    );
+  };
+
+  const handleRemoveItem = (id: number) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+
   return (
-    <>
-      <>
-        {/* Cart */}
-        <div className="charm right show" id="cartView">
-          <div className="charm-header bg-white fg-dark">
-            <span onClick={handleCartClick} className="btn-back">
-              <span className="icon-arrow_back fs-large" />
-            </span>
-            <p className="ml-3 mb-0 fs-large">
-              Your Cart{" "}
-              <span className="badge bg-theme fg-white ml-2 fs-normal">6</span>
-            </p>
-          </div>
-          <div className="charm-content">
-            <ul className="product-cart-list">
-              <li className="cart-item">
-                <div className="img-place">
-                  <img src="/img/Super_Slim-fit_Pants.jpg" alt="" />
-                </div>
-                <div className="caption">
-                  <h5>Product Name</h5>
-                  <div className="mb-0">
-                    Qty:
-                    <div className="d-inline-flex number-input number-input-sm">
-                      <button className="btn btn-theme btn-sm btn-decrease">
-                        <span className="icon-minus" />
-                      </button>
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="number"
-                        defaultValue={4}
-                        min={0}
-                        max={250}
-                      />
-                      <button className="btn btn-theme btn-sm btn-increase">
-                        <span className="icon-plus" />
-                      </button>
-                    </div>
-                  </div>
-                  <p className="mb-0">
-                    Price: <span className="fg-theme">$19.99</span>
-                  </p>
-                </div>
-                <button className="btn btn-fab btn-sm">
-                  <span className="icon-trash-o" />
-                </button>
-              </li>
-              <li className="cart-item">
-                <div className="img-place">
-                  <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
-                </div>
-                <div className="caption">
-                  <h5>Product Name</h5>
-                  <div className="mb-0">
-                    Qty:
-                    <div className="d-inline-flex number-input number-input-sm">
-                      <button className="btn btn-theme btn-sm btn-decrease">
-                        <span className="icon-minus" />
-                      </button>
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="number"
-                        defaultValue={2}
-                        min={0}
-                        max={250}
-                      />
-                      <button className="btn btn-theme btn-sm btn-increase">
-                        <span className="icon-plus" />
-                      </button>
-                    </div>
-                  </div>
-                  <p className="mb-0">
-                    Price: <span className="fg-theme">$19.99</span>
-                  </p>
-                </div>
-                <button className="btn btn-fab btn-sm">
-                  <span className="icon-trash-o" />
-                </button>
-              </li>
-            </ul>
-            <div className="product-cart-invoice">
-              <h5 className="d-flex flex-row justify-content-between">
-                <span>SubTotal :</span>
-                <span className="text-right text-secondary">$39.91</span>
-              </h5>
-              <div className="text-center mt-4">
-                <Link
-                  href="/checkout"
-                  onClick={handleCartClick}
-                  className="btn btn-theme btn-block"
-                >
-                  Proceed Checkout
-                </Link>
+    <div className="charm right show" id="cartView">
+      <div className="charm-header bg-white fg-dark">
+        <span onClick={handleCartClick} className="btn-back">
+          <span className="icon-arrow_back fs-large" />
+        </span>
+        <p className="ml-3 mb-0 fs-large">
+          Your Cart{" "}
+          <span className="badge bg-theme fg-white ml-2 fs-normal">{cartItems.length}</span>
+        </p>
+      </div>
+      <div className="charm-content">
+        <ul className="product-cart-list">
+          {cartItems.map((item) => (
+            <li className="cart-item" key={item.id}>
+              <div className="img-place">
+                <img src={item.image} alt={item.name} />
               </div>
-            </div>
+              <div className="caption">
+                <h5>{item.name}</h5>
+                <div className="mb-0">
+                  Qty:
+                  <div className="d-inline-flex number-input number-input-sm">
+                    <button
+                      className="btn btn-theme btn-sm btn-decrease"
+                      onClick={() => handleQuantityChange(item.id, -1)}
+                    >
+                      <span className="icon-minus" />
+                    </button>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="number"
+                      value={item.quantity}
+                      readOnly
+                      style={{height: '30px'}}
+                    />
+                    <button
+                      className="btn btn-theme btn-sm btn-increase"
+                      onClick={() => handleQuantityChange(item.id, 1)}
+                    >
+                      <span className="icon-plus" />
+                    </button>
+                  </div>
+                </div>
+                <p className="mb-0">
+                  Price: <span className="fg-theme">${item.price.toFixed(2)}</span>
+                </p>
+              </div>
+              <button
+                className="btn btn-fab btn-sm"
+                onClick={() => handleRemoveItem(item.id)}
+              >
+                <span className="icon-trash-o" />
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="product-cart-invoice">
+          <h5 className="d-flex flex-row justify-content-between">
+            <span>SubTotal :</span>
+            <span className="text-right text-secondary">${subtotal.toFixed(2)}</span>
+          </h5>
+          <div className="text-center mt-4">
+            <Link
+              href="/checkout"
+              onClick={handleCartClick}
+              className="btn btn-theme btn-block"
+            >
+              Proceed Checkout
+            </Link>
           </div>
-        </div>{" "}
-        {/* End cart */}
-      </>
-    </>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -7,12 +7,12 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: [
-          '/private/',      // Any private pages
-          '/admin/',        // Admin backend (if applicable)
-          '/checkout/',     // Checkout pages
-          '/cart/',         // Cart pages
-          '/login/',        // Login pages
-          '/account/',      // User account pages
+          '/private/',      
+          '/admin/',       
+          '/checkout/',   
+          '/cart/',    
+          '/login/',       
+          '/account/',
         ],
       },
     ],
