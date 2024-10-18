@@ -67,27 +67,31 @@ const ProductCard: React.FC<Product> = ({
       localStorage.getItem("cartItems") || "[]"
     );
 
+    const productId = Number(id);
+
     // Check if the product already exists in the cart
     const existingItem = existingCartItems.find(
-      (item: CartItem) => item.id === id
+      (item: CartItem) => item.id === productId
     );
 
     const updatedCartItems = existingItem
       ? existingCartItems.map((item: CartItem) =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === productId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         )
       : [
           ...existingCartItems,
-          { id, name, image, quantity: 1, price: priceCents / 100 },
+          { id: productId, name, image, quantity: 1, price: priceCents / 100 },
         ];
 
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+    notify(
+      existingItem ? `Item already exists in cart!` : `Added ${name} to cart!`
+    );
+
     setTotalItems(updatedCartItems.length);
-    if (existingItem) {
-      notify(`Item already exists in cart!`);
-    } else {
-      notify(`Added ${name} to cart!`);
-    }
   };
 
   return (
