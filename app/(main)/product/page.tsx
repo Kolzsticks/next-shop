@@ -4,10 +4,6 @@ import ProductCard from "../../components/Products";
 import { Product } from "@/app/types/types";
 import { fetchProducts } from "@/app/utils/functions";
 
-
-
-
-
 const categories: { name: string; count: number }[] = [
   { name: "Mens", count: 90 },
   { name: "Womens", count: 128 },
@@ -24,8 +20,6 @@ const collectionTiles = [
   { title: "Casual Clothes", image: "img/image_2.jpg", link: "/product" },
 ];
 const pagination = [1, 2, 3, 4, "Next"];
-
-
 
 const Page: React.FC = async () => {
   const products: Product[] = await fetchProducts();
@@ -60,16 +54,18 @@ const Page: React.FC = async () => {
               <div className="row mt-3">
                 {products.map((product, index) => (
                   <ProductCard
-                  key={index}
-                  uid={index}
-                  id={product.id}
-                  name={product.name}
-                  priceCents={product.priceCents} // Ensure this matches
-                  image={product.image}
-                  rating={product.rating} // Ensure you are using the correct rating access
-                  keywords={product.keywords}
-                  isColumn={false}
-                />
+                    key={index}
+                    uid={index}
+                    id={product.id}
+                    name={product.name}
+                    image={product.image}
+                    rating={product.rating}
+                    priceCents={product.priceCents}
+                    category={product.category}
+                    subCategory={product.subCategory}
+                    keywords={product.keywords}
+                    isColumn={false}
+                  />
                 ))}
               </div>
               <nav>
