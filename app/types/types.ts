@@ -6,10 +6,14 @@ export interface Rating {
 }
 
 export interface Product {
+    uid: number;
     id: string;
-    image: string;
     name: string;
+    image: string;
     rating: Rating;
-    priceNGN: number;
+    priceCents: number;
+    category: string;
+    subCategory: string;
     keywords: string[];
+    isColumn: boolean;
 }

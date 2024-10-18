@@ -64,7 +64,7 @@ const Page: React.FC = async () => {
                   uid={index}
                   id={product.id}
                   name={product.name}
-                  priceNGN={product.priceNGN} // Ensure this matches
+                  priceCents={product.priceCents} // Ensure this matches
                   image={product.image}
                   rating={product.rating} // Ensure you are using the correct rating access
                   keywords={product.keywords}

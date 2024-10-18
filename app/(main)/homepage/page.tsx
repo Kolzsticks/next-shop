@@ -31,9 +31,11 @@ const HomeSection: React.FC = () => {
       uid={index}
       id={product.id}
       name={product.name}
-      priceNGN={product.priceNGN}
       image={product.image}
       rating={product.rating}
+      priceCents={product.priceCents}
+      category={product.category}
+      subCategory={product.subCategory}
       keywords={product.keywords}
       isColumn={isColumn}
     />

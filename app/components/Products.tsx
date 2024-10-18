@@ -3,22 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import ModalProduct from "./ModalProduct";
 import FancyBoxPreview from "./FancyBoxPreview";
 import { motion } from "framer-motion";
-
-interface Rating {
-  stars: number;
-  count: number;
-}
-
-interface Product {
-  uid: number;
-  id: string;
-  image: string;
-  name: string;
-  rating: Rating;
-  priceNGN: number;
-  keywords: string[];
-  isColumn: boolean;
-}
+import { Product } from "../types/types";
 
 const ProductCard: React.FC<Product> = ({
   uid,
@@ -26,7 +11,9 @@ const ProductCard: React.FC<Product> = ({
   image,
   name,
   rating,
-  priceNGN,
+  priceCents,
+  category,
+  subCategory,
   keywords,
   isColumn = false,
 }) => {
@@ -96,8 +83,8 @@ const ProductCard: React.FC<Product> = ({
               <a href="product-details.html" className="product-title">
                 {name}
               </a>
-              <p className="fg-theme">${priceNGN.toFixed(2)}</p>{" "}
-              {/* Updated to priceNGN */}
+              <p className="fg-theme">${priceCents.toFixed(2)}</p>{" "}
+              {/* Updated to priceCents */}
             </div>
           </div>
         </motion.div>

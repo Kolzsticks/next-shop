@@ -13,7 +13,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 87
         ],
-        "priceNGN" => 1090,
+        "priceCents" => 1090,
         "keywords" => [
             "socks",
             "sports",
@@ -28,7 +28,7 @@ $jayParsedAry = [
             "stars" => 4,
             "count" => 127
         ],
-        "priceNGN" => 2095,
+        "priceCents" => 2095,
         "keywords" => [
             "sports",
             "basketballs"
@@ -42,7 +42,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 56
         ],
-        "priceNGN" => 799,
+        "priceCents" => 799,
         "keywords" => [
             "tshirts",
             "apparel",
@@ -59,7 +59,7 @@ $jayParsedAry = [
             "stars" => 5,
             "count" => 2197
         ],
-        "priceNGN" => 1899,
+        "priceCents" => 1899,
         "keywords" => [
             "toaster",
             "kitchen",
@@ -74,7 +74,7 @@ $jayParsedAry = [
             "stars" => 4,
             "count" => 37
         ],
-        "priceNGN" => 2067,
+        "priceCents" => 2067,
         "keywords" => [
             "plates",
             "kitchen",
@@ -89,7 +89,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 175
         ],
-        "priceNGN" => 3499,
+        "priceCents" => 3499,
         "keywords" => [
             "kitchen",
             "cookware"
@@ -103,7 +103,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 317
         ],
-        "priceNGN" => 2400,
+        "priceCents" => 2400,
         "keywords" => [
             "hoodies",
             "sweaters",
@@ -118,7 +118,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 144
         ],
-        "priceNGN" => 3599,
+        "priceCents" => 3599,
         "keywords" => [
             "bathroom",
             "washroom",
@@ -135,7 +135,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 144
         ],
-        "priceNGN" => 3599,
+        "priceCents" => 3599,
         "keywords" => [
             "bathroom",
             "washroom",
@@ -152,7 +152,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 144
         ],
-        "priceNGN" => 3599,
+        "priceCents" => 3599,
         "keywords" => [
             "bathroom",
             "washroom",
@@ -169,7 +169,7 @@ $jayParsedAry = [
             "stars" => 4.5,
             "count" => 144
         ],
-        "priceNGN" => 3599,
+        "priceCents" => 3599,
         "keywords" => [
             "bathroom",
             "washroom",
