@@ -12,13 +12,21 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [totalItems, setTotalItems] = useState<number>(() => {
-    const savedTotalItems = localStorage.getItem("totalCartItems");
-    return savedTotalItems ? parseInt(savedTotalItems, 10) : 0;
-  });
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   useEffect(() => {
-    localStorage.setItem("totalCartItems", totalItems.toString());
+    // Only run this in the browser
+    if (typeof window !== "undefined") {
+      const savedTotalItems = localStorage.getItem("totalCartItems");
+      setTotalItems(savedTotalItems ? parseInt(savedTotalItems, 10) : 0);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Only run this in the browser
+    if (typeof window !== "undefined") {
+      localStorage.setItem("totalCartItems", totalItems.toString());
+    }
   }, [totalItems]);
 
   return (
