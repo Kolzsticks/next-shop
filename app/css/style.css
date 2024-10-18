@@ -87,6 +87,9 @@ body {
     height: 100vh;
   }
 
+  .toggle-overflow{
+    overflow: hidden;
+  }
   a {
     color: #FE6C32;
   }

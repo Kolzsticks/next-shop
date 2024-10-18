@@ -65,6 +65,7 @@ const Navbar: React.FC = () => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
 
   const handleCartClick = () => {
+    document.body.classList.toggle("toggle-overflow");
     setShowCart((prev) => !prev);
   };
 
@@ -73,6 +74,7 @@ const Navbar: React.FC = () => {
   };
 
   const handleShowMobileMenu = () => {
+    document.body.classList.toggle("toggle-overflow");
     setShowMobileMenu((prev) => !prev);
   };
 
