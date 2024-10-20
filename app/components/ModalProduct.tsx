@@ -1,14 +1,11 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css";
-import { Navigation } from "swiper/modules";
+import PreviewCaorusel from "@/app/components/PreviewCaorusel";
 
 interface ModalProductProps {
   handleClose: () => void;
 }
 
 const ModalProduct: React.FC<ModalProductProps> = ({ handleClose }) => {
- 
 
   return (
     <>
@@ -33,36 +30,7 @@ const ModalProduct: React.FC<ModalProductProps> = ({ handleClose }) => {
                 <span aria-hidden="true" className="icon-close2" />
               </button>
               <div className="row">
-                <div className="col-md-6">
-                  <Swiper
-                    modules={[Navigation]}
-                    navigation
-                    spaceBetween={10}
-                    slidesPerView={1}
-                  >
-                    {/* Add SwiperSlide for each image */}
-                    <SwiperSlide>
-                      <div className="img-place">
-                        <img src="/img/Faux_Fur_Jacket_(2).jpg" alt="" />
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="img-place">
-                        <img src="/img/Faux_Fur_Jacket_(3).jpg" alt="" />
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="img-place">
-                        <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <div className="img-place">
-                        <img src="/img/Faux_Fur_Jacket_(1).jpg" alt="" />
-                      </div>
-                    </SwiperSlide>
-                  </Swiper>
-                </div>
+               <PreviewCaorusel image="/img/Faux_Fur_Jacket.jpg" wFull={false} />
                 <div className="col-md-6">
                   <h4 className="modal-title" id="productLabel">
                     Product Title

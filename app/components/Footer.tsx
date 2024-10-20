@@ -50,7 +50,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className="site-footer">
+    <footer className="site-footer">
       <div className="card-newsletter">
         <div className="row align-items-center">
           <div className="col-md-6 mt-2">
@@ -159,7 +159,7 @@ const Footer = () => {
           </a>
         </p>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -7,6 +7,7 @@ import { Product } from "../types/types";
 import { useCart } from "./CartContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from 'next/link'
 
 interface CartItem {
   id: number;
@@ -69,7 +70,6 @@ const ProductCard: React.FC<Product> = ({
 
     const productId = Number(id);
 
-    // Check if the product already exists in the cart
     const existingItem = existingCartItems.find(
       (item: CartItem) => item.id === productId
     );
@@ -122,12 +122,13 @@ const ProductCard: React.FC<Product> = ({
             <div className="img-place">
               <img src={image} alt={name} />
             </div>
-            <button
+            <Link
+            href={`product/product-detail/${id}`}
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-              onClick={toggleProductPreviewModal}
+              // onClick={toggleProductPreviewModal}
             >
               Quick View
-            </button>
+            </Link>
           </div>
 
           <div className="card-footer">

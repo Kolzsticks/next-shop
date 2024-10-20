@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: liveSite ? `${liveSite}/img/logo.png?v=${currentDate()}` : "",
+        url: liveSite ? `${liveSite}img/logo.png?v=${currentDate()}` : "",
         width: 1200,
         height: 600,
         alt: "Shoperce",
@@ -92,7 +92,7 @@ export default function RootLayout({
       </head>
       <body>
         <CartProvider>
-        <ToastContainer />
+          <ToastContainer />
           <Providers>
             <Navbar />
             {children}

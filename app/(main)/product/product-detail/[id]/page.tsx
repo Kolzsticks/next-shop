@@ -1,6 +1,17 @@
-import React from "react";
+import { fetchProducts } from "@/app/utils/functions";
+import PreviewCaorusel from "@/app/components/PreviewCaorusel";
+import NotFound from "@/app/not-found";
 
-const page = () => {
+const page = async ({ params }: { params: { id: string } }) => {
+  const allProducts = await fetchProducts(); 
+  const product = allProducts.find((product) => product.id === params.id); 
+  const wFull = true;
+  
+  
+  if (!product) {
+    return <NotFound />;
+  }
+
   return (
     <>
       <div className="site-section py-5">
@@ -24,177 +35,47 @@ const page = () => {
             <div className="col-lg-7">
               <div className="row no-gutters">
                 <div className="col-md-9">
-                  <div
-                    className="btn-fullscreen"
-                    
-                  >
+                  <div className="btn-fullscreen">
                     <span className="icon-fullscreen" />
                   </div>
                   <div className="d-none">
-                    <div
-                      className="img-place"
-                      
-                      
-                    >
+                    <div className="img-place">
                       <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
                     </div>
-                    <div
-                      className="img-place"
-                      
-                      
-                    >
+                    <div className="img-place">
                       <img src="/img/Faux_Fur_Jacket_(1).jpg" alt="" />
                     </div>
-                    <div
-                      className="img-place"
-                      
-                      
-                    >
+                    <div className="img-place">
                       <img src="/img/Faux_Fur_Jacket_(2).jpg" alt="" />
                     </div>
-                    <div
-                      className="img-place"
-                      
-                      
-                    >
+                    <div className="img-place">
                       <img src="/img/Faux_Fur_Jacket_(3).jpg" alt="" />
                     </div>
                   </div>
-                  <div className="owl-carousel product-single owl-loaded owl-drag">
-                    <div className="owl-stage-outer">
-                      <div
-                        className="owl-stage"
-                        style={{
-                          transform: "translate3d(-735px, 0px, 0px)",
-                          transition: "all",
-                          width: 2940,
-                        }}
-                      >
-                        <div
-                          className="owl-item cloned"
-                          style={{ width: "367.5px" }}
-                        >
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket_(2).jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className="owl-item cloned"
-                          style={{ width: "367.5px" }}
-                        >
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket_(3).jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className="owl-item active"
-                          style={{ width: "367.5px" }}
-                        >
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="owl-item" style={{ width: "367.5px" }}>
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket_(1).jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="owl-item" style={{ width: "367.5px" }}>
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket_(2).jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="owl-item" style={{ width: "367.5px" }}>
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket_(3).jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className="owl-item cloned"
-                          style={{ width: "367.5px" }}
-                        >
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className="owl-item cloned"
-                          style={{ width: "367.5px" }}
-                        >
-                          <div className="item">
-                            <div className="img-place">
-                              <img src="/img/Faux_Fur_Jacket_(1).jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="owl-nav">
-                      <button
-                        type="button"
-                        role="presentation"
-                        className="owl-prev"
-                      >
-                        <span className="icon-angle-left" />
-                      </button>
-                      <button
-                        type="button"
-                        role="presentation"
-                        className="owl-next"
-                      >
-                        <span className="icon-angle-right" />
-                      </button>
-                    </div>
-                    <div className="owl-dots">
-                      <button role="button" className="owl-dot active">
-                        <span />
-                      </button>
-                      <button role="button" className="owl-dot">
-                        <span />
-                      </button>
-                      <button role="button" className="owl-dot">
-                        <span />
-                      </button>
-                      <button role="button" className="owl-dot">
-                        <span />
-                      </button>
-                    </div>
+                  <div style={{width: '100%'}}>
+                    <PreviewCaorusel image={product.image} wFull={wFull} />
                   </div>
                 </div>
                 <div className="col-md-3">
                   <div className="product-single-thumb">
                     <div className="product-item active">
-                      <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
+                      <img src={product.image} alt={product.name} />
                     </div>
-                    <div className="product-item">
-                      <img src="/img/Faux_Fur_Jacket_(1).jpg" alt="" />
+                    <div className="product-item active">
+                      <img src={product.image} alt={product.name} />
                     </div>
-                    <div className="product-item">
-                      <img src="/img/Faux_Fur_Jacket_(2).jpg" alt="" />
+                    <div className="product-item active">
+                      <img src={product.image} alt={product.name} />
                     </div>
-                    <div className="product-item">
-                      <img src="/img/Faux_Fur_Jacket_(3).jpg" alt="" />
+                    <div className="product-item active">
+                      <img src={product.image} alt={product.name} />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-lg-5 py-3">
-              <h3>Product Name</h3>
+              <h3>{product.name}</h3>
               <div className="ratings text-warning">
                 <span className="icon icon-star" />
                 <span className="icon icon-star" />
@@ -212,11 +93,7 @@ const page = () => {
                 <span className="fs-large fw-bold">Availability:</span> 240
               </p>
               <p className="fs-large fw-bold mb-1 mt-3">Color:</p>
-              <div
-                className="color-pick"
-                
-                
-              >
+              <div className="color-pick">
                 <span className="color-item bg-danger select-target" />
                 <span className="color-item bg-warning select-target" />
                 <span className="color-item bg-success select-target" />
@@ -224,11 +101,7 @@ const page = () => {
                 <span className="color-item bg-dark select-target" />
               </div>
               <p className="fs-large fw-bold mb-1 mt-3">Size:</p>
-              <div
-                className="btn-group btn-group-gap size-pick"
-                
-                
-              >
+              <div className="btn-group btn-group-gap size-pick">
                 <button className="btn btn-theme-outline btn-sm select-target">
                   XS
                 </button>
@@ -261,7 +134,7 @@ const page = () => {
                   <span className="icon-plus" />
                 </button>
               </div>
-              <h4 className="mt-4 mb-3">Price: $29.99</h4>
+              <h4 className="mt-4 mb-3">Price: ${product.priceCents}</h4>
               <a href="#" className="btn btn-theme-outline mr-2">
                 <span className="icon-add_shopping_cart" /> Add to Cart
               </a>
@@ -276,7 +149,6 @@ const page = () => {
                 <a
                   className="nav-link"
                   id="home-tab"
-                  
                   href="#home"
                   role="tab"
                   aria-controls="home"
@@ -289,7 +161,6 @@ const page = () => {
                 <a
                   className="nav-link"
                   id="profile-tab"
-                  
                   href="#profile"
                   role="tab"
                   aria-controls="profile"
@@ -302,7 +173,6 @@ const page = () => {
                 <a
                   className="nav-link active"
                   id="contact-tab"
-                  
                   href="#contact"
                   role="tab"
                   aria-controls="contact"
@@ -452,7 +322,6 @@ const page = () => {
                                 id="review"
                                 name="review"
                                 rows={6}
-                                
                                 defaultValue={""}
                               />
                               <label
@@ -470,7 +339,6 @@ const page = () => {
                                 id="name"
                                 type="text"
                                 name="name"
-                                
                               />
                               <label
                                 className="floating-control-label"
@@ -487,7 +355,6 @@ const page = () => {
                                 id="email"
                                 type="text"
                                 name="email"
-                                
                               />
                               <label
                                 className="floating-control-label"
@@ -526,35 +393,13 @@ const page = () => {
             <div className="col-lg-3">
               <div className="card card-product">
                 <div className="card-header">
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-heart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-shopping-cart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-fullscreen fs-normal" />
                   </div>
                 </div>
@@ -562,11 +407,7 @@ const page = () => {
                   <div className="img-place">
                     <img src="/img/Double_Breasted_Jacket_(1).jpg" alt="" />
                   </div>
-                  <button
-                    className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-                    
-                    
-                  >
+                  <button className="btn btn-theme btn-rounded btn-sm btn-noanimate">
                     Quick View
                   </button>
                 </div>
@@ -581,35 +422,13 @@ const page = () => {
             <div className="col-lg-3">
               <div className="card card-product">
                 <div className="card-header">
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-heart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-shopping-cart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-fullscreen fs-normal" />
                   </div>
                 </div>
@@ -617,11 +436,7 @@ const page = () => {
                   <div className="img-place">
                     <img src="/img/Faux_Fur_Jacket_(1).jpg" alt="" />
                   </div>
-                  <button
-                    className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-                    
-                    
-                  >
+                  <button className="btn btn-theme btn-rounded btn-sm btn-noanimate">
                     Quick View
                   </button>
                 </div>
@@ -636,35 +451,13 @@ const page = () => {
             <div className="col-lg-3">
               <div className="card card-product">
                 <div className="card-header">
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-heart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-shopping-cart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-fullscreen fs-normal" />
                   </div>
                 </div>
@@ -672,11 +465,7 @@ const page = () => {
                   <div className="img-place">
                     <img src="/img/Loafers.jpg" alt="" />
                   </div>
-                  <button
-                    className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-                    
-                    
-                  >
+                  <button className="btn btn-theme btn-rounded btn-sm btn-noanimate">
                     Quick View
                   </button>
                 </div>
@@ -691,35 +480,13 @@ const page = () => {
             <div className="col-lg-3">
               <div className="card card-product">
                 <div className="card-header">
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-heart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-shopping-cart" />
                   </div>
-                  <div
-                    className="btn btn-fab btn-sm"
-                    
-                    
-                    
-                    
-                    title=""
-                    
-                  >
+                  <div className="btn btn-fab btn-sm" title="">
                     <span className="icon-fullscreen fs-normal" />
                   </div>
                 </div>
@@ -727,11 +494,7 @@ const page = () => {
                   <div className="img-place">
                     <img src="/img/Oversized_Shirt_Jacket_(2).jpg" alt="" />
                   </div>
-                  <button
-                    className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-                    
-                    
-                  >
+                  <button className="btn btn-theme btn-rounded btn-sm btn-noanimate">
                     Quick View
                   </button>
                 </div>
