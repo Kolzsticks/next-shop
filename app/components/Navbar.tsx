@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import ModalSearch from "./ModalSearch";
@@ -67,10 +68,12 @@ const Navbar: React.FC = () => {
   const {totalItems} =  useCart();
 
   useEffect(() => {
-    // Update local storage whenever totalItems changes
-    localStorage.setItem('totalCartItems', totalItems.toString());
+    if (totalItems !== null) {
+      // Only update localStorage when totalItems is not null
+      localStorage.setItem('totalCartItems', totalItems.toString());
+    }
   }, [totalItems]);
-
+  
 
   const handleCartClick = () => {
     document.body.classList.toggle("toggle-overflow");
