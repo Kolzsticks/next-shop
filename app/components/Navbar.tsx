@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showSearchModal, setShowSearchModal] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-  const {totalItems} = useCart();
+  const {totalItems} =  useCart();
 
   useEffect(() => {
     // Update local storage whenever totalItems changes
