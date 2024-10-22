@@ -20,7 +20,7 @@ const FilterProduct: React.FC<FilterProductSection> = ({
 
   return (
     <div className="col-lg-4">
-      <div className="card-filter-btn text-center">
+      {/* <div className="card-filter-btn text-center">
         <a
           href="#filtered"
           className="btn btn-theme btn-block"
@@ -28,7 +28,7 @@ const FilterProduct: React.FC<FilterProductSection> = ({
         >
           Filter Product
         </a>
-      </div>
+      </div> */}
       <div
         id="filtered"
         className={`card p-20 d-lg-block  ${

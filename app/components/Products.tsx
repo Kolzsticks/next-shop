@@ -1,12 +1,14 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+
+import React, { useState, useCallback } from "react";
 import FancyBoxPreview from "./FancyBoxPreview";
 import { motion } from "framer-motion";
 import { Product } from "../types/types";
 import { useCart } from "./CartContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from 'next/link'
+import StarRating from "./StarRating";
+import Link from "next/link";
 
 interface CartItem {
   id: number;
@@ -16,65 +18,74 @@ interface CartItem {
   price: number;
 }
 
+const notify = (message: string) =>
+  toast.success(message, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "light",
+  });
+
+// Helper function to handle adding items to cart
+const handleCartUpdate = (
+  id: number,
+  name: string,
+  image: string,
+  priceCents: number,
+  setTotalItems: (count: number) => void
+) => {
+  const existingCartItems = JSON.parse(
+    localStorage.getItem("cartItems") || "[]"
+  );
+  const productId = Number(id);
+
+  const existingItem = existingCartItems.find(
+    (item: CartItem) => item.id === productId
+  );
+
+  const updatedCartItems = existingItem
+    ? existingCartItems.map((item: CartItem) =>
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    : [
+        ...existingCartItems,
+        { id: productId, name, image, quantity: 1, price: priceCents / 100 },
+      ];
+
+  localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+  notify(
+    existingItem ? `Item already exists in cart!` : `Added ${name} to cart!`
+  );
+  setTotalItems(updatedCartItems.length);
+};
+
 const ProductCard: React.FC<Product> = ({
   uid,
   id,
   image,
   name,
   priceCents,
+  rating,
   isColumn = false,
 }) => {
-  const [showFullScreenPreview, setShowFullScreenPreview] =
-    useState<boolean>(false);
-
+  const [showFullScreenPreview, setShowFullScreenPreview] = useState(false);
   const { setTotalItems } = useCart();
 
-  const notify = (message: string) =>
-    toast.success(message, {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "light",
-    });
-
- 
-
+  // Toggle fullscreen image preview
   const toggleFullScreenPreview = useCallback(() => {
     setShowFullScreenPreview((prev) => !prev);
   }, []);
 
+  // Notify the user when added to wishlist
+  const addToWishList = () => notify("Added to WishList");
+
+  // Add product to cart
   const handleAddToCart = () => {
-    const existingCartItems = JSON.parse(
-      localStorage.getItem("cartItems") || "[]"
-    );
-
-    const productId = Number(id);
-
-    const existingItem = existingCartItems.find(
-      (item: CartItem) => item.id === productId
-    );
-
-    const updatedCartItems = existingItem
-      ? existingCartItems.map((item: CartItem) =>
-          item.id === productId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      : [
-          ...existingCartItems,
-          { id: productId, name, image, quantity: 1, price: priceCents / 100 },
-        ];
-
-    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-
-    notify(
-      existingItem ? `Item already exists in cart!` : `Added ${name} to cart!`
-    );
-
-    setTotalItems(updatedCartItems.length);
+    handleCartUpdate(id, name, image, priceCents, setTotalItems);
   };
 
   return (
@@ -87,18 +98,18 @@ const ProductCard: React.FC<Product> = ({
           viewport={{ once: false }}
         >
           <div className="card-header">
-            <div className="btn btn-fab btn-sm" onClick={handleAddToCart}>
+            <button className="btn btn-fab btn-sm" onClick={handleAddToCart}>
               <span className="icon-shopping-cart" />
-            </div>
-            <div className="btn btn-fab btn-sm">
+            </button>
+            <button className="btn btn-fab btn-sm" onClick={addToWishList}>
               <span className="icon-heart" />
-            </div>
-            <div
+            </button>
+            <button
               className="btn btn-fab btn-sm"
               onClick={toggleFullScreenPreview}
             >
               <span className="icon-fullscreen fs-normal" />
-            </div>
+            </button>
           </div>
 
           <div className="card-body">
@@ -106,7 +117,7 @@ const ProductCard: React.FC<Product> = ({
               <img src={image} alt={name} />
             </div>
             <Link
-            href={`product/product-detail/${id}`}
+              href={`product/product-detail/${id}`}
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
             >
               Quick View
@@ -115,10 +126,19 @@ const ProductCard: React.FC<Product> = ({
 
           <div className="card-footer">
             <div className="caption">
-              <a href="product-details.html" className="product-title">
+              <Link
+                href={`product/product-detail/${id}`}
+                className="product-title"
+              >
                 {name}
-              </a>
+              </Link>
               <p className="fg-theme">${(priceCents / 100).toFixed(2)}</p>
+            </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span style={{ fontSize: "15px", marginRight: "10px" }}>
+                {rating.stars}
+              </span>
+              <StarRating rating={rating.stars} />
             </div>
           </div>
         </motion.div>

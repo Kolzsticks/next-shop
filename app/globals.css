@@ -7,3 +7,27 @@
 @import url("./css/style.css");
 @import url("./css/loading.css");
 
+.nav-link {
+    width: 100%;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+    border-radius: 2px;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .active-nav {
+    background-color: white;
+    color: #fe6c32;
+  }
+
+  .active-nav:hover {
+    background-color: white;
+    color: #fe6c32;
+  }
+
+  .nav-link span {
+    font-size: 24px;
+  }

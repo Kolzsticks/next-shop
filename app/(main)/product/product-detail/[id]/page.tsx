@@ -34,7 +34,7 @@ const page = async ({ params }: { params: { id: number } }) => {
           <div className="row">
             <div className="col-lg-7">
               <div className="row no-gutters">
-                <div className="" style={{width: '60%', height: '50%'}}>
+                <div className="" style={{ width: "60%", height: "50%" }}>
                   <div
                     className="img-place"
                     style={{ height: "60%", overflow: "hidden" }}
@@ -56,24 +56,20 @@ const page = async ({ params }: { params: { id: number } }) => {
             </div>
             <div className="col-lg-5 py-3">
               <h3>{product.name}</h3>
-             <div className="d-flex flex-row items-center justify-center" style={{width: '100%'}}>
-             <div style={{fontSize: '20px', marginRight: '10px'}}>{product.rating.stars}</div>
-             <StarRating rating={product.rating.stars} />
-           
-             </div>
-              
+              <div
+                className="d-flex flex-row items-center justify-center"
+                style={{ width: "100%" }}
+              >
+                <div style={{ fontSize: "20px", marginRight: "10px" }}>
+                  {product.rating.stars}
+                </div>
+                <StarRating rating={product.rating.stars} />
+              </div>
+
               <p className="mt-3">{product.description}</p>
               <p>
                 <span className="fs-large fw-bold">Availability:</span> 240
               </p>
-              <p className="fs-large fw-bold mb-1 mt-3">Color:</p>
-              <div className="color-pick">
-                <span className="color-item bg-danger select-target" />
-                <span className="color-item bg-warning select-target" />
-                <span className="color-item bg-success select-target" />
-                <span className="color-item bg-primary select-target" />
-                <span className="color-item bg-dark select-target" />
-              </div>
               <p className="fs-large fw-bold mb-1 mt-3">Size:</p>
               <div className="btn-group btn-group-gap size-pick">
                 <button className="btn btn-theme-outline btn-sm select-target">
@@ -108,7 +104,9 @@ const page = async ({ params }: { params: { id: number } }) => {
                   <span className="icon-plus" />
                 </button>
               </div>
-              <h4 className="mt-4 mb-3">Price: ${product.priceCents}</h4>
+              <h4 className="mt-4 mb-3">
+                Price: ${(product.priceCents / 100).toFixed(2)}
+              </h4>
               <a href="#" className="btn btn-theme-outline mr-2">
                 <span className="icon-add_shopping_cart" /> Add to Cart
               </a>

@@ -5,6 +5,7 @@ import Providers from "./components/ProgressBar";
 import { CartProvider } from "./components/CartContext";
 import { ToastContainer } from "react-toastify";
 import './globals.css'
+import NewMobileMenu from "./components/NewMobileMenu";
 
 const liveSite = process.env.NEXT_LIVE_SITE_URL;
 const featuredProducts = [
@@ -96,6 +97,7 @@ export default function RootLayout({
           <Providers>
             <Navbar />
             {children}
+            <NewMobileMenu />
             <Footer />
           </Providers>
         </CartProvider>
