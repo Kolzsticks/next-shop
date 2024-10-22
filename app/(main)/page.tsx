@@ -1,4 +1,4 @@
-import HomeSection from "./(main)/homepage/page";
+import HomeSection from "./homepage/page";
 import Parallax from "@/app/components/Parallax";
 import NewSection from "@/app/NewFonts/NewSection";
 import Secure from "@/app/components/Secure";

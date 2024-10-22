@@ -6,7 +6,6 @@ interface ModalProductProps {
 }
 
 const ModalProduct: React.FC<ModalProductProps> = ({ handleClose }) => {
-
   return (
     <>
       <div
@@ -30,7 +29,10 @@ const ModalProduct: React.FC<ModalProductProps> = ({ handleClose }) => {
                 <span aria-hidden="true" className="icon-close2" />
               </button>
               <div className="row">
-               <PreviewCaorusel image="/img/Faux_Fur_Jacket.jpg" wFull={false} />
+                <PreviewCaorusel
+                  image="/img/Faux_Fur_Jacket.jpg"
+                  wFull={false}
+                />
                 <div className="col-md-6">
                   <h4 className="modal-title" id="productLabel">
                     Product Title

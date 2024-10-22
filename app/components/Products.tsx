@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import ModalProduct from "./ModalProduct";
 import FancyBoxPreview from "./FancyBoxPreview";
 import { motion } from "framer-motion";
 import { Product } from "../types/types";
@@ -25,8 +24,6 @@ const ProductCard: React.FC<Product> = ({
   priceCents,
   isColumn = false,
 }) => {
-  const [showProductPreviewModal, setShowProductPreviewModal] =
-    useState<boolean>(false);
   const [showFullScreenPreview, setShowFullScreenPreview] =
     useState<boolean>(false);
 
@@ -43,21 +40,7 @@ const ProductCard: React.FC<Product> = ({
       theme: "light",
     });
 
-  useEffect(() => {
-    if (showProductPreviewModal || showFullScreenPreview) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [showProductPreviewModal, showFullScreenPreview]);
-
-  const toggleProductPreviewModal = useCallback(() => {
-    setShowProductPreviewModal((prev) => !prev);
-  }, []);
+ 
 
   const toggleFullScreenPreview = useCallback(() => {
     setShowFullScreenPreview((prev) => !prev);
@@ -125,7 +108,6 @@ const ProductCard: React.FC<Product> = ({
             <Link
             href={`product/product-detail/${id}`}
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
-              // onClick={toggleProductPreviewModal}
             >
               Quick View
             </Link>
@@ -147,10 +129,6 @@ const ProductCard: React.FC<Product> = ({
           imageUrl={image}
           handleClose={toggleFullScreenPreview}
         />
-      )}
-
-      {showProductPreviewModal && (
-        <ModalProduct handleClose={toggleProductPreviewModal} />
       )}
     </>
   );

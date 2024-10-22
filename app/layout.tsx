@@ -3,8 +3,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Providers from "./components/ProgressBar";
 import { CartProvider } from "./components/CartContext";
-import "./globals.css";
 import { ToastContainer } from "react-toastify";
+import './globals.css'
 
 const liveSite = process.env.NEXT_LIVE_SITE_URL;
 const featuredProducts = [

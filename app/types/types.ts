@@ -7,7 +7,7 @@ export interface Rating {
 
 export interface Product {
     uid: number;
-    id: string;
+    id: number;
     name: string;
     image: string;
     rating: Rating;
@@ -16,4 +16,5 @@ export interface Product {
     subCategory: string;
     keywords: string[];
     isColumn: boolean;
+    description: string;
 }

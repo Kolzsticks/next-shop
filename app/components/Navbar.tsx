@@ -54,25 +54,20 @@ const navLinks = [
 
 const dropdownLinks = [
   { href: "/product", label: "Product" },
-  { href: "product-details.html", label: "Product Details" },
   { href: "/blog", label: "Blog" },
-  { href: "blog-details.html", label: "Blog Details" },
-  { href: "/checkout", label: "Checkout" },
 ];
 
 const Navbar: React.FC = () => {
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showSearchModal, setShowSearchModal] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-  const {totalItems} =  useCart();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     if (totalItems !== null) {
-      // Only update localStorage when totalItems is not null
-      localStorage.setItem('totalCartItems', totalItems.toString());
+      localStorage.setItem("totalCartItems", totalItems.toString());
     }
   }, [totalItems]);
-  
 
   const handleCartClick = () => {
     document.body.classList.toggle("toggle-overflow");
@@ -235,7 +230,7 @@ const Navbar: React.FC = () => {
       {showCart && (
         <>
           <Modal handleClicks={handleCartClick} />
-          <Cart handleCartClick={handleCartClick}  />
+          <Cart handleCartClick={handleCartClick} />
         </>
       )}
       {showSearchModal && (

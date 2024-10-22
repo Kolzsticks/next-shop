@@ -1,13 +1,13 @@
 import { fetchProducts } from "@/app/utils/functions";
-import PreviewCaorusel from "@/app/components/PreviewCaorusel";
+import StarRating from "@/app/components/StarRating";
 import NotFound from "@/app/not-found";
+import Link from "next/link";
 
-const page = async ({ params }: { params: { id: string } }) => {
-  const allProducts = await fetchProducts(); 
-  const product = allProducts.find((product) => product.id === params.id); 
+const page = async ({ params }: { params: { id: number } }) => {
+  const allProducts = await fetchProducts();
+  const product = allProducts.find((product) => product.id === params.id);
   const wFull = true;
-  
-  
+
   if (!product) {
     return <NotFound />;
   }
@@ -18,77 +18,51 @@ const page = async ({ params }: { params: { id: string } }) => {
         <div className="container">
           <ul className="breadcrumb bg-white">
             <li className="breadcrumb-item">
-              <a href="index-2.html">Home</a>
+              <Link href="/">Home</Link>
             </li>
             <li className="breadcrumb-item">
-              <a href="product.html">Product</a>
+              <Link href="/product">Product</Link>
             </li>
             <li className="breadcrumb-item">
-              <a href="#">Women</a>
+              <Link href="#">{product.category}</Link>
             </li>
             <li className="breadcrumb-item">
-              <a href="#">Pants</a>
+              <Link href="#">{product.subCategory}</Link>
             </li>
-            <li className="breadcrumb-item">Product Name</li>
+            <li className="breadcrumb-item">{product.name}</li>
           </ul>
           <div className="row">
             <div className="col-lg-7">
               <div className="row no-gutters">
-                <div className="col-md-9">
-                  <div className="btn-fullscreen">
-                    <span className="icon-fullscreen" />
-                  </div>
-                  <div className="d-none">
-                    <div className="img-place">
-                      <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
-                    </div>
-                    <div className="img-place">
-                      <img src="/img/Faux_Fur_Jacket_(1).jpg" alt="" />
-                    </div>
-                    <div className="img-place">
-                      <img src="/img/Faux_Fur_Jacket_(2).jpg" alt="" />
-                    </div>
-                    <div className="img-place">
-                      <img src="/img/Faux_Fur_Jacket_(3).jpg" alt="" />
-                    </div>
-                  </div>
-                  <div style={{width: '100%'}}>
-                    <PreviewCaorusel image={product.image} wFull={wFull} />
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <div className="product-single-thumb">
-                    <div className="product-item active">
-                      <img src={product.image} alt={product.name} />
-                    </div>
-                    <div className="product-item active">
-                      <img src={product.image} alt={product.name} />
-                    </div>
-                    <div className="product-item active">
-                      <img src={product.image} alt={product.name} />
-                    </div>
-                    <div className="product-item active">
-                      <img src={product.image} alt={product.name} />
-                    </div>
+                <div className="" style={{width: '60%', height: '50%'}}>
+                  <div
+                    className="img-place"
+                    style={{ height: "60%", overflow: "hidden" }}
+                  >
+                    <img
+                      src={product.image}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "block",
+                        objectFit: "contain", // Ensure the entire image fits within the container
+                        objectPosition: "top", // Align the image to the top
+                      }}
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-lg-5 py-3">
               <h3>{product.name}</h3>
-              <div className="ratings text-warning">
-                <span className="icon icon-star" />
-                <span className="icon icon-star" />
-                <span className="icon icon-star" />
-                <span className="icon icon-star" />
-                <span className="icon icon-star-o" />
-              </div>
-              <p className="mt-3">
-                Raw denim you probably haven't heard of them jean shorts Austin.
-                Nesciunt tofu stumptown aliqua, retro synth master cleanse.
-                Mustache cliche tempor, williamsburg carles vegan helvetica.
-                Reprehenderit butcher retro keffiyeh dreamcatcher synth.
-              </p>
+             <div className="d-flex flex-row items-center justify-center" style={{width: '100%'}}>
+             <div style={{fontSize: '20px', marginRight: '10px'}}>{product.rating.stars}</div>
+             <StarRating rating={product.rating.stars} />
+           
+             </div>
+              
+              <p className="mt-3">{product.description}</p>
               <p>
                 <span className="fs-large fw-bold">Availability:</span> 240
               </p>
@@ -138,9 +112,9 @@ const page = async ({ params }: { params: { id: string } }) => {
               <a href="#" className="btn btn-theme-outline mr-2">
                 <span className="icon-add_shopping_cart" /> Add to Cart
               </a>
-              <a href="#" className="btn btn-theme">
+              <Link href="/checkout" className="btn btn-theme">
                 Proceed Checkout
-              </a>
+              </Link>
             </div>
           </div>
           <div className="d-block mt-5">
@@ -381,7 +355,7 @@ const page = async ({ params }: { params: { id: string } }) => {
                 </li>
                 <li className="list-inline-item">
                   Categories:{" "}
-                  <span className="text-secondary">Jacket, Womens</span>
+                  <span className="text-secondary">{product.category}</span>
                 </li>
               </ul>
             </div>
