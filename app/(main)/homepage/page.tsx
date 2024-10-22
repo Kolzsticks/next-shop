@@ -38,6 +38,7 @@ const HomeSection: React.FC = () => {
       subCategory={product.subCategory}
       keywords={product.keywords}
       isColumn={isColumn}
+      description={product.description}
     />
   );
 

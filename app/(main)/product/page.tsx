@@ -65,6 +65,7 @@ const Page: React.FC = async () => {
                     subCategory={product.subCategory}
                     keywords={product.keywords}
                     isColumn={false}
+                    description={product.description}
                   />
                 ))}
               </div>
