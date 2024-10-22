@@ -7,10 +7,9 @@ const NewMobileMenu: React.FC = () => {
 
   return (
     <>
-
       <div
         className="fixed-bottom d-md-none"
-        style={{ zIndex: 10000, backgroundColor: "#FE6C32" }}
+        style={{ zIndex: 1000, backgroundColor: "#FE6C32" }}
       >
         <ul className="nav justify-content-around text-white m-0 p-0">
           <li className="nav-item">

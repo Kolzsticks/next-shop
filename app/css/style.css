@@ -1061,7 +1061,7 @@ body {
       /* visibility: hidden; */
       overflow: hidden;
       box-shadow: 7px 0 28px rgba(0,0,0,0.12);
-      z-index: 500;
+      z-index: 1500;
   }
   
   .charm.show {
