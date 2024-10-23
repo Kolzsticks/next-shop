@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const RegisterForm: React.FC = () => (
-  <div className="d-lg-flex half" style={{height: '100svh'}}>
+  <div className="d-lg-flex half" style={{ height: "100svh" }}>
     <div
       className="bg order-1 order-md-2"
       style={{ backgroundImage: 'url("/img/bg_1.jpg")' }}
@@ -10,11 +10,10 @@ const RegisterForm: React.FC = () => (
       <div className="container">
         {/* Back Home Button */}
         <Link href="/" className="home-button bg-theme">
-              <span className="icon-angle-left"></span>
-            </Link>
+          <span className="icon-angle-left"></span>
+        </Link>
         <div className="row align-items-center justify-content-center">
           <div className="col-md-7">
-           
             <h3>Register</h3>
             <form action="#" method="post">
               <div className="form-group first">
@@ -55,10 +54,13 @@ const RegisterForm: React.FC = () => (
                 type="submit"
                 defaultValue="Register"
                 className="btn btn-theme w-100"
-                value='Register'
+                value="Register"
               />
               <div className="text-center mt-3">
-                <span>Already have an account? <Link href="/login">Log In here</Link></span>
+                <span>
+                  Already have an account?{" "}
+                  <Link href="/login">Log In here</Link>
+                </span>
               </div>
             </form>
           </div>
