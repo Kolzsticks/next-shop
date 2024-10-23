@@ -48,7 +48,7 @@ const NewMobileMenu: React.FC = () => {
           </li>
           <li className="nav-item">
             <Link
-              href="/contact"
+              href="/register"
               className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
                 currentPath === "/contact" ? "active-nav" : ""
               }`}
