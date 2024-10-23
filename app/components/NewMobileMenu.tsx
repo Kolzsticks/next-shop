@@ -7,16 +7,13 @@ const NewMobileMenu: React.FC = () => {
 
   return (
     <>
-      <div
-        className="fixed-bottom d-md-none"
-        style={{ zIndex: 1000, backgroundColor: "#FE6C32" }}
-      >
+      <div className="fixed-bottom d-md-none bottom-nav">
         <ul className="nav justify-content-around text-white m-0 p-0">
           <li className="nav-item">
             <Link
               href="/"
               className={`nav-link  d-flex justify-content-center align-items-center ${
-                currentPath === "/" ? "active-nav" : "text-white"
+                currentPath === "/" ? "active-nav" : ""
               }`}
             >
               <span className="icon-home" style={{ fontSize: "24px" }} />
@@ -24,22 +21,9 @@ const NewMobileMenu: React.FC = () => {
           </li>
           <li className="nav-item">
             <Link
-              href="/about"
-              className={`nav-link  d-flex justify-content-center align-items-center ${
-                currentPath === "/about" ? "active-nav" : "text-white"
-              }`}
-            >
-              <span
-                className="icon-format_list_bulleted"
-                style={{ fontSize: "24px" }}
-              />
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
               href="/product"
               className={`nav-link  d-flex justify-content-center align-items-center ${
-                currentPath === "/product" ? "active-nav" : "text-white"
+                currentPath === "/product" ? "active-nav" : ""
               }`}
             >
               <span
@@ -50,9 +34,22 @@ const NewMobileMenu: React.FC = () => {
           </li>
           <li className="nav-item">
             <Link
+              href="/about"
+              className={`nav-link  d-flex justify-content-center align-items-center ${
+                currentPath === "/about" ? "active-nav" : ""
+              }`}
+            >
+              <span
+                className="icon-format_list_bulleted"
+                style={{ fontSize: "24px" }}
+              />
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
               href="/contact"
               className={`nav-link  d-flex justify-content-center align-items-center ${
-                currentPath === "/contact" ? "active-nav" : "text-white"
+                currentPath === "/contact" ? "active-nav" : ""
               }`}
             >
               <span className="icon-contacts" style={{ fontSize: "24px" }} />

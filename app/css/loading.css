@@ -1,42 +1,35 @@
 .loader-container{
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 8888;
+    z-index: 900;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 
 .loader {
-    position: relative;
-    width: 64px;
-    height: 64px;
-    background-color: rgba(255, 255, 255, 0.5);
-    transform: rotate(45deg);
-    overflow: hidden;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fe6c32;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
   }
-  .loader:after{
-    content: '';
-    position: absolute;
-    inset: 8px;
-    margin: auto;
-    background:#fff;
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
   }
-  .loader:before{
-    content: '';
-    position: absolute;
-    inset: -15px;
-    margin: auto;
-    background: #de3500;
-    animation: diamondLoader 2s linear infinite;
+  100% {
+      transform: rotate(360deg);
   }
-  @keyframes diamondLoader {
-    0%  ,10% {
-      transform: translate(-64px , -64px) rotate(-45deg)
-    }
-    90% , 100% {
-      transform: translate(0px , 0px) rotate(-45deg)
-    }
-  }
+  } 

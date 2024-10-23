@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
     <>
       {/* Button Back to top */}
       <div className="back-to-top">
-        <span className="icon-angle-up" />
+        <span className="icon-angle-up"></span>
       </div>
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm">

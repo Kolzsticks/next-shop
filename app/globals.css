@@ -7,26 +7,35 @@
 @import url("./css/style.css");
 @import url("./css/loading.css");
 
+.bottom-nav{
+  background-color: #fff;
+  z-index: 1000;
+  height: 60px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-top: solid 1px #eee;
+}
+
+.bottom-nav ul{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 .nav-link {
     width: 100%;
     padding: 15px 15px;
-    transition: background-color 0.3s ease;
-    border-radius: 2px;
-  }
-
-  .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    border-radius: 100%;
   }
 
   .active-nav {
-    background-color: white;
-    color: #fe6c32;
+    background-color: rgba(254, 108, 50, 0.9);
+    color: white !important;
   }
 
-  .active-nav:hover {
-    background-color: white;
-    color: #fe6c32;
-  }
 
   .nav-link span {
     font-size: 24px;
