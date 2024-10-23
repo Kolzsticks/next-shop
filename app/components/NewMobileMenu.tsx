@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import '../css/mobile-menu.css'
 
 const NewMobileMenu: React.FC = () => {
   const currentPath = usePathname();
@@ -12,7 +13,7 @@ const NewMobileMenu: React.FC = () => {
           <li className="nav-item">
             <Link
               href="/"
-              className={`nav-link  d-flex justify-content-center align-items-center ${
+              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
                 currentPath === "/" ? "active-nav" : ""
               }`}
             >
@@ -22,7 +23,7 @@ const NewMobileMenu: React.FC = () => {
           <li className="nav-item">
             <Link
               href="/product"
-              className={`nav-link  d-flex justify-content-center align-items-center ${
+              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
                 currentPath === "/product" ? "active-nav" : ""
               }`}
             >
@@ -34,13 +35,13 @@ const NewMobileMenu: React.FC = () => {
           </li>
           <li className="nav-item">
             <Link
-              href="/about"
-              className={`nav-link  d-flex justify-content-center align-items-center ${
-                currentPath === "/about" ? "active-nav" : ""
+              href="/search"
+              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
+                currentPath === "/search" ? "active-nav" : ""
               }`}
             >
               <span
-                className="icon-format_list_bulleted"
+                className="icon icon-search"
                 style={{ fontSize: "24px" }}
               />
             </Link>
@@ -48,11 +49,11 @@ const NewMobileMenu: React.FC = () => {
           <li className="nav-item">
             <Link
               href="/contact"
-              className={`nav-link  d-flex justify-content-center align-items-center ${
+              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
                 currentPath === "/contact" ? "active-nav" : ""
               }`}
             >
-              <span className="icon-contacts" style={{ fontSize: "24px" }} />
+              <span className="icon-user" style={{ fontSize: "24px" }} />
             </Link>
           </li>
         </ul>

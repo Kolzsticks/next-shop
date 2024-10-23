@@ -1,0 +1,31 @@
+
+  /* Hide all tab panes by default */
+  .tab-pane {
+    display: none;
+  }
+  
+ 
+  
+ 
+  .tab-pane:first-of-type {
+    display: block; /* Display the first tab by default */
+  }
+
+.nav-tabs .nav-tab-button {
+    outline: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none; 
+    background-color: transparent;
+    color: #FE6C32;
+  }
+  
+  .nav-tabs .nav-tab-button.active {
+    color: #333; /* Active tab text color */
+    border-bottom: solid 3px #FE6C32;
+  }
+
+  .nav-tabs .nav-tab-button:hover{
+    border-bottom: solid 3px #FE6C32;
+  }
+  

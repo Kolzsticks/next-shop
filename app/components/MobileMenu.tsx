@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect, useRef } from "react";
 import { useRouter } from "next-nprogress-bar";
 import Link from "next/link";
@@ -14,13 +14,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
   useEffect(() => {
     const handleLinkClick = (event: Event) => {
       const target = event.target as HTMLElement;
-      const anchor = target.closest('a');
+      const anchor = target.closest("a");
 
       // Restrict clicks only within the mobile menu component
       if (menuRef.current && menuRef.current.contains(target)) {
         if (anchor) {
           event.preventDefault();
-          const href = anchor.getAttribute('href');
+          const href = anchor.getAttribute("href");
 
           if (href) {
             handleShowMobileMenu(); // Close mobile menu
@@ -31,41 +31,54 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
     };
 
     // Add event listener to clicks within the mobile menu component
-    document.addEventListener('click', handleLinkClick);
+    document.addEventListener("click", handleLinkClick);
 
     return () => {
       // Clean up event listener on component unmount
-      document.removeEventListener('click', handleLinkClick);
+      document.removeEventListener("click", handleLinkClick);
     };
   }, [handleShowMobileMenu, router]);
 
   const categories = [
-    { title: 'Mens', links: ['Mens #1', 'Mens #2', 'Mens #3'] },
-    { title: 'Womens', links: ['Womens #1', 'Womens #2', 'Womens #3'] },
-    { title: 'Divided', links: ['Divided #1', 'Divided #2', 'Divided #3', 'Divided #4'] },
-    { title: 'Kids', links: ['Kids #1', 'Kids #2', 'Kids #3'] },
-    { title: 'Moslem', links: ['Moslem #1', 'Moslem #2', 'Moslem #3', 'Moslem #4'] },
-    { title: 'Accessories', links: ['Accessories #1', 'Accessories #2', 'Accessories #3', 'Accessories #4', 'Accessories #5'] },
+    { title: "Mens", links: ["Mens #1", "Mens #2", "Mens #3"] },
+    { title: "Womens", links: ["Womens #1", "Womens #2", "Womens #3"] },
+    {
+      title: "Divided",
+      links: ["Divided #1", "Divided #2", "Divided #3", "Divided #4"],
+    },
+    { title: "Kids", links: ["Kids #1", "Kids #2", "Kids #3"] },
+    {
+      title: "Moslem",
+      links: ["Moslem #1", "Moslem #2", "Moslem #3", "Moslem #4"],
+    },
+    {
+      title: "Accessories",
+      links: [
+        "Accessories #1",
+        "Accessories #2",
+        "Accessories #3",
+        "Accessories #4",
+        "Accessories #5",
+      ],
+    },
   ];
 
   const pageLinks = [
-    { href: '/product', label: 'Product' },
-    { href: 'product-details.html', label: 'Product Details' },
-    { href: '/blog', label: 'Blog' },
-    { href: 'blog-details.html', label: 'Blog Details' },
-    { href: '/checkout', label: 'Checkout' },
+    { href: "/product", label: "Product" },
+    { href: "product-details.html", label: "Product Details" },
+    { href: "/blog", label: "Blog" },
+    { href: "blog-details.html", label: "Blog Details" },
+    { href: "/checkout", label: "Checkout" },
   ];
 
   return (
     <>
-      <div ref={menuRef} className="charm left show" id="mobileMenu"> {/* Attach ref to the menu container */}
+      <div ref={menuRef} className="charm left show" id="mobileMenu">
+        {" "}
+        {/* Attach ref to the menu container */}
         <div className="charm-header">
           <p className="ml-3 mb-0 fs-large">Main Menu</p>
-          <span
-            onClick={handleShowMobileMenu}
-            className="btn-back"
-            
-          >
+          <span onClick={handleShowMobileMenu} className="btn-back">
             <span className="icon-arrow_forward fs-large" />
           </span>
         </div>
@@ -77,16 +90,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
             <ul className="navbar-nav">
               <li className="nav-item px-lg-2">
                 <Link href="/" className="nav-link active">
-                  <div className="sr-only">
-                    <span className="icon-home2" />
-                  </div> Home
+                  <div className="sr-only"></div> Home
                 </Link>
               </li>
               <li className="nav-item px-lg-2 dropdown-hover dropdown-custom">
                 <span className="nav-link dropdown-toggle-hover">
-                  <div className="sr-only">
-                    <span className="icon-format_list_bulleted" />
-                  </div> Category
+                  <div className="sr-only"></div> Category
                 </span>
                 <div className="dropdown-menu">
                   <div className="container py-2">
@@ -97,7 +106,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                             <li className="lead fg-theme">{category.title}</li>
                             {category.links.map((link, idx) => (
                               <li key={idx}>
-                                <Link href="/product" className="text-secondary">
+                                <Link
+                                  href="/product"
+                                  className="text-secondary"
+                                >
                                   {link}
                                 </Link>
                               </li>
@@ -111,20 +123,20 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
               </li>
               <li className="nav-item px-lg-2">
                 <Link href="/about" className="nav-link">
-                  <div className="sr-only">
-                    <span className="icon-domain" />
-                  </div> About
+                  <div className="sr-only"></div> About
                 </Link>
               </li>
               <li className="nav-item px-lg-2 dropdown-hover">
-                <span  className="nav-link dropdown-toggle-hover mb-0">
-                  <div className="sr-only">
-                    <span className="icon-format_list_bulleted" />
-                  </div> Pages
+                <span className="nav-link dropdown-toggle-hover mb-0">
+                  <div className="sr-only"></div> Pages
                 </span>
                 <div className="dropdown-menu">
                   {pageLinks.map((pageLink, idx) => (
-                    <Link key={idx} href={pageLink.href} className="dropdown-item">
+                    <Link
+                      key={idx}
+                      href={pageLink.href}
+                      className="dropdown-item"
+                    >
                       {pageLink.label}
                     </Link>
                   ))}
@@ -132,9 +144,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
               </li>
               <li className="nav-item px-lg-2">
                 <Link href="/contact" className="nav-link">
-                  <div className="sr-only">
-                    <span className="icon-contacts" />
-                  </div> Contact
+                  <div className="sr-only"></div> Contact
                 </Link>
               </li>
             </ul>

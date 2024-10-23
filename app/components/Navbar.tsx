@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
-import ModalSearch from "./ModalSearch";
 import Modal from "./Modal";
 import Cart from "./Cart";
 import { useState, useEffect } from "react";
@@ -59,7 +58,6 @@ const dropdownLinks = [
 
 const Navbar: React.FC = () => {
   const [showCart, setShowCart] = useState<boolean>(false);
-  const [showSearchModal, setShowSearchModal] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   const { totalItems } = useCart();
 
@@ -74,10 +72,6 @@ const Navbar: React.FC = () => {
     setShowCart((prev) => !prev);
   };
 
-  const handleShowSearchModal = () => {
-    setShowSearchModal((prev) => !prev);
-  };
-
   const handleShowMobileMenu = () => {
     document.body.classList.toggle("toggle-overflow");
     setShowMobileMenu((prev) => !prev);
@@ -85,8 +79,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Button Back to top */}
-      <div className="back-to-top">
+      <div className="back-to-top" style={{ visibility: "visible" }}>
         <span className="icon-angle-up"></span>
       </div>
       {/* Navbar */}
@@ -168,45 +161,33 @@ const Navbar: React.FC = () => {
           </div>
           <div className="">
             <ul className="nav justify-content-end">
-              <li
-                className="nav-item px-1 d-none d-lg-block"
-                onClick={handleShowSearchModal}
-              >
+              <li className="nav-item px-1 d-none d-lg-block">
                 <div className="btn btn-fab text-secondary">
-                  <span className="icon icon-search" />
+                  <Link
+                    className="text-secondary text-decoration-none"
+                    href="/search"
+                  >
+                    {" "}
+                    <span className="icon icon-search"></span>
+                  </Link>
                 </div>
               </li>
               <li className="nav-item px-1 dropdown" id="account">
                 <div className="btn dropdown-toggle-hover text-secondary">
-                  <span className="icon icon-user-circle-o" />
-                  <span className="d-none d-md-inline-block">My Account</span>
-                  <div className="dropdown-menu p-0 mt-0">
-                    <div className="account-switch active">
-                      <form className="card card-body border-0">
-                        <h5 className="text-center border-bottom pb-3">
-                          Login
-                        </h5>
-                        {/* Login Form */}
-                        <FormFields />
-                        <div className="text-center pb-3">
-                          <small className="d-block mb-2">Login With</small>
-                          <div className="social-connect">
-                            {socialLinks.map(({ className, bgClass }, idx) => (
-                              <Link
-                                key={idx}
-                                href="#"
-                                className={`social-link ${bgClass} fg-white`}
-                              >
-                                <span className={className} />
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    {/* Register Form */}
-                    <AccountSwitch />
-                  </div>
+                  <Link
+                    className="text-secondary bold text-decoration-none font-weight-bold"
+                    href="/register"
+                  >
+                    <span className="">
+                      <svg
+                        className="icon-signin"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                      >
+                        <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
+                      </svg>
+                    </span>
+                  </Link>
                 </div>
               </li>
               <li onClick={handleCartClick} className="nav-item px-1">
@@ -233,9 +214,6 @@ const Navbar: React.FC = () => {
           <Cart handleCartClick={handleCartClick} />
         </>
       )}
-      {showSearchModal && (
-        <ModalSearch handleShowSearchModal={handleShowSearchModal} />
-      )}
       {showMobileMenu && (
         <>
           <Modal handleClicks={handleShowMobileMenu} />
@@ -245,45 +223,5 @@ const Navbar: React.FC = () => {
     </>
   );
 };
-
-const FormFields = () => (
-  <>
-    <div className="input-group floating-label my-2">
-      <input type="text" id="usernameLogin" className="form-control" />
-      <label htmlFor="usernameLogin" className="floating-control-label">
-        Username
-      </label>
-    </div>
-    <div className="input-group floating-label my-2">
-      <input type="password" id="passwordLogin" className="form-control" />
-      <label htmlFor="passwordLogin" className="floating-control-label">
-        Password
-      </label>
-    </div>
-    <div className="input-group justify-content-between my-2 align-items-center">
-      <div className="custom-control custom-checkbox">
-        <input type="checkbox" className="custom-control-input" id="remember" />
-        <label htmlFor="remember" className="custom-control-label">
-          Remember Me
-        </label>
-      </div>
-      <Link href="#" className="fs-small fg-theme">
-        Forgot Password?
-      </Link>
-    </div>
-    <button type="submit" className="btn btn-theme btn-block mb-1">
-      Login
-    </button>
-  </>
-);
-
-const AccountSwitch = () => (
-  <div className="account-switch">
-    <form className="card card-body border-0">
-      <h5 className="text-center border-bottom pb-3">Register</h5>
-      <FormFields />
-    </form>
-  </div>
-);
 
 export default Navbar;
