@@ -1,14 +1,17 @@
-import "../css/style.css";
 import Link from "next/link";
 
 const LoginForm: React.FC = () => (
-  <div className="d-lg-flex half">
+  <div className="d-lg-flex half" style={{height: '100svh'}}>
     <div
       className="bg order-1 order-md-2"
       style={{ backgroundImage: 'url("/img/bg_1.jpg")' }}
     />
     <div className="contents order-2 order-md-1">
       <div className="container">
+         {/* Back Home Button */}
+         <Link href="/" className="home-button bg-theme">
+              <span className="icon-angle-left"></span>
+            </Link>
         <div className="row align-items-center justify-content-center">
           <div className="col-md-7">
             <h3>Login</h3>

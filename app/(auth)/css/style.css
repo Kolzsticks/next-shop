@@ -5,6 +5,23 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #fff; }
 
+  .home-button {
+    position: absolute;
+    top: 20px; /* Adjust to your desired distance from the top */
+    left: 20px; /* Adjust to your desired distance from the left */
+    font-size: 24px; /* You can adjust the size */
+    cursor: pointer;
+    z-index: 1000; /* Ensures it stays on top of other elements */
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    color: white !important;
+  }
+  
 p {
   color: #b3b3b3;
   font-weight: 300; }
