@@ -47,6 +47,7 @@ const LoginForm: React.FC = () => (
                 type="submit"
                 defaultValue="Log In"
                 className="btn btn-theme w-100"
+                value="Login"
               />
               <div className="text-center mt-3">
                 <span>Don't have an account? <Link href="/register">Register here</Link></span>
