@@ -30,7 +30,7 @@ const ModalProduct: React.FC<ModalProductProps> = ({ handleClose }) => {
               </button>
               <div className="row">
                 <PreviewCaorusel
-                  image="/img/Faux_Fur_Jacket.jpg"
+                  images={["/img/Faux_Fur_Jacket.jpg"]}
                   wFull={false}
                 />
                 <div className="col-md-6">
