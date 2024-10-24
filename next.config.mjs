@@ -2,7 +2,18 @@
 const nextConfig = {
   // Specify the output option for static HTML export
   // output: 'export',
-  
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'kolzsticks.github.io',
+        port: '',
+        pathname: '/Free-Ecommerce-Products-Api/**',
+        search: '',
+      },
+    ],
+    formats: ['image/webp']
+  },
   async headers() {
       return [
           {

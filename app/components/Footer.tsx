@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 const Footer = () => {
   const customerServices = [
     "Contact Us",
@@ -137,7 +139,14 @@ const Footer = () => {
               className="img-place auto-v justify-content-start"
               style={{ height: 30 }}
             >
-              <img src="/img/payment.png" alt="Payments" height={30} />
+              
+              <Image 
+              src="/img/payment.png"
+               alt="Payments" 
+               width={30}
+               height={30}
+
+              />
             </div>
           </div>
         </div>

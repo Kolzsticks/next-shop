@@ -1,8 +1,9 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useCart } from "./CartContext";
+import Image from "next/image";
 
 interface CartItem {
   id: number;
@@ -16,23 +17,20 @@ interface CartButtonProps {
   handleCartClick: () => void;
 }
 
-
-
 const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     const savedCart = localStorage.getItem("cartItems");
     return savedCart ? JSON.parse(savedCart) : []; // Initialize with an empty array if no saved cart
   });
 
-  const {setTotalItems} = useCart();
+  const { setTotalItems } = useCart();
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    
-    
+
     // Calculate total items and update the parent component
     const totalItems = cartItems.length;
-   localStorage.setItem("totalCartItems", JSON.stringify(totalItems));
+    localStorage.setItem("totalCartItems", JSON.stringify(totalItems));
     setTotalItems(totalItems);
   }, [cartItems, setTotalItems]);
 
@@ -73,7 +71,12 @@ const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
           {cartItems.map((item) => (
             <li className="cart-item" key={item.id}>
               <div className="img-place">
-                <img src={item.image} alt={item.name} />
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={100}
+                  height={100}
+                />
               </div>
               <div className="caption">
                 <h5>{item.name}</h5>

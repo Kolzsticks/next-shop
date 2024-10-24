@@ -1,5 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
 const Secure = () => {
   const infoCards = [
     {
@@ -37,7 +39,12 @@ const Secure = () => {
               <div className="card card-info text-center border-0">
                 <div className="card-body">
                   <div className="img-place">
-                    <img src={card.imgSrc} alt={card.title} />
+                    <Image
+                      src={card.imgSrc}
+                      alt={card.title}
+                      width={300}
+                      height={300}
+                    />
                   </div>
                   <h5>{card.title}</h5>
                   <p>{card.description}</p>

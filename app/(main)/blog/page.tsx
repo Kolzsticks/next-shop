@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image'
 
 const blogPosts = [
   { id: 1, imgSrc: "/img/image_1.jpg", title: "7 Factors for Choosing Between Two Jobs", date: "April 15, 2019", comments: "2 Comments", link: "blog-single.html" },
@@ -31,10 +32,12 @@ const Page: React.FC = () => {
             {blogPosts.map((post) => (
               <div key={post.id} className="col-md-6 col-lg-4 mb-5">
                 <a href={post.link}>
-                  <img
-                    src={post.imgSrc}
-                    alt=""
-                    className="img-fluid rounded mb-4"
+                  <Image 
+                  src={post.imgSrc}
+                  alt=""
+                  className="img-fluid rounded mb-4"
+                  width={300}
+                  height={300}
                   />
                 </a>
                 <h3 className="fw-normal">

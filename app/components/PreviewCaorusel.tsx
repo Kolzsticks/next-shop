@@ -2,14 +2,17 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Navigation } from "swiper/modules";
-import Products from "./Products";
+import Image from "next/image";
 
-interface PreviewCaoruselProps {
-  image: string;
+interface PreviewCarouselProps {
+  images: string[]; // Changed from single image to array of images
   wFull: boolean;
 }
 
-const PreviewCaorusel: React.FC<PreviewCaoruselProps> = ({ image, wFull = false }) => {
+const PreviewCarousel: React.FC<PreviewCarouselProps> = ({
+  images,
+  wFull = false,
+}) => {
   return (
     <div className={wFull ? "w-full" : "col-md-6"}>
       <Swiper
@@ -18,30 +21,21 @@ const PreviewCaorusel: React.FC<PreviewCaoruselProps> = ({ image, wFull = false 
         spaceBetween={10}
         slidesPerView={1}
       >
-        {/* Add SwiperSlide for each image */}
-        <SwiperSlide>
-          <div className="img-place">
-            <img src={image} alt="" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-        <div className="img-place">
-            <img src={image} alt="" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-        <div className="img-place">
-            <img src={image} alt="" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-        <div className="img-place">
-            <img src={image} alt="" />
-          </div>
-        </SwiperSlide>
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
+            <div className="img-place">
+              <Image
+                src={image}
+                alt={`Slide ${index}`}
+                width={300}
+                height={300}
+              />
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
 };
 
-export default PreviewCaorusel;
+export default PreviewCarousel;

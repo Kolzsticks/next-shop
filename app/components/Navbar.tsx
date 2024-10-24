@@ -5,45 +5,9 @@ import Modal from "./Modal";
 import Cart from "./Cart";
 import { useState, useEffect } from "react";
 import { useCart } from "./CartContext";
-
-const categories = [
-  {
-    title: "Mens",
-    items: ["Mens #1", "Mens #2", "Mens #3"],
-  },
-  {
-    title: "Womens",
-    items: ["Womens #1", "Womens #2", "Womens #3"],
-  },
-  {
-    title: "Divided",
-    items: ["Divided #1", "Divided #2", "Divided #3", "Divided #4"],
-  },
-  {
-    title: "Kids",
-    items: ["Kids #1", "Kids #2", "Kids #3"],
-  },
-  {
-    title: "Moslem",
-    items: ["Moslem #1", "Moslem #2", "Moslem #3", "Moslem #4"],
-  },
-  {
-    title: "Accessories",
-    items: [
-      "Accessories #1",
-      "Accessories #2",
-      "Accessories #3",
-      "Accessories #4",
-      "Accessories #5",
-    ],
-  },
-];
-
-const socialLinks = [
-  { className: "icon-facebook", bgClass: "bg-facebook" },
-  { className: "icon-twitter", bgClass: "bg-twitter" },
-  { className: "icon-google-plus", bgClass: "bg-google-plus" },
-];
+import { fetchProducts } from "../utils/functions";
+import { Product } from "../types/types";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Home", iconClass: "icon-home2", isActive: true },
@@ -57,9 +21,28 @@ const dropdownLinks = [
 ];
 
 const Navbar: React.FC = () => {
+  // State to store products
+  const [products, setProducts] = useState<Product[]>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   const { totalItems } = useCart();
+  const uniqueCategories = Array.from(
+    new Set(products.map((p) => p.subCategory))
+  );
+
+  // Fetch products on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedProducts = await fetchProducts();
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (totalItems !== null) {
@@ -86,7 +69,9 @@ const Navbar: React.FC = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm">
         <div className="container py-2">
           <Link href="/" className="navbar-brand mb-2 mb-sm-0">
-            <img
+            <Image
+              width={50}
+              height={50}
               style={{ width: "30px" }}
               src="/img/logo.png"
               alt="shoperce logo"
@@ -118,27 +103,17 @@ const Navbar: React.FC = () => {
                   </div>{" "}
                   Category
                 </Link>
-                <div className="dropdown-menu">
+                <div className="dropdown-menu" style={{ maxWidth: "400px" }}>
                   <div className="container py-2">
-                    <div className="row px-md-4">
-                      {categories.map(({ title, items }, idx) => (
-                        <div key={idx} className="col-lg-3 my-2">
-                          <ul className="list-unstyled">
-                            <li className="lead fg-theme">{title}</li>
-                            {items.map((item, index) => (
-                              <li key={index}>
-                                <Link
-                                  href="product.html"
-                                  className="text-secondary"
-                                >
-                                  {item}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
+                    {uniqueCategories.map((category, idx) => (
+                      <div key={idx} className=" my-2">
+                        <ul className="list-unstyled">
+                          <Link href="#" className="fg-theme">
+                            {category}
+                          </Link>
+                        </ul>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </li>

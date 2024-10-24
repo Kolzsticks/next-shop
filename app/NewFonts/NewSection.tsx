@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const NewSection = () => {
   const newsItems = [
@@ -40,10 +41,12 @@ const NewSection = () => {
               key={index}
             >
               <a href={item.link}>
-                <img
+                <Image
                   src={item.imgSrc}
                   alt={item.title}
                   className="img-fluid rounded mb-4"
+                  width={300}
+                  height={300}
                 />
               </a>
               <h3 className="fw-normal">

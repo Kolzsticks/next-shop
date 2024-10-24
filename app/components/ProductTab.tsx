@@ -1,20 +1,23 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
-import '../css/tab.css'; // Import the CSS file
+import React, { useState } from "react";
+import "../css/tab.css"; // Import the CSS file
+import Image from "next/image";
 
 interface TabComponentProps {
-    description: string;
+  description: string;
 }
 
 const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
-  const [activeTab, setActiveTab] = useState<'description' | 'additional' | 'review'>('description');
+  const [activeTab, setActiveTab] = useState<
+    "description" | "additional" | "review"
+  >("description");
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'description':
+      case "description":
         return <p>{description}</p>;
-      case 'additional':
+      case "additional":
         return (
           <ul className="list-unstyled">
             <li className="d-flex flex-row">
@@ -23,7 +26,9 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
             </li>
             <li className="d-flex flex-row">
               <span className="col-4 py-2">Dimensions :</span>
-              <span className="col-4 py-2 text-secondary">110 x 33 x 100 cm</span>
+              <span className="col-4 py-2 text-secondary">
+                110 x 33 x 100 cm
+              </span>
             </li>
             <li className="d-flex flex-row">
               <span className="col-4 py-2">Materials :</span>
@@ -35,21 +40,24 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
             </li>
           </ul>
         );
-      case 'review':
+      case "review":
         return (
-            <div className="row">
+          <div className="row">
             <div className="col-sm-10 col-md-8 col-lg-6">
               <div className="product-review">
                 {/* Review */}
                 <div className="review-dialog">
                   <div className="profile-picture">
-                    <img src="/img/avatar_1.jpg" alt="AVATAR" />
+                    <Image
+                      src="/img/avatar_1.jpg"
+                      alt="AVATAR"
+                      width={50}
+                      height={50}
+                    />
                   </div>
                   <div className="ml-3">
                     <div className="review-content mb-2">
-                      <span className="fg-dark fs-large">
-                        John Grande
-                      </span>
+                      <span className="fg-dark fs-large">John Grande</span>
                       <span className="ratings">
                         <i className="icon-star" />
                         <i className="icon-star" />
@@ -59,20 +67,23 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
                       </span>
                     </div>
                     <p className="mb-0 text-secondary">
-                      Quod autem in homine praestantissimum atque optimum
-                      est, id deseruit. Apud ceteros autem philosophos
+                      Quod autem in homine praestantissimum atque optimum est,
+                      id deseruit. Apud ceteros autem philosophos
                     </p>
                   </div>
                 </div>
                 <div className="review-dialog">
                   <div className="profile-picture">
-                    <img src="/img/avatar_2.jpg" alt="AVATAR" />
+                    <Image
+                      src="/img/avatar_2.jpg"
+                      alt="AVATAR"
+                      width={50}
+                      height={50}
+                    />
                   </div>
                   <div className="ml-3">
                     <div className="review-content mb-2">
-                      <span className="fg-dark fs-large">
-                        Aliana Grande
-                      </span>
+                      <span className="fg-dark fs-large">Aliana Grande</span>
                       <span className="ratings">
                         <i className="icon-star" />
                         <i className="icon-star" />
@@ -82,8 +93,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
                       </span>
                     </div>
                     <p className="mb-0 text-secondary">
-                      Quod autem in homine praestantissimum atque optimum
-                      est, id deseruit. Apud ceteros autem philosophos
+                      Quod autem in homine praestantissimum atque optimum est,
+                      id deseruit. Apud ceteros autem philosophos
                     </p>
                   </div>
                 </div>
@@ -91,8 +102,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
                 <form className="review-form mt-5">
                   <h5 className="fg-dark">Add a review</h5>
                   <p className="stext-102 cl6">
-                    Your email address will not be published. Required
-                    fields are marked *
+                    Your email address will not be published. Required fields
+                    are marked *
                   </p>
                   <div className="row p-b-25">
                     <div className="col-12">
@@ -171,24 +182,30 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
       <ul className="nav nav-tabs" role="tablist">
         <li className="nav-item">
           <button
-            className={`nav-tab-button ${activeTab === 'description' ? 'active' : ''}`}
-            onClick={() => setActiveTab('description')}
+            className={`nav-tab-button ${
+              activeTab === "description" ? "active" : ""
+            }`}
+            onClick={() => setActiveTab("description")}
           >
             Description
           </button>
         </li>
         <li className="nav-item">
           <button
-            className={`nav-tab-button ${activeTab === 'additional' ? 'active' : ''}`}
-            onClick={() => setActiveTab('additional')}
+            className={`nav-tab-button ${
+              activeTab === "additional" ? "active" : ""
+            }`}
+            onClick={() => setActiveTab("additional")}
           >
             Additional Information
           </button>
         </li>
         <li className="nav-item">
           <button
-            className={`nav-tab-button ${activeTab === 'review' ? 'active' : ''}`}
-            onClick={() => setActiveTab('review')}
+            className={`nav-tab-button ${
+              activeTab === "review" ? "active" : ""
+            }`}
+            onClick={() => setActiveTab("review")}
           >
             Review (2)
           </button>
@@ -202,9 +219,3 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
 };
 
 export default TabComponent;
-
-
-
-
-
-

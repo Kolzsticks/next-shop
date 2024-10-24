@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Providers from "../components/ProgressBar";
 import { CartProvider } from "../components/CartContext";
-import { ToastContainer } from "react-toastify";
 import "../globals.css";
 import NewMobileMenu from "../components/NewMobileMenu";
+import dynamic from "next/dynamic";
+const ToastContainer = dynamic(() => import('react-toastify').then(mod => mod.ToastContainer), { ssr: false });
+
 
 const liveSite = process.env.NEXT_LIVE_SITE_URL;
 const featuredProducts = [

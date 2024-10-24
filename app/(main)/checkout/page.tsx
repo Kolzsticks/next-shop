@@ -1,4 +1,4 @@
-import React from "react";
+import Image from 'next/image'
 
 const page = () => {
   return (
@@ -139,7 +139,13 @@ const page = () => {
               <ul className="product-cart-list">
                 <li className="cart-item">
                   <div className="img-place">
-                    <img src="/img/Super_Slim-fit_Pants.jpg" alt="" />
+                    <Image 
+                    src="/img/Super_Slim-fit_Pants.jpg"
+                    alt=""
+                    width={400}
+                    height={400}
+
+                    />
                   </div>
                   <div className="caption">
                     <h5>Product Name</h5>
@@ -172,7 +178,13 @@ const page = () => {
                 </li>
                 <li className="cart-item">
                   <div className="img-place">
-                    <img src="/img/Faux_Fur_Jacket.jpg" alt="" />
+                  <Image 
+                    src="/img/Super_Slim-fit_Pants.jpg"
+                    alt=""
+                    width={400}
+                    height={400}
+
+                    />
                   </div>
                   <div className="caption">
                     <h5>Product Name</h5>

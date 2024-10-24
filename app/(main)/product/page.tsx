@@ -3,6 +3,7 @@ import FilterProduct from "../../components/FilterProduct";
 import ProductCard from "../../components/Products";
 import { Product } from "@/app/types/types";
 import { fetchProducts } from "@/app/utils/functions";
+import Image from "next/image";
 
 const categories: { name: string; count: number }[] = [
   { name: "Mens", count: 90 },
@@ -16,8 +17,8 @@ const categories: { name: string; count: number }[] = [
 const sizes: string[] = ["XS", "S", "M", "L", "XL"];
 const colors: string[] = ["danger", "warning", "success", "primary", "dark"];
 const collectionTiles = [
-  { title: "Accessories", image: "img/image_1.jpg", link: "/product" },
-  { title: "Casual Clothes", image: "img/image_2.jpg", link: "/product" },
+  { title: "Accessories", image: "/img/image_1.jpg", link: "/product" },
+  { title: "Casual Clothes", image: "/img/image_2.jpg", link: "/product" },
 ];
 const pagination = [1, 2, 3, 4, "Next"];
 
@@ -92,7 +93,13 @@ const Page: React.FC = async () => {
                 <div className="card card-collection-tiles_2">
                   <div className="card-body">
                     <div className="img-place">
-                      <img src={tile.image} alt={tile.title} />
+                      <Image 
+                      src={tile.image} 
+                      alt={tile.title}
+                      width={400}
+                      height={400}
+                      loading="lazy"
+                      />
                     </div>
                     <div className="caption">
                       <h2>{tile.title}</h2>

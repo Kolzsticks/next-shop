@@ -4,11 +4,11 @@ import NotFound from "@/app/not-found";
 import Link from "next/link";
 import ProductCard from "@/app/components/Products";
 import TabComponent from "@/app/components/ProductTab";
+import Image from "next/image";
 
 const page = async ({ params }: { params: { id: number } }) => {
   const allProducts = await fetchProducts();
   const product = allProducts.find((product) => product.id === params.id);
-  const wFull = true;
 
   if (!product) {
     return <NotFound />;
@@ -41,8 +41,10 @@ const page = async ({ params }: { params: { id: number } }) => {
                     className="img-place"
                     style={{ height: "60%", overflow: "hidden" }}
                   >
-                    <img
+                    <Image
                       src={product.image}
+                      width={400}
+                      height={400}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -117,9 +119,9 @@ const page = async ({ params }: { params: { id: number } }) => {
               </Link>
             </div>
           </div>
-         {/* Tabs all the way here */}
+          {/* Tabs all the way here */}
 
-         <TabComponent description={product.description} />
+          <TabComponent description={product.description} />
           <div className="row no-gutters bg-light mt-5">
             <div className="col-12">
               <ul className="list-unstyled list-inline text-center mb-0 py-4">
@@ -137,22 +139,22 @@ const page = async ({ params }: { params: { id: number } }) => {
             <div className="col-12 mt-3">
               <h2 className="title-section text-center">Similar Product</h2>
             </div>
-            {allProducts.slice(0,3).map((product, index) => (
-                  <ProductCard
-                    key={index}
-                    uid={index}
-                    id={product.id}
-                    name={product.name}
-                    image={product.image}
-                    rating={product.rating}
-                    priceCents={product.priceCents}
-                    category={product.category}
-                    subCategory={product.subCategory}
-                    keywords={product.keywords}
-                    isColumn={false}
-                    description={product.description}
-                  />
-                ))}
+            {allProducts.slice(0, 3).map((product, index) => (
+              <ProductCard
+                key={index}
+                uid={index}
+                id={product.id}
+                name={product.name}
+                image={product.image}
+                rating={product.rating}
+                priceCents={product.priceCents}
+                category={product.category}
+                subCategory={product.subCategory}
+                keywords={product.keywords}
+                isColumn={false}
+                description={product.description}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import ProductCard from "../../components/Products";
 import { fetchProducts } from "@/app/utils/functions";
 import { Product as FeaturedProduct } from "@/app/types/types";
+import Image from "next/image";
 
 const HomeSection: React.FC = () => {
   const [featuredProducts, setFeaturedProducts] = useState<FeaturedProduct[]>(
@@ -54,8 +55,14 @@ const HomeSection: React.FC = () => {
               className="col-lg-8"
             >
               <div className="tiles-wrapper tiles-2">
-                <div className="img-place">
-                  <img src="/img/hero-img_1.jpg" alt="" />
+                <div className="img-place position-relative w-100 h-100">
+                  <Image 
+                  src="/img/hero-img_1.jpg"
+                  alt="title image"
+                  width={765}
+                  height={510}
+                  priority={true}
+                  />
                 </div>
                 <div className="caption fg-white">
                   <p className="mb-1">Late Summer Edition</p>
@@ -95,7 +102,13 @@ const HomeSection: React.FC = () => {
                   className="tiles-wrapper tiles-4"
                 >
                   <div className="img-place">
-                    <img src={item.img} alt="" />
+                    <Image 
+                  src={item.img}
+                  alt="latest image"
+                  width={500}
+                  height={400}
+                  priority={true}
+                  />
                   </div>
                   <div className="caption">
                     <a href="product.html" className="card-caption">
@@ -149,7 +162,13 @@ const HomeSection: React.FC = () => {
                   <div className="card card-collection-tiles">
                     <div className="card-body">
                       <div className="img-place">
-                        <img src="/img/Skinny_Fit_Blazer.jpg" alt="" />
+                        <Image 
+                  src="/img/Skinny_Fit_Blazer.jpg"
+                  alt="latest image"
+                  priority={true}
+                  width={400}
+                  height={600}
+                  />
                       </div>
                       <div className="caption fg-white">
                         <p className="mb-1">Find the best Blazer Collection</p>
@@ -177,7 +196,13 @@ const HomeSection: React.FC = () => {
                       <div className="card card-collection-tiles_2">
                         <div className="card-body">
                           <div className="img-place">
-                            <img src={`/img/image_${index + 1}.jpg`} alt="" />
+                            <Image
+                            src={`/img/image_${index + 1}.jpg`}
+                            width={450}
+                            height={299}
+                            alt="accessories image"
+                            />
+
                           </div>
                           <div className="caption">
                             <h2>{title}</h2>

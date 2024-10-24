@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 
 const page = () => {
   return (
@@ -19,15 +19,18 @@ const page = () => {
             <div className="col-lg-6 mb-lg-0">
               <a
                 href="https://vimeo.com/317571768"
-                className="img-place rounded"
+                className="img-place rounded "
               >
                 <span className="play-icon">
                   <span className="icon-play" />
                 </span>
-                <img
+
+                <Image
                   src="/img/hero-img_1.jpg"
                   alt="Image"
                   className="img-shadow"
+                  width={500}
+                  height={500}
                 />
               </a>
             </div>
