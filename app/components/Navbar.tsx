@@ -70,8 +70,8 @@ const Navbar: React.FC = () => {
         <div className="container py-2">
           <Link href="/" className="navbar-brand mb-2 mb-sm-0">
             <Image
-              width={50}
-              height={50}
+              width={30}
+              height={30}
               style={{ width: "30px" }}
               src="/img/logo.png"
               alt="shoperce logo"

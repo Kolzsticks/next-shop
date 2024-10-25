@@ -1,7 +1,17 @@
+import withPWAInit from "@ducanh2912/next-pwa";
+
+// Initialize PWA configuration
+const withPWA = withPWAInit({
+  fallbacks: {
+    // Failed page requests fallback to this.
+    document: "/offline",
+  },
+  dest: "public",
+  register: true,
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Specify the output option for static HTML export
-  // output: 'export',
   images: {
     remotePatterns: [
       {
@@ -12,29 +22,30 @@ const nextConfig = {
         search: '',
       },
     ],
-    formats: ['image/webp']
+    formats: ['image/webp'],
   },
   async headers() {
-      return [
+    return [
+      {
+        source: '/(.*)',  // Apply these headers to all routes
+        headers: [
           {
-              source: '/(.*)',  // Apply these headers to all routes
-              headers: [
-                  {
-                      key: 'X-Content-Type-Options',
-                      value: 'nosniff',  // Prevent MIME type sniffing
-                  },
-                  {
-                      key: 'X-Frame-Options',
-                      value: 'DENY',  // Prevent clickjacking attacks
-                  },
-                  {
-                      key: 'Referrer-Policy',
-                      value: 'strict-origin-when-cross-origin',  // Control how much referrer information is shared
-                  },
-              ],
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',  // Prevent MIME type sniffing
           },
-      ];
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',  // Prevent clickjacking attacks
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',  // Control how much referrer information is shared
+          },
+        ],
+      },
+    ];
   },
 };
 
-export default nextConfig;
+// Wrap your existing Next.js configuration with the PWA settings
+export default withPWA(nextConfig);
