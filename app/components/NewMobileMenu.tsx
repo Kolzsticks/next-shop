@@ -1,10 +1,16 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import "../css/mobile-menu.css";
 
 const NewMobileMenu: React.FC = () => {
   const currentPath = usePathname();
+
+  // Scroll to top whenever the path changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPath]);
 
   return (
     <>
@@ -29,10 +35,7 @@ const NewMobileMenu: React.FC = () => {
                 currentPath === "/product" ? "active-nav" : ""
               }`}
             >
-              <span
-                className="icon-shopping_basket"
-                style={{ fontSize: "24px" }}
-              />
+              <span className="icon-shopping_basket" style={{ fontSize: "24px" }} />
             </Link>
           </li>
           <li className="nav-item">
