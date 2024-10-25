@@ -14,7 +14,7 @@ const NewMobileMenu: React.FC = () => {
             <Link
               prefetch={true}
               href="/"
-              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
+              className={`bottom-nav-link d-flex justify-content-center align-items-center ${
                 currentPath === "/" ? "active-nav" : ""
               }`}
             >
@@ -25,7 +25,7 @@ const NewMobileMenu: React.FC = () => {
             <Link
               prefetch={true}
               href="/product"
-              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
+              className={`bottom-nav-link d-flex justify-content-center align-items-center ${
                 currentPath === "/product" ? "active-nav" : ""
               }`}
             >
@@ -39,7 +39,7 @@ const NewMobileMenu: React.FC = () => {
             <Link
               prefetch={true}
               href="/search"
-              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
+              className={`bottom-nav-link d-flex justify-content-center align-items-center ${
                 currentPath === "/search" ? "active-nav" : ""
               }`}
             >
@@ -50,8 +50,8 @@ const NewMobileMenu: React.FC = () => {
             <Link
               prefetch={true}
               href="/register"
-              className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
-                currentPath === "/register" ? "active-nav" : ""
+              className={`bottom-nav-link d-flex justify-content-center align-items-center ${
+                currentPath === "/auth/register" ? "active-nav" : ""
               }`}
             >
               <span className="icon-user" style={{ fontSize: "24px" }} />
