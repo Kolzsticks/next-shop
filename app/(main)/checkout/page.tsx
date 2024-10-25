@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 const page = () => {
   return (
@@ -17,7 +17,6 @@ const page = () => {
                       type="number"
                       id="contactPayment"
                       className="form-control"
-                      
                     />
                     <label
                       htmlFor="contactPayment"
@@ -33,7 +32,6 @@ const page = () => {
                       type="text"
                       id="emailPayment"
                       className="form-control"
-                      
                     />
                     <label
                       htmlFor="emailPayment"
@@ -48,7 +46,6 @@ const page = () => {
                     <textarea
                       id="address"
                       className="form-control"
-                      
                       rows={8}
                       defaultValue={""}
                     />
@@ -69,7 +66,6 @@ const page = () => {
                         id="namePayment"
                         className="form-control"
                         defaultValue="Mikhail Abdillah"
-                        
                       />
                       <label
                         htmlFor="namePayment"
@@ -86,7 +82,6 @@ const page = () => {
                       type="number"
                       id="cardNumberPayment"
                       className="form-control"
-                      
                     />
                     <label
                       htmlFor="cardNumberPayment"
@@ -104,7 +99,6 @@ const page = () => {
                           type="number"
                           id="expPayment"
                           className="form-control"
-                          
                         />
                         <label
                           htmlFor="expPayment"
@@ -120,7 +114,6 @@ const page = () => {
                           type="number"
                           id="CVVPayment"
                           className="form-control"
-                          
                         />
                         <label
                           htmlFor="CVVPayment"
@@ -139,12 +132,12 @@ const page = () => {
               <ul className="product-cart-list">
                 <li className="cart-item">
                   <div className="img-place">
-                    <Image 
-                    src="/img/Super_Slim-fit_Pants.jpg"
-                    alt=""
-                    width={400}
-                    height={400}
-
+                    <Image
+                      src="/img/Super_Slim-fit_Pants.jpg"
+                      alt=""
+                      width={400}
+                      height={400}
+                      unoptimized={true}
                     />
                   </div>
                   <div className="caption">
@@ -178,12 +171,12 @@ const page = () => {
                 </li>
                 <li className="cart-item">
                   <div className="img-place">
-                  <Image 
-                    src="/img/Super_Slim-fit_Pants.jpg"
-                    alt=""
-                    width={400}
-                    height={400}
-
+                    <Image
+                      src="/img/Super_Slim-fit_Pants.jpg"
+                      alt=""
+                      width={400}
+                      height={400}
+                      unoptimized={true}
                     />
                   </div>
                   <div className="caption">

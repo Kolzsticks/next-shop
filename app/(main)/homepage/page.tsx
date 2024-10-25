@@ -62,6 +62,7 @@ const HomeSection: React.FC = () => {
                   width={765}
                   height={510}
                   priority={true}
+                  unoptimized={true}
                   />
                 </div>
                 <div className="caption fg-white">
@@ -108,6 +109,7 @@ const HomeSection: React.FC = () => {
                   width={500}
                   height={400}
                   priority={true}
+                  unoptimized={true}
                   />
                   </div>
                   <div className="caption">
@@ -166,6 +168,7 @@ const HomeSection: React.FC = () => {
                   src="/img/Skinny_Fit_Blazer.jpg"
                   alt="latest image"
                   priority={true}
+                  unoptimized={true}
                   width={400}
                   height={600}
                   />

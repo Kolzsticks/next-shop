@@ -4,7 +4,7 @@ const RegisterForm: React.FC = () => (
   <div className="d-lg-flex half" style={{ height: "100svh" }}>
     <div
       className="bg order-1 order-md-2"
-      style={{ backgroundImage: 'url("/img/bg_1.jpg")' }}
+      style={{ backgroundImage: 'url("/img/bg_1.webp")' }}
     />
     <div className="contents order-2 order-md-1">
       <div className="container">

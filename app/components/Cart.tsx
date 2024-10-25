@@ -76,6 +76,7 @@ const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
                   alt={item.name}
                   width={100}
                   height={100}
+                  unoptimized={true}
                 />
               </div>
               <div className="caption">

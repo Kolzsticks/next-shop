@@ -34,10 +34,11 @@ const Page: React.FC = () => {
                 <a href={post.link}>
                   <Image 
                   src={post.imgSrc}
-                  alt=""
+                  alt={post.title}
                   className="img-fluid rounded mb-4"
                   width={300}
                   height={300}
+                  unoptimized={true}
                   />
                 </a>
                 <h3 className="fw-normal">

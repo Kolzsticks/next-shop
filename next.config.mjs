@@ -6,6 +6,7 @@ const withPWA = withPWAInit({
     // Failed page requests fallback to this.
     document: "/offline",
   },
+  // disable: process.env.NODE_ENV === "development",
   dest: "public",
   register: true,
 });
@@ -29,6 +30,10 @@ const nextConfig = {
       {
         source: '/(.*)',  // Apply these headers to all routes
         headers: [
+          // {
+          //   key: 'Cache-Control',
+          //   value: 'public, max-age=31536000, immutable', // 1 year cache for static images
+          // },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',  // Prevent MIME type sniffing

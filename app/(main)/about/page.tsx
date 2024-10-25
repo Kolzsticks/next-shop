@@ -31,6 +31,7 @@ const page = () => {
                   className="img-shadow"
                   width={500}
                   height={500}
+                  unoptimized={true}
                 />
               </a>
             </div>

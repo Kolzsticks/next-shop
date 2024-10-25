@@ -18,11 +18,10 @@ const FancyBoxPreview: React.FC<FancyBoxPreviewProps> = ({
           <Image
             src={imageUrl}
             alt="Preview"
-            loading="lazy"
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/..."
             width={300}
             height={300}
+            unoptimized={true}
+            priority={true}
           />
         </div>
 

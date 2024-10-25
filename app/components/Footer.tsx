@@ -143,8 +143,8 @@ const Footer = () => {
               <Image 
               src="/img/payment.png"
                alt="Payments" 
-               width={30}
-               height={30}
+               width={200}
+               height={200}
 
               />
             </div>

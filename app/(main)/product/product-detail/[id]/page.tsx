@@ -49,10 +49,12 @@ const page = async ({ params }: { params: { id: number } }) => {
                         width: "100%",
                         height: "100%",
                         display: "block",
-                        objectFit: "contain", // Ensure the entire image fits within the container
-                        objectPosition: "top", // Align the image to the top
+                        objectFit: "contain",
+                        objectPosition: "top",
                       }}
                       alt=""
+                      priority={true}
+                      unoptimized={true}
                     />
                   </div>
                 </div>

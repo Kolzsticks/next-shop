@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import '../css/mobile-menu.css'
+import "../css/mobile-menu.css";
 
 const NewMobileMenu: React.FC = () => {
   const currentPath = usePathname();
@@ -12,6 +12,7 @@ const NewMobileMenu: React.FC = () => {
         <ul className="nav justify-content-around text-white m-0 p-0">
           <li className="nav-item">
             <Link
+              prefetch={true}
               href="/"
               className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
                 currentPath === "/" ? "active-nav" : ""
@@ -22,6 +23,7 @@ const NewMobileMenu: React.FC = () => {
           </li>
           <li className="nav-item">
             <Link
+              prefetch={true}
               href="/product"
               className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
                 currentPath === "/product" ? "active-nav" : ""
@@ -35,22 +37,21 @@ const NewMobileMenu: React.FC = () => {
           </li>
           <li className="nav-item">
             <Link
+              prefetch={true}
               href="/search"
               className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
                 currentPath === "/search" ? "active-nav" : ""
               }`}
             >
-              <span
-                className="icon icon-search"
-                style={{ fontSize: "24px" }}
-              />
+              <span className="icon icon-search" style={{ fontSize: "24px" }} />
             </Link>
           </li>
           <li className="nav-item">
             <Link
+              prefetch={true}
               href="/register"
               className={`bottom-nav-link  d-flex justify-content-center align-items-center ${
-                currentPath === "/contact" ? "active-nav" : ""
+                currentPath === "/register" ? "active-nav" : ""
               }`}
             >
               <span className="icon-user" style={{ fontSize: "24px" }} />
