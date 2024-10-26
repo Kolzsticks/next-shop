@@ -10,13 +10,17 @@ interface CartButtonProps {
 }
 
 const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
-  const { cartItems, totalItems, loadCart, removeFromCart, updateQuantity } = useCartStore();
+  const { cartItems, totalItems, loadCart, removeFromCart, updateQuantity } =
+    useCartStore();
 
   useEffect(() => {
     loadCart(); // Load cart items from localStorage
   }, [loadCart]);
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    0
+  );
 
   return (
     <div className="charm right show" id="cartView">

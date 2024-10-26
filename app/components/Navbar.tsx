@@ -64,8 +64,8 @@ const Navbar: React.FC = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm">
         <div className="container py-2">
           <Link href="/" className="navbar-brand mb-2 mb-sm-0">
-            <Image width={30} height={30} src="/img/logo.png" alt="shoperce logo" />
-            <span className="fg-theme">Shop</span>erce
+            <Image width={30} height={30} src="/img/logo.png" alt="OnyxShop logo" />
+            <span className="fg-theme">Onyx</span>Shop
           </Link>
           <div className="navbar-collapse collapse" id="mobileNav">
             <ul className="navbar-nav">

@@ -36,7 +36,7 @@ const page = () => {
               </a>
             </div>
             <div className="col-lg-5 ml-auto">
-              <h2 className="section-title mb-3">About Shoperce</h2>
+              <h2 className="section-title mb-3">About OnyxShop</h2>
               <p className="lead">
                 Eveniet voluptatibus voluptates suscipit minima, cum voluptatum
                 ut dolor, sed facere corporis qui, ea quisquam quis odit minus

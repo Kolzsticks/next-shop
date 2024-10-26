@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Shoperce E-Commerce Store',
-    short_name: 'Shoperce',
+    name: 'OnyxShop E-Commerce Store',
+    short_name: 'OnyxShop',
     description: 'Shop the latest products with great deals and discounts.',
     start_url: '/',
     display: 'standalone',

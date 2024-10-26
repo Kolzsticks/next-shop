@@ -162,9 +162,9 @@ const Footer = () => {
         </ul>
 
         <p className="text-center fg-white">
-          Copyright © 2022 Shoperce. Designed and Developed by{" "}
+          Copyright © 2022 auth. Designed and Developed by{" "}
           <a href="https://graygrids.com/" rel="nofollow">
-            GrayGrids
+            Kolzsticks
           </a>
         </p>
       </div>

@@ -56,7 +56,7 @@ const jsonLd = {
 };
 
 export const metadata: Metadata = {
-  title: "Shoperce",
+  title: "OnyxShop",
   description: "Shop the latest summer arrivals with great discounts.",
   keywords: ["fashion", "clothing", "summer sale", "discounts"],
   metadataBase: liveSite ? new URL(liveSite) : undefined,
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         url: `/img/logo.png?v=${currentDate()}`,
         width: 1200,
         height: 600,
-        alt: "Shoperce",
+        alt: "OnyxShop",
       },
     ],
   },
