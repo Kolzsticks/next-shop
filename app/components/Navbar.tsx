@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
 
   return (
     <Providers>
-      <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm">
+      <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm" id="top-nav">
         <div className="container py-2">
           <Link href="/" className="navbar-brand mb-2 mb-sm-0">
             <Image

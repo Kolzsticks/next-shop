@@ -109,7 +109,7 @@ const ProductCard: React.FC<Product> = ({
           <div className="card-footer">
             <div className="caption">
               <Link
-                href={`product/product-detail/${id}`}
+                href={`product/product-detail/${id}#top-nav`}
                 className="product-title"
               >
                 {name}
