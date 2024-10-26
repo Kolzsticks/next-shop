@@ -24,7 +24,7 @@
     }
   
     .active-nav {
-      background-color: rgba(254, 108, 50, 0.9);
+      background-color: var(--theme-primary) ;
       color: white !important;
     }
   

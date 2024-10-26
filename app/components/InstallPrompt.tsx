@@ -1,9 +1,8 @@
-// app/components/InstallPrompt.tsx
 "use client";
 
 import { useEffect } from "react";
 
-const InstallPrompt = () => {
+export default function BeforeInstallPrompt() {
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault(); // Prevents the mini-infobar from appearing on mobile
@@ -12,15 +11,12 @@ const InstallPrompt = () => {
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
-    return () => {
+    return () =>
       window.removeEventListener(
         "beforeinstallprompt",
         handleBeforeInstallPrompt
       );
-    };
   }, []);
 
-  return null; // This component doesn't render anything
-};
-
-export default InstallPrompt;
+  return null; // No need to return UI since this is only for the event listener
+}

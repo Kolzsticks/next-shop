@@ -4,21 +4,11 @@ import React, { useState, useCallback } from "react";
 import FancyBoxPreview from "./FancyBoxPreview";
 import { motion } from "framer-motion";
 import { Product } from "../types/types";
-import { useCart } from "./CartContext";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import StarRating from "./StarRating";
 import Link from "next/link";
 import Image from "next/image";
-
-
-interface CartItem {
-  id: number;
-  name: string;
-  image: string;
-  quantity: number;
-  price: number;
-}
+import useCartStore from "../(main)/store/CartStore";
 
 const notify = (message: string) =>
   toast.success(message, {
@@ -31,40 +21,6 @@ const notify = (message: string) =>
     theme: "light",
   });
 
-// Helper function to handle adding items to cart
-const handleCartUpdate = (
-  id: number,
-  name: string,
-  image: string,
-  priceCents: number,
-  setTotalItems: (count: number) => void
-) => {
-  const existingCartItems = JSON.parse(
-    localStorage.getItem("cartItems") || "[]"
-  );
-  const productId = Number(id);
-
-  const existingItem = existingCartItems.find(
-    (item: CartItem) => item.id === productId
-  );
-
-  const updatedCartItems = existingItem
-    ? existingCartItems.map((item: CartItem) =>
-        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    : [
-        ...existingCartItems,
-        { id: productId, name, image, quantity: 1, price: priceCents / 100 },
-      ];
-
-  localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-
-  notify(
-    existingItem ? `Item already exists in cart!` : `Added ${name} to cart!`
-  );
-  setTotalItems(updatedCartItems.length);
-};
-
 const ProductCard: React.FC<Product> = ({
   uid,
   id,
@@ -75,19 +31,35 @@ const ProductCard: React.FC<Product> = ({
   isColumn = false,
 }) => {
   const [showFullScreenPreview, setShowFullScreenPreview] = useState(false);
-  const { setTotalItems } = useCart();
+  const addToCart = useCartStore((state) => state.addToCart); // Get addToCart from Zustand
 
-  // Toggle fullscreen image preview
   const toggleFullScreenPreview = useCallback(() => {
     setShowFullScreenPreview((prev) => !prev);
   }, []);
 
-  // Notify the user when added to wishlist
   const addToWishList = () => notify("Added to WishList");
 
-  // Add product to cart
   const handleAddToCart = () => {
-    handleCartUpdate(id, name, image, priceCents, setTotalItems);
+    const existingItem = useCartStore
+      .getState()
+      .cartItems.find((i) => i.id === id);
+
+    if (existingItem) {
+      // Notify that the item already exists in the cart
+      toast.info("Item already exists in the cart", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    } else {
+      // If the item doesn't exist, add it to the cart
+      addToCart({ id, name, image, quantity: 1, price: priceCents / 100 });
+      notify(`Added ${name} to cart!`);
+    }
   };
 
   return (

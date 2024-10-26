@@ -27,6 +27,7 @@ const HomeSection: React.FC = () => {
     index: number,
     isColumn: boolean
   ) => (
+
     <ProductCard
       key={index}
       uid={index}
@@ -55,14 +56,15 @@ const HomeSection: React.FC = () => {
               className="col-lg-8"
             >
               <div className="tiles-wrapper tiles-2">
-                <div className="img-place position-relative w-100 h-100">
+                <div className="img-place position-relative w-100 h-100 ">
                   <Image 
-                  src="/img/hero-img_1.jpg"
+                  src="/img/summer (3).jpg"
                   alt="title image"
                   width={765}
                   height={510}
                   priority={true}
                   unoptimized={true}
+                  style={{objectFit: 'cover', width: '100%'}}
                   />
                 </div>
                 <div className="caption fg-white">
@@ -83,7 +85,7 @@ const HomeSection: React.FC = () => {
             <div className="col-lg-4">
               {[
                 {
-                  img: "/img/Skinny_Fit_Blazer.jpg",
+                  img: "/img/blazer (1).jpg",
                   title: "Skinny Fit Blazzer",
                 },
                 {

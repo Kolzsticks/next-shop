@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Providers from "../components/ProgressBar";
-import { CartProvider } from "../components/CartContext";
 import "../globals.css";
+import 'react-toastify/ReactToastify.min.css'
 import NewMobileMenu from "../components/NewMobileMenu";
-import dynamic from "next/dynamic";
-const ToastContainer = dynamic(() => import('react-toastify').then(mod => mod.ToastContainer), { ssr: false });
-
-
+import ScrollToTopButton from "../components/ScrollToTopButton";
+import { ToastContainer } from "react-toastify";
 const liveSite = process.env.NEXT_LIVE_SITE_URL;
 const featuredProducts = [
   {
@@ -86,15 +83,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <CartProvider>
-        <ToastContainer />
-        <Providers>
-          <Navbar />
-          {children}
-          <NewMobileMenu />
-          <Footer />
-        </Providers>
-      </CartProvider>
+      <ToastContainer />
+      <Navbar />
+      {children}
+      <NewMobileMenu />
+      <ScrollToTopButton />
+      <Footer />
     </>
   );
 };

@@ -1,57 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useCart } from "./CartContext";
+import { useEffect } from "react";
+import useCartStore from "../(main)/store/CartStore";
 import Image from "next/image";
-
-interface CartItem {
-  id: number;
-  name: string;
-  image: string;
-  quantity: number;
-  price: number;
-}
 
 interface CartButtonProps {
   handleCartClick: () => void;
 }
 
 const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    const savedCart = localStorage.getItem("cartItems");
-    return savedCart ? JSON.parse(savedCart) : []; // Initialize with an empty array if no saved cart
-  });
-
-  const { setTotalItems } = useCart();
+  const { cartItems, totalItems, loadCart, removeFromCart, updateQuantity } = useCartStore();
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    loadCart(); // Load cart items from localStorage
+  }, [loadCart]);
 
-    // Calculate total items and update the parent component
-    const totalItems = cartItems.length;
-    localStorage.setItem("totalCartItems", JSON.stringify(totalItems));
-    setTotalItems(totalItems);
-  }, [cartItems, setTotalItems]);
-
-  const handleQuantityChange = (id: number, delta: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(0, item.quantity + delta) }
-          : item
-      )
-    );
-  };
-
-  const handleRemoveItem = (id: number) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.quantity * item.price,
-    0
-  );
+  const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
   return (
     <div className="charm right show" id="cartView">
@@ -62,7 +27,7 @@ const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
         <p className="ml-3 mb-0 fs-large">
           Your Cart{" "}
           <span className="badge bg-theme fg-white ml-2 fs-normal">
-            {cartItems.length}
+            {totalItems}
           </span>
         </p>
       </div>
@@ -86,7 +51,7 @@ const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
                   <div className="d-inline-flex number-input number-input-sm">
                     <button
                       className="btn btn-theme btn-sm btn-decrease"
-                      onClick={() => handleQuantityChange(item.id, -1)}
+                      onClick={() => updateQuantity(item.id, -1)}
                     >
                       <span className="icon-minus" />
                     </button>
@@ -100,7 +65,7 @@ const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
                     />
                     <button
                       className="btn btn-theme btn-sm btn-increase"
-                      onClick={() => handleQuantityChange(item.id, 1)}
+                      onClick={() => updateQuantity(item.id, 1)}
                     >
                       <span className="icon-plus" />
                     </button>
@@ -113,7 +78,7 @@ const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
               </div>
               <button
                 className="btn btn-fab btn-sm"
-                onClick={() => handleRemoveItem(item.id)}
+                onClick={() => removeFromCart(item.id)}
               >
                 <span className="icon-trash-o" />
               </button>

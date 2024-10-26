@@ -1,73 +1,55 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next-nprogress-bar";
 import Link from "next/link";
+import { fetchProducts } from "../utils/functions";
+import { Product } from "../types/types";
 
 interface MobileMenuProps {
   handleShowMobileMenu: () => void;
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
+  const [products, setProducts] = useState<Product[]>([]);
   const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null); // Create a ref for the mobile menu container
+  const uniqueCategories = Array.from(
+    new Set(products.map((p) => p.subCategory))
+  );
 
   useEffect(() => {
     const handleLinkClick = (event: Event) => {
       const target = event.target as HTMLElement;
       const anchor = target.closest("a");
 
-      // Restrict clicks only within the mobile menu component
-      if (menuRef.current && menuRef.current.contains(target)) {
-        if (anchor) {
-          event.preventDefault();
-          const href = anchor.getAttribute("href");
-
-          if (href) {
-            handleShowMobileMenu(); // Close mobile menu
-            router.push(href); // Navigate to the clicked link's href
-          }
-        }
+      if (menuRef.current?.contains(target) && anchor) {
+        event.preventDefault();
+        handleShowMobileMenu();
+        router.push(anchor.getAttribute("href") || "/");
       }
     };
 
-    // Add event listener to clicks within the mobile menu component
     document.addEventListener("click", handleLinkClick);
-
-    return () => {
-      // Clean up event listener on component unmount
-      document.removeEventListener("click", handleLinkClick);
-    };
+    return () => document.removeEventListener("click", handleLinkClick);
   }, [handleShowMobileMenu, router]);
 
-  const categories = [
-    { title: "Mens", links: ["Mens #1", "Mens #2", "Mens #3"] },
-    { title: "Womens", links: ["Womens #1", "Womens #2", "Womens #3"] },
-    {
-      title: "Divided",
-      links: ["Divided #1", "Divided #2", "Divided #3", "Divided #4"],
-    },
-    { title: "Kids", links: ["Kids #1", "Kids #2", "Kids #3"] },
-    {
-      title: "Moslem",
-      links: ["Moslem #1", "Moslem #2", "Moslem #3", "Moslem #4"],
-    },
-    {
-      title: "Accessories",
-      links: [
-        "Accessories #1",
-        "Accessories #2",
-        "Accessories #3",
-        "Accessories #4",
-        "Accessories #5",
-      ],
-    },
-  ];
+  // Fetch products on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedProducts = await fetchProducts();
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const pageLinks = [
     { href: "/product", label: "Product" },
-    { href: "product-details.html", label: "Product Details" },
     { href: "/blog", label: "Blog" },
-    { href: "blog-details.html", label: "Blog Details" },
     { href: "/checkout", label: "Checkout" },
   ];
 
@@ -99,21 +81,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                 </span>
                 <div className="dropdown-menu">
                   <div className="container py-2">
-                    <div className="row px-md-4">
-                      {categories.map((category, index) => (
-                        <div className="col-lg-3 my-2" key={index}>
-                          <ul className="list-unstyled">
-                            <li className="lead fg-theme">{category.title}</li>
-                            {category.links.map((link, idx) => (
-                              <li key={idx}>
-                                <Link
-                                  href="/product"
-                                  className="text-secondary"
-                                >
-                                  {link}
-                                </Link>
-                              </li>
-                            ))}
+                    <div className="d-flex flex-column">
+                      {uniqueCategories.map((category, idx) => (
+                        <div key={idx} className=" my-2">
+                          <ul className=" list-unstyled">
+                            <Link href="#" className="fg-theme">
+                              {category}
+                            </Link>
                           </ul>
                         </div>
                       ))}

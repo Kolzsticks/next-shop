@@ -5,15 +5,12 @@ import Secure from "@/app/components/Secure";
 
 
 const Page = () => {
-
-
   return (
-    <main>
+    <main className="overflow-hidden">
       <HomeSection />
       <Parallax />
       <NewSection />
       <Secure />
-     
     </main>
   );
 };

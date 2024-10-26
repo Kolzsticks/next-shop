@@ -6,13 +6,14 @@ const withPWA = withPWAInit({
     // Failed page requests fallback to this.
     document: "/offline",
   },
-  // disable: process.env.NODE_ENV === "development",
+  disable: process.env.NODE_ENV === "development",
   dest: "public",
   register: true,
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // output: 'export',
   images: {
     remotePatterns: [
       {

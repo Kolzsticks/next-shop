@@ -6,9 +6,20 @@ import ProductCard from "@/app/components/Products";
 import TabComponent from "@/app/components/ProductTab";
 import Image from "next/image";
 
-const page = async ({ params }: { params: { id: number } }) => {
+// // Generate static params for each product id
+// export async function generateStaticParams() {
+//   const allProducts = await fetchProducts();
+
+//   return allProducts.map((product) => ({
+//     id: product.id.toString(), // Convert id to string to match dynamic route
+//   }));
+// }
+
+const page = async ({ params }: { params: { id: string } }) => {
   const allProducts = await fetchProducts();
-  const product = allProducts.find((product) => product.id === params.id);
+  const product = allProducts.find(
+    (product) => product.id.toString() === params.id
+  );
 
   if (!product) {
     return <NotFound />;
@@ -142,20 +153,21 @@ const page = async ({ params }: { params: { id: number } }) => {
               <h2 className="title-section text-center">Similar Product</h2>
             </div>
             {allProducts.slice(0, 3).map((product, index) => (
-              <ProductCard
-                key={index}
-                uid={index}
-                id={product.id}
-                name={product.name}
-                image={product.image}
-                rating={product.rating}
-                priceCents={product.priceCents}
-                category={product.category}
-                subCategory={product.subCategory}
-                keywords={product.keywords}
-                isColumn={false}
-                description={product.description}
-              />
+
+                <ProductCard
+                  key={index}
+                  uid={index}
+                  id={product.id}
+                  name={product.name}
+                  image={product.image}
+                  rating={product.rating}
+                  priceCents={product.priceCents}
+                  category={product.category}
+                  subCategory={product.subCategory}
+                  keywords={product.keywords}
+                  isColumn={false}
+                  description={product.description}
+                />
             ))}
           </div>
         </div>
