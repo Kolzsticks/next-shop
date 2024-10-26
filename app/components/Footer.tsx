@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 const Footer = () => {
   const customerServices = [
@@ -57,7 +57,9 @@ const Footer = () => {
         <div className="row align-items-center">
           <div className="col-md-6 mt-2">
             <h4>Sign Up For Newsletter</h4>
-            <p className="mb-0">Be the first to know. Sign Up Newsletter today</p>
+            <p className="mb-0">
+              Be the first to know. Sign Up Newsletter today
+            </p>
           </div>
           <div className="col-md-6 mt-2">
             <div className="input-group">
@@ -139,13 +141,11 @@ const Footer = () => {
               className="img-place auto-v justify-content-start"
               style={{ height: 30 }}
             >
-              
-              <Image 
-              src="/img/payment.png"
-               alt="Payments" 
-               width={200}
-               height={200}
-
+              <Image
+                src="/img/payment.png"
+                alt="Payments"
+                width={200}
+                height={200}
               />
             </div>
           </div>

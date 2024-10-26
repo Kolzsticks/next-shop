@@ -22,6 +22,9 @@ module.exports = {
               './pages/**/*.{js,ts,jsx,tsx}',
               './components/**/*.{js,ts,jsx,tsx}',
             ],
+            safelist: [
+              /^Toastify__/, // Regex to match all classes prefixed with "Toastify__"
+            ],
             defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
           },
         ]
