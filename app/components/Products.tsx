@@ -99,7 +99,7 @@ const ProductCard: React.FC<Product> = ({
               />
             </div>
             <Link
-              href={`product/product-detail/${id}`}
+              href={`product/product-detail/${id}#top-nav`}
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
             >
               Quick View
