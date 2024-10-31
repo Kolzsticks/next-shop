@@ -27,7 +27,6 @@ const HomeSection: React.FC = () => {
     index: number,
     isColumn: boolean
   ) => (
-
     <ProductCard
       key={index}
       uid={index}
@@ -57,13 +56,13 @@ const HomeSection: React.FC = () => {
             >
               <div className="tiles-wrapper tiles-2">
                 <div className="img-place position-relative w-100 h-100 ">
-                  <Image 
-                  src="/img/summer (3).jpg"
-                  alt="title image"
-                  width={765}
-                  height={510}
-                  priority={true}
-                  style={{objectFit: 'cover', width: '100%'}}
+                  <Image
+                    src="/img/summer (3).jpg"
+                    alt="title image"
+                    width={765}
+                    height={510}
+                    priority={true}
+                    style={{ objectFit: "cover", width: "100%" }}
                   />
                 </div>
                 <div className="caption fg-white">
@@ -104,13 +103,13 @@ const HomeSection: React.FC = () => {
                   className="tiles-wrapper tiles-4"
                 >
                   <div className="img-place">
-                    <Image 
-                  src={item.img}
-                  alt="latest image"
-                  width={500}
-                  height={400}
-                  priority={true}
-                  />
+                    <Image
+                      src={item.img}
+                      alt="latest image"
+                      width={500}
+                      height={400}
+                      priority={true}
+                    />
                   </div>
                   <div className="caption">
                     <a href="product.html" className="card-caption">
@@ -144,7 +143,7 @@ const HomeSection: React.FC = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-9">
-              <h3 className="title-section">New Arrivals</h3>
+              <h2 className="title-section">New Arrivals</h2>
               <div className="row mt-2">
                 {featuredProducts
                   .slice(0, 4)
@@ -164,21 +163,21 @@ const HomeSection: React.FC = () => {
                   <div className="card card-collection-tiles">
                     <div className="card-body">
                       <div className="img-place">
-                        <Image 
-                  src="/img/Skinny_Fit_Blazer.jpg"
-                  alt="latest image"
-                  priority={true}
-                  width={400}
-                  height={600}
-                  />
+                        <Image
+                          src="/img/Skinny_Fit_Blazer.jpg"
+                          alt="latest image"
+                          priority={true}
+                          width={400}
+                          height={600}
+                        />
                       </div>
                       <div className="caption fg-white">
                         <p className="mb-1">Find the best Blazer Collection</p>
                         <p className="display-3 fw-semibold">BLAZER</p>
                       </div>
-                      <a href="product.html" className="btn btn-link">
+                      <Link href="/product" className="btn btn-link">
                         Shop Now <span className="icon icon-angle-right" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </motion.div>
@@ -199,19 +198,18 @@ const HomeSection: React.FC = () => {
                         <div className="card-body">
                           <div className="img-place">
                             <Image
-                            src={`/img/image_${index + 1}.jpg`}
-                            width={450}
-                            height={299}
-                            alt="accessories image"
+                              src={`/img/image_${index + 1}.jpg`}
+                              width={450}
+                              height={299}
+                              alt="accessories image"
                             />
-
                           </div>
                           <div className="caption">
                             <h2>{title}</h2>
                           </div>
-                          <a href="product.html" className="btn btn-link">
+                          <Link href="/product" className="btn btn-link">
                             Shop Now <span className="icon icon-angle-right" />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </motion.div>
@@ -245,7 +243,7 @@ const HomeSection: React.FC = () => {
                 outline: "none",
               }}
             >
-              <Link href="/product" className="btn btn-theme px-5">
+              <Link href="/product#top-nav" className="btn btn-theme px-5">
                 View All
               </Link>
             </motion.button>

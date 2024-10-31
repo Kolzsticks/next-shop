@@ -1,16 +1,25 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "../css/mobile-menu.css";
 
-const NewMobileMenu: React.FC = () => {
+const BottomMenu: React.FC = () => {
   const currentPath = usePathname();
-  // Navigation items array
+
+  return <MenuContent currentPath={currentPath} />;
+};
+
+const MenuContent: React.FC<{ currentPath: string }> = ({ currentPath }) => {
   const navItems = [
     { href: "/", iconClass: "icon-home", label: "Home" },
     { href: "/product", iconClass: "icon-shopping_basket", label: "Product" },
     { href: "/search", iconClass: "icon-search", label: "Search" },
-    { href: "/auth/register", iconClass: "icon-user", label: "Profile" },
+    {
+      href: "/dashboard",
+      iconClass: "icon-user",
+      label: "Profile",
+    },
   ];
 
   return (
@@ -22,7 +31,7 @@ const NewMobileMenu: React.FC = () => {
               prefetch={true}
               href={item.href}
               className={`bottom-nav-link d-flex justify-content-center align-items-center ${
-                currentPath === item.href ? "active-nav" : ""
+                currentPath === item.href ? "active-nav" : "nav-link-span"
               }`}
               aria-label={item.label}
             >
@@ -35,4 +44,4 @@ const NewMobileMenu: React.FC = () => {
   );
 };
 
-export default NewMobileMenu;
+export default BottomMenu;

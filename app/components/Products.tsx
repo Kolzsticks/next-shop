@@ -99,7 +99,7 @@ const ProductCard: React.FC<Product> = ({
               />
             </div>
             <Link
-              href={`product/product-detail/${id}#top-nav`}
+              href={`/product/product-detail/${id}#top-nav`}
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
             >
               Quick View
@@ -109,7 +109,7 @@ const ProductCard: React.FC<Product> = ({
           <div className="card-footer">
             <div className="caption">
               <Link
-                href={`product/product-detail/${id}#top-nav`}
+                href={`/product/product-detail/${id}#top-nav`}
                 className="product-title"
               >
                 {name}

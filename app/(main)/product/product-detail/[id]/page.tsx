@@ -15,11 +15,11 @@ import Image from "next/image";
 //   }));
 // }
 
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const id = Number((await params).id);
   const allProducts = await fetchProducts();
-  const product = allProducts.find(
-    (product) => product.id.toString() === params.id
-  );
+  console.log(allProducts);
+  const product = allProducts.find((product) => Number(product.id) === id);
 
   if (!product) {
     return <NotFound />;
@@ -72,9 +72,9 @@ const page = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
             <div className="col-lg-5 py-3">
-              <h3>{product.name}</h3>
+              <h3 style={{fontSize: '20px', fontWeight: 'bold'}}>{product.name}</h3>
               <div
-                className="d-flex flex-row items-center justify-center"
+                className="d-flex flex-row "
                 style={{ width: "100%" }}
               >
                 <div style={{ fontSize: "20px", marginRight: "10px" }}>
@@ -153,21 +153,20 @@ const page = async ({ params }: { params: { id: string } }) => {
               <h2 className="title-section text-center">Similar Product</h2>
             </div>
             {allProducts.slice(0, 3).map((product, index) => (
-
-                <ProductCard
-                  key={index}
-                  uid={index}
-                  id={product.id}
-                  name={product.name}
-                  image={product.image}
-                  rating={product.rating}
-                  priceCents={product.priceCents}
-                  category={product.category}
-                  subCategory={product.subCategory}
-                  keywords={product.keywords}
-                  isColumn={false}
-                  description={product.description}
-                />
+              <ProductCard
+                key={index}
+                uid={index}
+                id={product.id}
+                name={product.name}
+                image={product.image}
+                rating={product.rating}
+                priceCents={product.priceCents}
+                category={product.category}
+                subCategory={product.subCategory}
+                keywords={product.keywords}
+                isColumn={false}
+                description={product.description}
+              />
             ))}
           </div>
         </div>

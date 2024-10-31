@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "../globals.css";
-import 'react-toastify/ReactToastify.min.css'
-import NewMobileMenu from "../components/NewMobileMenu";
+import "react-toastify/ReactToastify.min.css";
+import BottomMenu from "../components/BottomMenu";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { ToastContainer } from "react-toastify";
-
 
 const liveSite = process.env.NEXT_LIVE_SITE_URL;
 const featuredProducts = [
@@ -88,7 +86,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <ToastContainer />
       <Navbar />
       {children}
-      <NewMobileMenu />
+      <BottomMenu />
       <ScrollToTopButton />
       <Footer />
     </>

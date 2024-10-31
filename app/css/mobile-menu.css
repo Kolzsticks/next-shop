@@ -31,4 +31,9 @@
   
     .bottom-nav-link span {
       font-size: 24px;
+   
+    }
+
+    .nav-link-span{
+      color: var(--theme-primary);
     }

@@ -11,32 +11,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: '/about',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: '/product',
       lastModified: new Date(),
-      changeFrequency: 'weekly',  // Product listing page
+      changeFrequency: 'daily',  // Product listing page
       priority: 0.9,
     },
     {
       url: '/blog',
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'daily',
       priority: 0.7,
     },
     {
       url: '/contact',
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'weekly',
       priority: 0.5,
-    },
-    {
-      url: '/terms',
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.4,
     },
     // Add individual product pages dynamically
     ...generateProductPages(),
