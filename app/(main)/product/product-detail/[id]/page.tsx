@@ -18,7 +18,6 @@ import Image from "next/image";
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = Number((await params).id);
   const allProducts = await fetchProducts();
-  console.log(allProducts);
   const product = allProducts.find((product) => Number(product.id) === id);
 
   if (!product) {
