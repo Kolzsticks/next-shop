@@ -146,7 +146,7 @@ const Navbar: React.FC = () => {
                 <div className="btn dropdown-toggle-hover text-secondary">
                   <Link
                     className="text-secondary bold text-decoration-none font-weight-bold"
-                    href="/auth/register"
+                    href="/dashboard"
                   >
                     <span className="">
                       <svg
