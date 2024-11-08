@@ -6,11 +6,19 @@ import ProductCard from "../../components/Products";
 import { fetchProducts } from "@/app/utils/functions";
 import { Product as FeaturedProduct } from "@/app/types/types";
 import Image from "next/image";
+import {CheckCookie} from "@/app/components/CheckCookie";
+
 
 const HomeSection: React.FC = () => {
   const [featuredProducts, setFeaturedProducts] = useState<FeaturedProduct[]>(
     []
   );
+  const [hasCookie, setHasCookie] = useState(false);
+
+  useEffect(() => {
+    const cookieExists = document.cookie.includes('loggedin');
+    setHasCookie(cookieExists);
+  }, []); 
 
   useEffect(() => {
     const getProducts = async () => {
@@ -20,6 +28,8 @@ const HomeSection: React.FC = () => {
 
     getProducts();
   }, []);
+
+ 
 
   // Helper function to render a single ProductCard
   const renderProductCard = (
@@ -47,6 +57,7 @@ const HomeSection: React.FC = () => {
     <>
       <div className="site-section home-section">
         <div className="container">
+        {hasCookie ? <p>Cookie is present</p> : <p>Cookie is not present</p>}
           <div className="row">
             <motion.div
               initial={{ opacity: 0, x: -50 }}

@@ -14,7 +14,6 @@ import {
   HomeIcon,
 } from "lucide-react";
 
-
 import Link from "next/link";
 
 import { useSidebar } from "@/components/ui/sidebar";
@@ -37,6 +36,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "./ui/dropdown-menu";
+import { handleSignOut } from "@/app/(auth)/actions/authActions";
+import { Button } from "./ui/button";
 
 const items = [
   {
@@ -167,13 +168,12 @@ export function AppSidebar() {
                 className="w-[--radix-popper-anchor-width]"
               >
                 <DropdownMenuItem className="w-full">
-                  <span>Account</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="w-full">
-                  <span>Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sign out</span>
+                  <form action={handleSignOut}>
+                    <Button variant="default" className="bg-theme" type="submit">
+                    <span>Sign out</span>
+                    </Button>
+                  </form>
+                  
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -18,7 +18,7 @@ const page = () => {
           <div className="row align-items-center mb-5">
             <div className="col-lg-6 mb-lg-0">
               <a
-                href="https://vimeo.com/317571768"
+                href="#"
                 className="img-place rounded "
               >
                 <span className="play-icon">
@@ -26,7 +26,7 @@ const page = () => {
                 </span>
 
                 <Image
-                  src="/img/hero-img_1.jpg"
+                  src="/img/summer (3).jpg"
                   alt="Image"
                   className="img-shadow"
                   width={500}

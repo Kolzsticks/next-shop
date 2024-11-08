@@ -19,6 +19,7 @@ const navLinks = [
 const dropdownLinks = [
   { href: "/product", label: "Product" },
   { href: "/blog", label: "Blog" },
+  { href: "/checkout", label: "Checkout" },
 ];
 
 const Navbar: React.FC = () => {

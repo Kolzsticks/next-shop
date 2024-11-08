@@ -65,6 +65,7 @@ const Cart: React.FC<CartButtonProps> = ({ handleCartClick }) => {
                       name="number"
                       value={item.quantity}
                       readOnly
+                      min={1}
                       style={{ height: "30px" }}
                     />
                     <button

@@ -1,14 +1,12 @@
+import type { Metadata } from "next";
 
-import "../globals.css";
-import "./css/style.css";
+export const metadata: Metadata = {
+  title: "User Dashboard OnyxShop",
+  description: "Checkout your dashboard.",
+};
 
-
-
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
-}
+};
+
+export default MainLayout;

@@ -1,7 +1,13 @@
+'use client'
+
 import { OverviewCards } from "@/components/overview_card";
 import { ShoppingBag, DollarSign, Heart } from "lucide-react"; // Import icons
+import useCartStore from "@/app/(main)/store/CartStore";
 
 const Overview = () => {
+  const { cartItems, totalItems, loadCart, removeFromCart, updateQuantity } =
+  useCartStore();
+
   return (
     <div className="flex flex-col w-full  gap-8">
       <section className="flex items-center gap-2">
@@ -18,7 +24,7 @@ const Overview = () => {
       <div className="flex lg:flex-row flex-col w-full items-center justify-between gap-4">
         <OverviewCards
           title="Total Orders"
-          value="50"
+          value={totalItems.toString()}
           footer="View Details"
           icon={ShoppingBag}
         />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import ProductCard from "@/app/components/Products";
 import TabComponent from "@/app/components/ProductTab";
 import Image from "next/image";
+import { AddToCartExportButton } from "@/app/components/CartUtils";
 
 // // Generate static params for each product id
 // export async function generateStaticParams() {
@@ -71,11 +72,10 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
             </div>
             <div className="col-lg-5 py-3">
-              <h3 style={{fontSize: '20px', fontWeight: 'bold'}}>{product.name}</h3>
-              <div
-                className="d-flex flex-row "
-                style={{ width: "100%" }}
-              >
+              <h3 style={{ fontSize: "20px", fontWeight: "bold" }}>
+                {product.name}
+              </h3>
+              <div className="d-flex flex-row " style={{ width: "100%" }}>
                 <div style={{ fontSize: "20px", marginRight: "10px" }}>
                   {product.rating.stars}
                 </div>
@@ -104,28 +104,16 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                   XL
                 </button>
               </div>
-              <p className="fs-large fw-bold mb-1 mt-3">Quantity:</p>
-              <div className="number-input">
-                <button className="btn btn-theme btn-sm btn-decrease">
-                  <span className="icon-minus" />
-                </button>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="number"
-                  min={0}
-                  max={250}
-                />
-                <button className="btn btn-theme btn-sm btn-increase">
-                  <span className="icon-plus" />
-                </button>
-              </div>
+
               <h4 className="mt-4 mb-3">
                 Price: ${(product.priceCents / 100).toFixed(2)}
               </h4>
-              <a href="#" className="btn btn-theme-outline mr-2">
-                <span className="icon-add_shopping_cart" /> Add to Cart
-              </a>
+
+              <AddToCartExportButton product={product}>
+                <span className="btn btn-theme-outline mr-2">
+                  <span className="icon-add_shopping_cart" /> Add to Cart
+                </span>
+              </AddToCartExportButton>
               <Link href="/checkout" className="btn btn-theme">
                 Proceed Checkout
               </Link>

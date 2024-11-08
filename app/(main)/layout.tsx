@@ -6,6 +6,7 @@ import BottomMenu from "../components/BottomMenu";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { ToastContainer } from "react-toastify";
 
+
 const liveSite = process.env.NEXT_LIVE_SITE_URL;
 const featuredProducts = [
   {

@@ -9,6 +9,7 @@ module.exports = {
     // './app/**/*.{ts,tsx}',
     // './src/**/*.{ts,tsx}',
 	'./app/(dashboard)/**/*.{ts,tsx}', 
+	'./app/(auth)/**/*.{ts,tsx}'
 	],
 	theme: {
     	extend: {

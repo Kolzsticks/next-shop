@@ -1,12 +1,111 @@
+'use client'
 import Image from "next/image";
+import useCartStore from "../store/CartStore";
+import { useEffect } from "react";
 
 const page = () => {
+  const { cartItems, totalItems, loadCart, removeFromCart, updateQuantity } =
+    useCartStore();
+
+    const deliveryFee = 3.99;
+
+    useEffect(() => {
+      loadCart(); // Load cart items from localStorage
+    }, [loadCart]);
+
+    const subtotal = cartItems.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
+
+
   return (
     <>
       <div className="site-section py-5">
         <div className="container">
-          <h2 className="text-center">Checkout &amp; Payments</h2>
+          <h2 className="text-center font-bold text-2xl">Checkout {`(${totalItems} items)`}</h2>
           <div className="row justify-content-center mt-5">
+          <div className="col-lg-6 px-lg-5">
+              <h5 className="text-secondary">Your Orders</h5>
+              <ul className="product-cart-list">
+          {cartItems.map((item) => (
+            <li className="cart-item" key={item.id}>
+              <div className="img-place">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={100}
+                  height={100}
+                  loading="lazy"
+                />
+              </div>
+              <div className="caption">
+                <h5>{item.name}</h5>
+                <div className="mb-0">
+                  Qty:
+                  <div className="d-inline-flex number-input number-input-sm">
+                    <button
+                      className="btn btn-theme btn-sm btn-decrease"
+                      onClick={() => updateQuantity(item.id, -1)}
+                    >
+                      <span className="icon-minus" />
+                    </button>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="number"
+                      value={item.quantity}
+                      readOnly
+                      style={{ height: "30px" }}
+                      min={1}
+                    />
+                    <button
+                      className="btn btn-theme btn-sm btn-increase"
+                      onClick={() => updateQuantity(item.id, 1)}
+                    >
+                      <span className="icon-plus" />
+                    </button>
+                  </div>
+                </div>
+                <p className="mb-0">
+                  Price:{" "}
+                  <span className="fg-theme">${item.price.toFixed(2)}</span>
+                </p>
+              </div>
+              <button
+                className="btn btn-fab btn-sm"
+                onClick={() => removeFromCart(item.id)}
+              >
+                <span className="icon-trash-o" />
+              </button>
+            </li>
+          ))}
+        </ul>
+              <div className="py-2 mb-4">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Coupon Code"
+                  />
+                  <button className="btn btn-theme">Apply</button>
+                </div>
+              </div>
+              <div className="product-cart-invoice">
+                <h6 className="d-flex flex-row justify-content-between">
+                  <span>SubTotal </span>
+                  <span className="text-right text-secondary">${subtotal.toFixed(2)}</span>
+                </h6>
+                <h6 className="d-flex flex-row justify-content-between">
+                  <span>Delivery </span>
+                  <span className="text-right text-secondary">${deliveryFee.toFixed(2)}</span>
+                </h6>
+                <h5 className="d-flex flex-row justify-content-between mt-3">
+                  <span>Total </span>
+                  <span className="text-right text-secondary">${(subtotal + deliveryFee).toFixed(2)}</span>
+                </h5>
+              </div>
+            </div>
             <div className="col-lg-6 px-lg-5">
               <h5 className="text-secondary">Shipping Details</h5>
               <hr />
@@ -127,113 +226,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 px-lg-5">
-              <h5 className="text-secondary">Your Orders</h5>
-              <ul className="product-cart-list">
-                <li className="cart-item">
-                  <div className="img-place">
-                    <Image
-                      src="/img/Super_Slim-fit_Pants.jpg"
-                      alt=""
-                      width={400}
-                      height={400}
-                      unoptimized={true}
-                    />
-                  </div>
-                  <div className="caption">
-                    <h5>Product Name</h5>
-                    <div className="mb-0">
-                      Qty:
-                      <div className="d-inline-flex number-input number-input-sm">
-                        <button className="btn btn-theme btn-sm btn-decrease">
-                          <span className="icon-minus" />
-                        </button>
-                        <input
-                          type="number"
-                          className="form-control"
-                          name="number"
-                          defaultValue={4}
-                          min={0}
-                          max={250}
-                        />
-                        <button className="btn btn-theme btn-sm btn-increase">
-                          <span className="icon-plus" />
-                        </button>
-                      </div>
-                    </div>
-                    <p className="mb-0">
-                      Price: <span className="fg-theme">$19.99</span>
-                    </p>
-                  </div>
-                  <button className="btn btn-fab btn-sm">
-                    <span className="icon-trash-o" />
-                  </button>
-                </li>
-                <li className="cart-item">
-                  <div className="img-place">
-                    <Image
-                      src="/img/Super_Slim-fit_Pants.jpg"
-                      alt=""
-                      width={400}
-                      height={400}
-                      unoptimized={true}
-                    />
-                  </div>
-                  <div className="caption">
-                    <h5>Product Name</h5>
-                    <div className="mb-0">
-                      Qty:
-                      <div className="d-inline-flex number-input number-input-sm">
-                        <button className="btn btn-theme btn-sm btn-decrease">
-                          <span className="icon-minus" />
-                        </button>
-                        <input
-                          type="number"
-                          className="form-control"
-                          name="number"
-                          defaultValue={2}
-                          min={0}
-                          max={250}
-                        />
-                        <button className="btn btn-theme btn-sm btn-increase">
-                          <span className="icon-plus" />
-                        </button>
-                      </div>
-                    </div>
-                    <p className="mb-0">
-                      Price: <span className="fg-theme">$19.99</span>
-                    </p>
-                  </div>
-                  <button className="btn btn-fab btn-sm">
-                    <span className="icon-trash-o" />
-                  </button>
-                </li>
-              </ul>
-              <div className="py-2 mb-4">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Coupon Code"
-                  />
-                  <button className="btn btn-theme">Apply</button>
-                </div>
-              </div>
-              <div className="product-cart-invoice">
-                <h6 className="d-flex flex-row justify-content-between">
-                  <span>SubTotal </span>
-                  <span className="text-right text-secondary">$39.91</span>
-                </h6>
-                <h6 className="d-flex flex-row justify-content-between">
-                  <span>Shipping </span>
-                  <span className="text-right text-secondary">$3.99</span>
-                </h6>
-                <h5 className="d-flex flex-row justify-content-between mt-3">
-                  <span>Total </span>
-                  <span className="text-right text-secondary">$43.8</span>
-                </h5>
-              </div>
-            </div>
+            
           </div>
           <div className="text-center mt-5">
             <button className="btn btn-theme">

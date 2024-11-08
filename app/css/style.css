@@ -1128,6 +1128,21 @@ a.badge-theme:hover {
   z-index: 1500;
 }
 
+.real-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: 100vh;
+  max-width: 360px;
+  background-color: #fff;
+  overflow-y: auto;
+  box-shadow: 7px 0 28px rgba(0, 0, 0, 0.12);
+  z-index: 1500;
+}
+
 .charm.show {
   visibility: visible;
 }

@@ -55,7 +55,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
 
   return (
     <>
-      <div ref={menuRef} className="charm left show" id="mobileMenu">
+      <div ref={menuRef} className="real-mobile-menu left show" id="mobileMenu">
         {" "}
         {/* Attach ref to the menu container */}
         <div className="charm-header">
