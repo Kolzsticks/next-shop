@@ -57,7 +57,7 @@ const HomeSection: React.FC = () => {
     <>
       <div className="site-section home-section">
         <div className="container">
-        {hasCookie ? <p>Cookie is present</p> : <p>Cookie is not present</p>}
+        {/* {hasCookie ? <p>Cookie is present</p> : <p>Cookie is not present</p>} */}
           <div className="row">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
