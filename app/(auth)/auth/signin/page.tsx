@@ -22,6 +22,7 @@ import ErrorMessage from "@/components/error-message";
 import { motion } from "framer-motion";
 import GoogleLoginButton from "@/app/components/GoogleLoginButton";
 import { handleGoogleSignIn } from "../../actions/authActions";
+import Link from "next/link";
 
 export default function SignIn() {
   const [globalError, setGlobalError] = useState<string>("");
@@ -45,7 +46,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-svh">
       {/* Image & Store Title Section */}
       <div
         className="hidden md:flex w-1/2 bg-cover bg-center relative"
@@ -81,11 +82,19 @@ export default function SignIn() {
         </div>
       </div>
 
+      {/* Mobile-only Background Image */}
+      <div
+        className="block md:hidden absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/img/mobile_bg.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
+
       {/* Login Form Section */}
-      <div className="flex w-full md:w-1/2 items-center justify-center p-8 lg:p-16 bg-white">
-        <Card className="w-full max-w-md space-y-6">
+      <div className="relative flex w-full md:w-1/2 items-center justify-center p-4 lg:p-16 lg:bg-gray-300 md:bg-gray-300">
+        <Card className="w-full max-w-md space-y-6 lg:bg-gray-200">
           <CardHeader>
-            <CardTitle className="text-4xl font-bold text-center text-gray-800">
+            <CardTitle className="text-2xl lg:text-4xl font-bold text-center text-gray-800">
               Welcome Back
             </CardTitle>
             <p className="text-center text-gray-600">Sign in to continue</p>
@@ -105,7 +114,8 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel className="text-gray-700">Email</FormLabel>
                       <FormControl>
-                        <Input
+                        <Input 
+className="bg-white"
                           type="email"
                           placeholder="Enter your email address"
                           autoComplete="off"
@@ -125,7 +135,8 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel className="text-gray-700">Password</FormLabel>
                       <FormControl>
-                        <Input
+                        <Input 
+className="bg-white"
                           type="password"
                           placeholder="Enter password"
                           {...field}
@@ -144,9 +155,15 @@ export default function SignIn() {
               or
             </span>
             <form className="w-full" action={handleGoogleSignIn}>
-              <GoogleLoginButton />
+              <GoogleLoginButton text="Sign in With Google" />
             </form>
           </CardContent>
+          <p className="text-center text-gray-600 mb-4">
+            Don't have an account?{" "}
+            <Link href="/auth/register" className="fg-theme hover:underline">
+              Register
+            </Link>
+          </p>
         </Card>
       </div>
     </div>
