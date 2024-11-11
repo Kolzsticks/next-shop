@@ -22,10 +22,12 @@ import { motion } from "framer-motion";
 import { registerSchema } from "@/lib/zod";
 import GoogleLoginButton from "@/app/components/GoogleLoginButton";
 import { handleGoogleSignIn } from "../../actions/authActions";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [globalError, setGlobalError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const router = useRouter();
 
   // Initialize form with zod schema validation
   const form = useForm<z.infer<typeof registerSchema>>({
@@ -66,6 +68,7 @@ export default function Register() {
         );
         setGlobalError("");
         form.reset();
+        router.push('/auth/signin')
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
@@ -220,8 +223,8 @@ export default function Register() {
             <span className="text-sm text-gray-500 text-center block my-2">
               or
             </span>
-            <form className="w-full" action={handleGoogleSignIn}>
-              <GoogleLoginButton text="Sign up with Google" />
+            <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+              <GoogleLoginButton  text="Sign up with Google" onSubmit={handleGoogleSignIn} />
             </form>
           </CardContent>
           <p className="text-center text-gray-600 mb-4">

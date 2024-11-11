@@ -154,8 +154,8 @@ className="bg-white"
             <span className="text-sm text-gray-500 text-center block my-2">
               or
             </span>
-            <form className="w-full" action={handleGoogleSignIn}>
-              <GoogleLoginButton text="Sign in With Google" />
+            <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+              <GoogleLoginButton  text="Sign in with Google" onSubmit={handleGoogleSignIn} />
             </form>
           </CardContent>
           <p className="text-center text-gray-600 mb-4">

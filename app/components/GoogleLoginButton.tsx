@@ -1,18 +1,55 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import "./GoogleLoginButton.css";
+import { useState } from "react";
 
 interface GoogleLoginButtonProps {
   text: string;
+  onSubmit: () => void; // Callback to handle form submission
 }
 
-const GoogleLoginButton = ({ text }: GoogleLoginButtonProps) => {
+const GoogleLoginButton = ({ text, onSubmit }: GoogleLoginButtonProps) => {
+  const [pending, setPending] = useState<boolean>(false);
+
+  // Handle the button click by setting the 'pending' state to true and calling the onSubmit callback
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default form submission
+    setPending(true);
+    onSubmit(); // Trigger the form submission handler
+  };
+
   return (
     <Button
       variant="outline"
       className="w-full h-12 flex items-center justify-center gap-2 focus:outline-none"
-      type="submit"
+      type="button" // Change type to "button" to prevent default form submission
+      disabled={pending}
+      onClick={handleClick}
     >
+      {pending && (
+        <div className="flex items-center justify-center">
+          <svg
+            className="animate-spin h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="#fe6c32"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </div>
+      )}
       <svg
         id="Capa_1"
         version="1.1"

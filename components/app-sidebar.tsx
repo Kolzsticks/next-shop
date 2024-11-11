@@ -168,12 +168,16 @@ export function AppSidebar() {
                 className="w-[--radix-popper-anchor-width]"
               >
                 <DropdownMenuItem className="w-full">
-                  <form action={handleSignOut}>
-                    <Button variant="default" className="bg-theme" type="submit">
-                    <span>Sign out</span>
-                    </Button>
+                  <form action={handleSignOut} className="w-full">
+                    <span className="w-full">
+                      <button
+                        className="w-full focus:outline-none ring-0 text-left"
+                        type="submit"
+                      >
+                        Sign out
+                      </button>
+                    </span>
                   </form>
-                  
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
