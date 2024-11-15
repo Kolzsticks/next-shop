@@ -114,8 +114,8 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel className="text-gray-700">Email</FormLabel>
                       <FormControl>
-                        <Input 
-className="bg-white"
+                        <Input
+                          className="bg-white"
                           type="email"
                           placeholder="Enter your email address"
                           autoComplete="off"
@@ -135,8 +135,8 @@ className="bg-white"
                     <FormItem>
                       <FormLabel className="text-gray-700">Password</FormLabel>
                       <FormControl>
-                        <Input 
-className="bg-white"
+                        <Input
+                          className="bg-white"
                           type="password"
                           placeholder="Enter password"
                           {...field}
@@ -155,7 +155,7 @@ className="bg-white"
               or
             </span>
             <form className="w-full" onSubmit={(e) => e.preventDefault()}>
-              <GoogleLoginButton  text="Sign in with Google" onSubmit={handleGoogleSignIn} />
+              <GoogleLoginButton text="Sign in with Google" onSubmit={handleGoogleSignIn} />
             </form>
           </CardContent>
           <p className="text-center text-gray-600 mb-4">
