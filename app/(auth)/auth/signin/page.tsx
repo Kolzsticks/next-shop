@@ -94,8 +94,8 @@ export default function SignIn() {
       <div className="relative flex w-full md:w-1/2 items-center justify-center p-4 lg:p-16 lg:bg-gray-300 md:bg-gray-300">
         <Card className="w-full max-w-md space-y-6 lg:bg-gray-200">
           <CardHeader>
-            <CardTitle className="text-2xl lg:text-4xl font-bold text-center text-gray-800">
-              Welcome Back
+            <CardTitle className="text-2xl lg:text-4xl font-bold text-center text-gray-800 flex items-center">
+        <Link href='/' className="mr-2"><span className="icon-home"></span></Link>      Welcome Back
             </CardTitle>
             <p className="text-center text-gray-600">Sign in to continue</p>
           </CardHeader>
