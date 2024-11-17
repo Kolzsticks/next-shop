@@ -1402,21 +1402,23 @@ a.badge-theme:hover {
 .card-product .card-header {
   position: absolute;
   top: 0;
-  right: -100px;
+  /* right: -100px; */
   padding: 5px;
   border-bottom: 0;
   background-color: transparent;
   width: auto;
-  opacity: 0;
+  /* opacity: 0; */
+  right: 0;
+  opacity: 1;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   z-index: 20;
 }
 
-.card-product:hover .card-header {
+/* .card-product:hover .card-header {
   right: 0;
   opacity: 1;
-}
+} */
 
 .card-product .card-header .btn-fab {
   display: flex;
