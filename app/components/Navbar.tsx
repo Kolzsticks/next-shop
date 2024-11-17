@@ -10,7 +10,6 @@ import Image from "next/image";
 import Providers from "./ProgressBar";
 import useCartStore from "../(main)/store/CartStore";
 import { useSession } from "next-auth/react";
-import { UserCheck } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home", iconClass: "icon-home2", isActive: true },

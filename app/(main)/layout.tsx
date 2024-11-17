@@ -80,16 +80,16 @@ export const metadata: Metadata = {
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <ToastContainer position="top-right" />
       <Navbar />
       {children}
       <BottomMenu />
       <ScrollToTopButton />
+      <ToastContainer position="top-right" />
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </>
   );
 };
