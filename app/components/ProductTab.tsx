@@ -63,6 +63,9 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
           </ul>
         </div>
         <div className="tab-pane" id="content-review">
+      
+      <div  className="row">
+      <div  className="col-sm-10 col-md-8 col-lg-6">
           <div className="product-review">
             <div className="review-dialog">
               <div className="profile-picture">
@@ -175,6 +178,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ description }) => {
               </div>
               <button className="btn btn-theme">Submit</button>
             </form>
+          </div>
+          </div>
           </div>
 
         </div>
