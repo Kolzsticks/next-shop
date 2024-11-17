@@ -12,7 +12,6 @@ import useCartStore from "../(main)/store/CartStore";
 
 const notify = (message: string) =>
   toast.success(message, {
-    position: "top-center",
     autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -47,7 +46,6 @@ const ProductCard: React.FC<Product> = ({
     if (existingItem) {
       // Notify that the item already exists in the cart
       toast.info("Item already exists in the cart", {
-        position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,

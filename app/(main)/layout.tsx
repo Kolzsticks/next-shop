@@ -84,7 +84,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ToastContainer />
+      <ToastContainer position="top-right" />
       <Navbar />
       {children}
       <BottomMenu />

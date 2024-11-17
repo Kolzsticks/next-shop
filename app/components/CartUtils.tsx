@@ -27,7 +27,6 @@ export const handleAddToCart = (product: Product) => {
 
   if (existingItem) {
     toast.info("Item already exists in the cart", {
-      position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
