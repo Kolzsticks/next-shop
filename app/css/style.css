@@ -1487,18 +1487,18 @@ a.badge-theme:hover {
 
 .card-product .card-body .btn {
   position: absolute;
-  bottom: -15px;
-  opacity: 0;
-  visibility: hidden;
+  bottom: 15px;
+  opacity: 1;
+  visibility: visible;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
-.card-product:hover .card-body .btn {
+/* .card-product:hover .card-body .btn {
   bottom: 15px;
   opacity: 1;
   visibility: visible;
-}
+} */
 
 .card-product .card-footer {
   background-color: #fff;

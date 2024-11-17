@@ -100,7 +100,7 @@ const ProductCard: React.FC<Product> = ({
               href={`/product/product-detail/${id}#top-nav`}
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
             >
-              Quick View
+              View Details
             </Link>
           </div>
 
