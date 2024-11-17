@@ -10,13 +10,13 @@ export default function RootLayout({
 }>) {
   return (
     <SessionProvider>
-      <html lang="en">
-        <body>
-          <CookiesProviderLayout>
+      <CookiesProviderLayout>
+        <html lang="en">
+          <body>
             {children}
-          </CookiesProviderLayout>
-        </body>
-      </html>
+          </body>
+        </html>
+      </CookiesProviderLayout>
     </SessionProvider>
   );
 }
