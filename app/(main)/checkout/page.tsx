@@ -82,14 +82,7 @@ const page = () => {
           ))}
         </ul>
               <div className="py-2 mb-4">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Coupon Code"
-                  />
-                  <button className="btn btn-theme">Apply</button>
-                </div>
+              
               </div>
               <div className="product-cart-invoice">
                 <h6 className="d-flex flex-row justify-content-between">
@@ -113,7 +106,7 @@ const page = () => {
                 <div className="col-md-6">
                   <div className="input-group floating-label my-2">
                     <input
-                      type="number"
+                      type="text"
                       id="contactPayment"
                       className="form-control"
                     />
@@ -178,7 +171,7 @@ const page = () => {
                 <div className="col-12 col-md-6">
                   <div className="input-group floating-label my-2">
                     <input
-                      type="number"
+                      type="text"
                       id="cardNumberPayment"
                       className="form-control"
                     />
@@ -195,7 +188,7 @@ const page = () => {
                     <div className="col-6 px-2">
                       <div className="input-group floating-label my-2">
                         <input
-                          type="number"
+                          type="text"
                           id="expPayment"
                           className="form-control"
                         />
@@ -210,7 +203,7 @@ const page = () => {
                     <div className="col-6 px-2">
                       <div className="input-group floating-label my-2">
                         <input
-                          type="number"
+                          type="text"
                           id="CVVPayment"
                           className="form-control"
                         />

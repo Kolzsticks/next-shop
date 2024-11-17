@@ -936,6 +936,11 @@ a.badge-theme:hover {
   transform: unset;
 }
 
+.user-dashboar-icon{
+  width: 10px;
+  height: 10px;
+}
+
 .number-input {
   display: -ms-flexbox;
   display: flex;

@@ -9,6 +9,8 @@ import { Product } from "../types/types";
 import Image from "next/image";
 import Providers from "./ProgressBar";
 import useCartStore from "../(main)/store/CartStore";
+import { useSession } from "next-auth/react";
+import { UserCheck } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home", iconClass: "icon-home2", isActive: true },
@@ -26,6 +28,8 @@ const Navbar: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+  const { data: session } = useSession();
+  console.log(session);
 
   // Access totalItems and subscribe to its changes
   const totalItems = useCartStore((state) => state.totalItems);
@@ -65,7 +69,7 @@ const Navbar: React.FC = () => {
   return (
     <Providers>
       <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm" id="top-nav">
-        <div className="container py-2">
+        <div className="d-flex justify-content-between align-items-center gap-3 w-100 container py-2">
           <Link href="/" className="navbar-brand mb-2 mb-sm-0">
             <Image
               width={30}
@@ -76,7 +80,7 @@ const Navbar: React.FC = () => {
             <span className="fg-theme">Onyx</span>Shop
           </Link>
           <div className="navbar-collapse collapse" id="mobileNav">
-            <ul className="navbar-nav">
+            <ul className="navbar-nav d-flex justify-content-center w-100">
               {navLinks.map(({ href, label, iconClass, isActive }, idx) => (
                 <li key={idx} className="nav-item px-lg-2">
                   <Link
@@ -131,52 +135,67 @@ const Navbar: React.FC = () => {
               </li>
             </ul>
           </div>
-          <div className="">
-            <ul className="nav justify-content-end">
-              <li className="nav-item px-1 d-none d-lg-block">
-                <div className="btn btn-fab text-secondary">
-                  <Link
-                    className="text-secondary text-decoration-none"
-                    href="/search"
-                  >
-                    <span className="icon icon-search"></span>
-                  </Link>
-                </div>
-              </li>
-              <li className="nav-item px-1 dropdown" id="account">
-                <div className="btn dropdown-toggle-hover text-secondary">
-                  <Link
-                    className="text-secondary bold text-decoration-none font-weight-bold"
-                    href="/dashboard"
-                  >
-                    <span className="">
-                      <svg
-                        className="icon-signin"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                      >
-                        <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
-                      </svg>
-                    </span>
-                  </Link>
-                </div>
-              </li>
-              <li onClick={handleCartClick} className="nav-item px-1">
-                <div className="btn btn-fab text-secondary">
-                  <span className="icon icon-shopping-cart" />
-                  <div className="badge badge-theme">{totalItems}</div>
-                </div>
-              </li>
-              <li
-                onClick={handleShowMobileMenu}
-                className="nav-item d-lg-none px-1"
-              >
-                <div className="btn btn-fab text-secondary">
-                  <span className="icon icon-menu" />
-                </div>
-              </li>
-            </ul>
-          </div>
+
+          <ul className="nav d-flex justify-content-between align-items-center w-auto">
+            <li className="nav-item px-1 d-none d-lg-block">
+              <div className="btn btn-fab text-secondary">
+                <Link
+                  className="text-secondary text-decoration-none"
+                  href="/search"
+                >
+                  <span className="icon icon-search"></span>
+                </Link>
+              </div>
+            </li>
+            <li className="nav-item d-px-1 " id="account">
+              <div className="btn text-secondary">
+                <Link
+                  className="text-secondary bold text-decoration-none font-weight-bold w-25"
+                  href="/dashboard"
+                >
+                  {session ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#fe6c32"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-user-check"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx={9} cy={7} r={4} />
+                      <polyline points="16 11 18 13 22 9" />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="icon-signin"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                    >
+                      <path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
+                    </svg>
+                  )}
+                </Link>
+              </div>
+            </li>
+            <li onClick={handleCartClick} className="nav-item px-1">
+              <div className="btn btn-fab text-secondary">
+                <span className="icon icon-shopping-cart" />
+                <div className="badge badge-theme">{totalItems}</div>
+              </div>
+            </li>
+            <li onClick={handleShowMobileMenu} className="nav-item d-lg-none px-1">
+              <div className="btn btn-fab text-secondary">
+                <span className="icon icon-menu" />
+              </div>
+            </li>
+          </ul>
+
+
         </div>
       </nav>
       {showCart && (

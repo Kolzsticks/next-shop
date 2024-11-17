@@ -11,7 +11,7 @@ export async function handleCredentialsSignin({
   password: string;
 }) {
   try {
-    await signIn("credentials", { email, password, redirectTo: "/dashboard" });
+    await signIn("credentials", { email, password, redirectTo: "/" });
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -30,7 +30,7 @@ export async function handleCredentialsSignin({
 }
 
 export async function handleGoogleSignIn() {
-  await signIn("google", { redirectTo: "/dashboard" });
+  await signIn("google", { redirectTo: "/" });
 }
 
 export async function handleSignOut() {

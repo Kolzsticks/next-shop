@@ -1,18 +1,19 @@
 import NextAuth, { User } from 'next-auth';
-import Credentials from "next-auth/providers/credentials";
+import Credentials from 'next-auth/providers/credentials';
 import { signInSchema } from './lib/zod';
 import Google from 'next-auth/providers/google';
+import { cookies } from 'next/headers';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
         Google({
             clientId: process.env.AUTH_GOOGLE_ID,
-            clientSecret: process.env.AUTH_GOOGLE_SECRET
+            clientSecret: process.env.AUTH_GOOGLE_SECRET,
         }),
         Credentials({
             credentials: {
-                email: { label: "Email", type: "email", placeholder: "Email" },
-                password: { label: "Password", type: "password", placeholder: "Password" },
+                email: { label: 'Email', type: 'email', placeholder: 'Email' },
+                password: { label: 'Password', type: 'password', placeholder: 'Password' },
             },
 
             async authorize(credentials): Promise<User | null> {
@@ -25,16 +26,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
                 try {
                     // Call the external API for login
-                    const response = await fetch('https://ecommerce-api-kfwt.onrender.com/api/v1/auth/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            email: credentials.email,
-                            password: credentials.password,
-                        }),
-                    });
+                    const response = await fetch(
+                        'https://ecommerce-api-kfwt.onrender.com/api/v1/auth/login',
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                email: credentials.email,
+                                password: credentials.password,
+                            }),
+                        }
+                    );
 
                     if (!response.ok) {
                         const errorData = await response.json();
@@ -47,7 +51,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     // Successful login, map the token and email to a User object
                     if (data.success) {
                         return {
-                            id: data.access_token,   // Required User field
+                            id: data.access_token, // Required User field
                             email: credentials.email, // Required User field
                         } as User; // Ensure it conforms to the User type
                     }
@@ -57,35 +61,43 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     console.error('Login error:', error);
                     return null;
                 }
-            }
-        })],
+            },
+        }),
+    ],
     callbacks: {
+        // Set the cookie when a user signs in via either provider
+        async jwt({ token, user }) {
+            if (user) {
+                // Add the user information to the token
+                token.id = user.id as string;
+
+                // Set a cookie after successful login
+                const expiresAt = new Date();
+                expiresAt.setMinutes(expiresAt.getMinutes() + 10); // Cookie expires in 10 minutes
+                (await cookies()).set('loggedin', 'true', { expires: expiresAt });
+            }
+            return token;
+        },
+
+        async session({ session, token }) {
+            // Store the access token in the session object
+            session.user.id = token.id;
+            return session;
+        },
+
         authorized({ request: { nextUrl }, auth }) {
             const isLoggedIn = !!auth?.user;
             const { pathname } = nextUrl;
 
             if (pathname.startsWith('/auth/signin') && isLoggedIn) {
+                // Redirect logged-in users away from the signin page
                 return Response.redirect(new URL('/', nextUrl));
             }
 
-            return !!auth;
+            return !!auth; // Return whether the user is authorized
         },
-
-        jwt({ token, user }) {
-            if (user) {
-                // Store the access token in the token object for later use
-                token.id = user.id as string;
-            }
-            return token;
-        },
-
-        session({ session, token }) {
-            // Store the access token in the session object
-            session.user.id = token.id;
-            return session;
-        }
     },
     pages: {
-        signIn: '/auth/signin'
-    }
+        signIn: '/auth/signin', // Custom sign-in page
+    },
 });

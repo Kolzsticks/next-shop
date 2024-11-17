@@ -6,7 +6,8 @@ import ProductCard from "../../components/Products";
 import { fetchProducts } from "@/app/utils/functions";
 import { Product as FeaturedProduct } from "@/app/types/types";
 import Image from "next/image";
-import {CheckCookie} from "@/app/components/CheckCookie";
+import CookieChecker from "@/app/components/CheckCookie";
+
 
 
 const HomeSection: React.FC = () => {
@@ -15,10 +16,7 @@ const HomeSection: React.FC = () => {
   );
   const [hasCookie, setHasCookie] = useState(false);
 
-  useEffect(() => {
-    const cookieExists = document.cookie.includes('loggedin');
-    setHasCookie(cookieExists);
-  }, []); 
+  
 
   useEffect(() => {
     const getProducts = async () => {
@@ -57,7 +55,7 @@ const HomeSection: React.FC = () => {
     <>
       <div className="site-section home-section">
         <div className="container">
-        {/* {hasCookie ? <p>Cookie is present</p> : <p>Cookie is not present</p>} */}
+       <CookieChecker />
           <div className="row">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -84,9 +82,9 @@ const HomeSection: React.FC = () => {
                   <h4 className="mb-4">
                     Get <span className="fg-theme">40%</span> Off
                   </h4>
-                  <a href="product.html" className="btn btn-theme">
+                  <Link href="/product" className="btn btn-theme">
                     Shop Now
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -123,10 +121,10 @@ const HomeSection: React.FC = () => {
                     />
                   </div>
                   <div className="caption">
-                    <a href="product.html" className="card-caption">
+                    <Link href="/product" className="card-caption">
                       <div className="small pos-top">30% Off</div>
                       {item.title}
-                    </a>
+                    </Link>
                   </div>
                 </motion.div>
               ))}

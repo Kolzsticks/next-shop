@@ -49,11 +49,7 @@ const RecentOrders = () => {
         ))}
       </div>
 
-      <div className="flex items-center justify-center mt-4">
-        <Button className="w-1/2 bg-orange-600 hover:bg-orange-700">
-          <Link href="#" className="">View More</Link>
-        </Button>
-      </div>
+      
     </>
   );
 };

@@ -1,4 +1,6 @@
 import './globals.css'
+import CookiesProviderLayout from './components/CookiesProvider';
+import { SessionProvider } from 'next-auth/react';
 
 
 export default function RootLayout({
@@ -7,9 +9,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-
-    </html>
+    <SessionProvider>
+      <html lang="en">
+        <body>
+          <CookiesProviderLayout>
+            {children}
+          </CookiesProviderLayout>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "User Dashboard OnyxShop",
-  description: "Checkout your dashboard.",
+  title: "Authentication OnyxShop",
+  description: "Start by registering or login in to continue",
 };
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
