@@ -60,7 +60,7 @@ const HomeSection: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               className="col-lg-8"
             >
               <div className="tiles-wrapper tiles-2">
@@ -107,7 +107,7 @@ const HomeSection: React.FC = () => {
                     x: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   key={index}
                   className="tiles-wrapper tiles-4"
                 >
@@ -166,7 +166,7 @@ const HomeSection: React.FC = () => {
                     x: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   className="col-12 col-md-8"
                 >
                   <div className="card card-collection-tiles">
@@ -199,7 +199,7 @@ const HomeSection: React.FC = () => {
                         x: 0,
                         transition: { duration: 1 },
                       }}
-                      viewport={{ once: false }}
+                      viewport={{ once: true }}
                       key={index}
                       className="col-12"
                     >

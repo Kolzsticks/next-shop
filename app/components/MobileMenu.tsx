@@ -71,7 +71,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
           <div className="mobile-menu">
             <ul className="navbar-nav">
               <li className="nav-item px-lg-2">
-                <Link href="/" className="nav-link active">
+                <Link prefetch={true} href="/" className="nav-link active">
                   <div className="sr-only"></div> Home
                 </Link>
               </li>
@@ -85,7 +85,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                       {uniqueCategories.map((category, idx) => (
                         <div key={idx} className=" my-2">
                           <ul className=" list-unstyled">
-                            <Link href="#" className="fg-theme">
+                            <Link prefetch={true} href="#" className="fg-theme">
                               {category}
                             </Link>
                           </ul>
@@ -96,7 +96,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                 </div>
               </li>
               <li className="nav-item px-lg-2">
-                <Link href="/about" className="nav-link">
+                <Link prefetch={true} href="/about" className="nav-link">
                   <div className="sr-only"></div> About
                 </Link>
               </li>
@@ -106,7 +106,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                 </span>
                 <div className="dropdown-menu">
                   {pageLinks.map((pageLink, idx) => (
-                    <Link
+                    <Link prefetch={true}
                       key={idx}
                       href={pageLink.href}
                       className="dropdown-item"
@@ -117,7 +117,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ handleShowMobileMenu }) => {
                 </div>
               </li>
               <li className="nav-item px-lg-2">
-                <Link href="/contact" className="nav-link">
+                <Link prefetch={true} href="/contact" className="nav-link">
                   <div className="sr-only"></div> Contact
                 </Link>
               </li>

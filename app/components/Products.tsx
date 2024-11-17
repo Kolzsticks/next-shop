@@ -69,7 +69,7 @@ const ProductCard: React.FC<Product> = ({
           className="card card-product"
           initial={{ opacity: 0, x: uid % 2 === 0 ? 50 : -50 }}
           whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <div className="card-header">
             <button className="btn btn-fab btn-sm" onClick={handleAddToCart}>
@@ -98,7 +98,7 @@ const ProductCard: React.FC<Product> = ({
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARweHigjKE4rK06kbl1upKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKT/wAARCABTAFMDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDpTTGp9NagCJqjapWqNhQBHSijFKBQAop4poFPFADhS0CloAKKWigB9NNOpDQBEwqMipmqM0AR4oApaUUAKBTwKaKeKAFFLQKWgAopaKAFpDS00mgBrVGaexqMmgBKBSZoBoAeKeKjBp4NADxTqYDS5oAdRSZooAM00mm7qaWoAGNRk0M1MLUALmlBqPdQGoAmBpwNQhqcGoAmBp2aiDUu6gCTNFR7qKAEzTSaTNNJoARjTCaGNMJoAXNANMzQDQBKGpwNRA04GgCYGlzUQNOzQA/NFMzRQA6mmiigCNqjNFFADaBRRQA4U8UUUAOFOoooAKKKKAP/2Q=="
               />
             </div>
-            <Link
+            <Link prefetch={true}
               href={`/product/product-detail/${id}#top-nav`}
               className="btn btn-theme btn-rounded btn-sm btn-noanimate"
             >
@@ -108,7 +108,7 @@ const ProductCard: React.FC<Product> = ({
 
           <div className="card-footer">
             <div className="caption">
-              <Link
+              <Link prefetch={true}
                 href={`/product/product-detail/${id}#top-nav`}
                 className="product-title"
               >

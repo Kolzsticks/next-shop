@@ -12,7 +12,7 @@ const CookieChecker = () => {
         // Check if the 'theme' cookie exists
         if (cookies.get('loggedin')) {
           // Show success message
-          toast.success('You have been logged in successfully');
+          toast.success('Login successful');
 
           // Delete the cookie
           cookies.remove('loggedin')

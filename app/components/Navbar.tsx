@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   const { data: session } = useSession();
-  console.log(session);
+
 
   // Access totalItems and subscribe to its changes
   const totalItems = useCartStore((state) => state.totalItems);
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
     <Providers>
       <nav className="navbar navbar-expand-lg navbar-light bg-whiter shadow-sm" id="top-nav">
         <div className="d-flex justify-content-between align-items-center gap-3 w-100 container py-2">
-          <Link href="/" className="navbar-brand mb-2 mb-sm-0">
+          <Link prefetch={true} href="/" className="navbar-brand mb-2 mb-sm-0">
             <Image
               width={30}
               height={30}
@@ -83,7 +83,7 @@ const Navbar: React.FC = () => {
             <ul className="navbar-nav d-flex justify-content-center w-100">
               {navLinks.map(({ href, label, iconClass, isActive }, idx) => (
                 <li key={idx} className="nav-item px-lg-2">
-                  <Link
+                  <Link prefetch={true}
                     href={href}
                     className={`nav-link ${isActive ? "active" : ""}`}
                   >
@@ -94,8 +94,8 @@ const Navbar: React.FC = () => {
                   </Link>
                 </li>
               ))}
-              <li className="nav-item px-lg-2 dropdown-hover dropdown-custom">
-                <Link
+              <li className="nav-item px-lg-2 dropdown-hover ">
+                <Link prefetch={true}
                   href="/product"
                   className="nav-link dropdown-toggle-hover"
                 >
@@ -104,22 +104,16 @@ const Navbar: React.FC = () => {
                   </div>{" "}
                   Category
                 </Link>
-                <div className="dropdown-menu" style={{ maxWidth: "400px" }}>
-                  <div className="container py-2">
-                    {uniqueCategories.map((category, idx) => (
-                      <div key={idx} className="my-2">
-                        <ul className="list-unstyled">
-                          <Link href="#" className="fg-theme">
-                            {category}
-                          </Link>
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
+                <div className="dropdown-menu" >
+                  {uniqueCategories.map((category, idx) => (
+                    <Link prefetch={true} key={idx} href="#" className="dropdown-item">
+                      {category}
+                    </Link>
+                  ))}
                 </div>
               </li>
               <li className="nav-item px-lg-2 dropdown-hover">
-                <Link href="#" className="nav-link dropdown-toggle-hover mb-0">
+                <Link prefetch={true} href="#" className="nav-link dropdown-toggle-hover mb-0">
                   <div className="sr-only">
                     <span className="icon-format_list_bulleted" />
                   </div>{" "}
@@ -127,7 +121,7 @@ const Navbar: React.FC = () => {
                 </Link>
                 <div className="dropdown-menu">
                   {dropdownLinks.map(({ href, label }, idx) => (
-                    <Link key={idx} href={href} className="dropdown-item">
+                    <Link prefetch={true} key={idx} href={href} className="dropdown-item">
                       {label}
                     </Link>
                   ))}
@@ -139,7 +133,7 @@ const Navbar: React.FC = () => {
           <ul className="nav d-flex justify-content-between align-items-center w-auto">
             <li className="nav-item px-1 d-none d-lg-block">
               <div className="btn btn-fab text-secondary">
-                <Link
+                <Link prefetch={true}
                   className="text-secondary text-decoration-none"
                   href="/search"
                 >
@@ -149,7 +143,7 @@ const Navbar: React.FC = () => {
             </li>
             <li className="nav-item d-px-1 " id="account">
               <div className="btn text-secondary">
-                <Link
+                <Link prefetch={true}
                   className="text-secondary bold text-decoration-none font-weight-bold w-25"
                   href="/dashboard"
                 >
