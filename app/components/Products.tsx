@@ -64,7 +64,7 @@ const ProductCard: React.FC<Product> = ({
     <>
       <div className={`col-sm-6 col-md-4 ${isColumn ? "col-lg-12" : ""}`}>
         <motion.div
-          className="card card-product"
+          className="card card-product shadow-sm rounded"
           initial={{ opacity: 0, x: uid % 2 === 0 ? 50 : -50 }}
           whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
           viewport={{ once: true }}

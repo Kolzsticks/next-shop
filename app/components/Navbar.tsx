@@ -10,6 +10,15 @@ import Image from "next/image";
 import Providers from "./ProgressBar";
 import useCartStore from "../(main)/store/CartStore";
 import { useSession } from "next-auth/react";
+import { CircleUser, LogIn, PowerOff, LayoutDashboard } from "lucide-react";
+import { handleSignOut } from "../(auth)/actions/authActions";
+
+
+
+const handleLogout = () => {
+  handleSignOut();
+  window.location.reload();
+}
 
 const navLinks = [
   { href: "/", label: "Home", iconClass: "icon-home2", isActive: true },
@@ -17,11 +26,18 @@ const navLinks = [
   { href: "/contact", label: "Contact", iconClass: "icon-contacts" },
 ];
 
+const auth_Links = [
+  { href: '/auth/register', label: "Register", icon: (<CircleUser size={20} />) },
+  { href: '/auth/signin', label: "Login", icon: (<LogIn size={20} />) },
+  {href: '/dashboard', label: "Dashboard", icon: (<LayoutDashboard size={20} />)},
+  { href: '#', label: "Log out", icon: (<PowerOff />), onclick: handleLogout },
+]
 const dropdownLinks = [
   { href: "/product", label: "Product" },
   { href: "/blog", label: "Blog" },
   { href: "/checkout", label: "Checkout" },
 ];
+
 
 const Navbar: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -93,7 +109,7 @@ const Navbar: React.FC = () => {
                   </Link>
                 </li>
               ))}
-              <li className="nav-item px-lg-2 dropdown-hover ">
+              <li className="nav-item px-lg-2 dropdown-hover">
                 <Link prefetch={true}
                   href="/product"
                   className="nav-link dropdown-toggle-hover"
@@ -133,18 +149,19 @@ const Navbar: React.FC = () => {
             <li className="nav-item px-1 d-none d-lg-block">
               <div className="btn btn-fab text-secondary">
                 <Link prefetch={true}
-                  className="text-secondary text-decoration-none"
+                  className="text-secondary text-decoration-none "
                   href="/search"
                 >
                   <span className="icon icon-search"></span>
                 </Link>
+
               </div>
             </li>
-            <li className="nav-item d-px-1 " id="account">
+            <li className="nav-item d-px-1  dropdown-hover" id="account">
               <div className="btn text-secondary">
-                <Link prefetch={true}
-                  className="text-secondary bold text-decoration-none font-weight-bold w-25"
-                  href="/dashboard"
+                <span
+                  className="text-secondary bold text-decoration-none font-weight-bold w-25 dropdown-toggle-hover"
+
                 >
                   {session ? (
                     <svg
@@ -165,24 +182,51 @@ const Navbar: React.FC = () => {
                     </svg>
                   ) : (
                     <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-log-in"
-                  >
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                    <polyline points="10 17 15 12 10 7" />
-                    <line x1={15} x2={3} y1={12} y2={12} />
-                  </svg>
-                  
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-circle-user"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <circle cx={12} cy={10} r={3} />
+                      <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+                    </svg>
+
+
                   )}
-                </Link>
+                </span>
+
+                <div className="dropdown-menu px-lg-2">
+                  {auth_Links.map(({ href, label, icon, onclick }, idx) => {
+                     if (!session) {
+                      // Show only "Register" and "Login" when logged out
+                      if (label === "Dashboard" || label === "Log out") return null;
+                    } else {
+                      // Hide "Register" and "Login" when logged in
+                      if (label === "Register" || label === "Login") return null;
+                    }
+
+                    return (
+                      <Link
+                        prefetch={true}
+                        key={idx}
+                        href={href}
+                        className="dropdown-item d-flex align-items-center px-3 py-2 text-dark"
+                        onClick={idx === 3 ? handleLogout : undefined} // Add `onClick` for the third link
+                      >
+                       <span className="mr-2 fg-theme">{icon}</span>
+
+                       <span>{label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </li>
             <li onClick={handleCartClick} className="nav-item px-1">

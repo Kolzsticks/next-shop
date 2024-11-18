@@ -1038,18 +1038,17 @@ a.badge-theme:hover {
 }
 
 .navbar #account .dropdown-menu {
-  left: auto;
-  right: -100px;
-  margin: auto;
-  width: 320px;
+  left: 50%;
+transform: translateX(-50%);
   cursor: default;
 }
 
 @media (min-width: 576px) {
   .navbar #account .dropdown-menu {
-    left: auto;
-    right: 0;
-    width: 320px;
+    left: 50%;
+    transform: translateX(-50%)
+    /* right: 0; */
+    /* width: 320px; */
   }
 }
 
