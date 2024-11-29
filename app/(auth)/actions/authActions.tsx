@@ -34,5 +34,10 @@ export async function handleGoogleSignIn() {
 }
 
 export async function handleSignOut() {
-  await signOut();
+  try {
+    // Redirect to home page after signing out
+    await signOut();
+  } catch (error) {
+    console.error('Logout failed', error);
+  }
 }

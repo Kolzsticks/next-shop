@@ -4,21 +4,22 @@ import MobileMenu from "./MobileMenu";
 import Modal from "./Modal";
 import Cart from "./Cart";
 import { useState, useEffect } from "react";
-import { fetchProducts } from "../utils/functions";
-import { Product } from "../types/types";
 import Image from "next/image";
 import Providers from "./ProgressBar";
 import useCartStore from "../(main)/store/CartStore";
 import { useSession } from "next-auth/react";
 import { CircleUser, LogIn, PowerOff, LayoutDashboard } from "lucide-react";
 import { handleSignOut } from "../(auth)/actions/authActions";
+import useProductStore from "../(main)/store/useProductStore";
 
-
-
-const handleLogout = () => {
+// Updated handleLogout function
+const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+  event.preventDefault();
   handleSignOut();
   window.location.reload();
-}
+};
+
+
 
 const navLinks = [
   { href: "/", label: "Home", iconClass: "icon-home2", isActive: true },
@@ -26,12 +27,6 @@ const navLinks = [
   { href: "/contact", label: "Contact", iconClass: "icon-contacts" },
 ];
 
-const auth_Links = [
-  { href: '/auth/register', label: "Register", icon: (<CircleUser size={20} />) },
-  { href: '/auth/signin', label: "Login", icon: (<LogIn size={20} />) },
-  {href: '/dashboard', label: "Dashboard", icon: (<LayoutDashboard size={20} />)},
-  { href: '#', label: "Log out", icon: (<PowerOff />), onclick: handleLogout },
-]
 const dropdownLinks = [
   { href: "/product", label: "Product" },
   { href: "/blog", label: "Blog" },
@@ -40,36 +35,26 @@ const dropdownLinks = [
 
 
 const Navbar: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { products, isLoading, error, fetchProducts } = useProductStore();
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-  const { data: session } = useSession();
-
-
-  // Access totalItems and subscribe to its changes
+  const { data: session, status } = useSession();
   const totalItems = useCartStore((state) => state.totalItems);
   const loadTotalItems = useCartStore((state) => state.loadCart);
 
   useEffect(() => {
-    loadTotalItems(); // Load totalItems into Zustand from localStorage
+    loadTotalItems(); 
   }, [loadTotalItems]);
 
   const uniqueCategories = Array.from(
     new Set(products.map((p) => p.subCategory))
   );
 
-  // Fetch products on mount
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedProducts = await fetchProducts();
-        setProducts(fetchedProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchData();
-  }, []);
+    fetchProducts(); // Fetch products when the component mounts
+  }, [fetchProducts]);
+
 
   const handleCartClick = () => {
     document.body.classList.toggle("toggle-overflow");
@@ -79,6 +64,20 @@ const Navbar: React.FC = () => {
   const handleShowMobileMenu = () => {
     document.body.classList.toggle("toggle-overflow");
     setShowMobileMenu((prev) => !prev);
+  };
+
+  const getAuthLinks = () => {
+    if (status === 'authenticated') {
+      return [
+        { href: '/dashboard', label: "Dashboard", icon: (<LayoutDashboard size={20} />) },
+        { href: '#', label: "Log out", icon: (<PowerOff size={20} />) }
+      ];
+    }
+
+    return [
+      { href: '/auth/register', label: "Register", icon: (<CircleUser size={20} />) },
+      { href: '/auth/signin', label: "Login", icon: (<LogIn size={20} />) }
+    ];
   };
 
   return (
@@ -163,24 +162,7 @@ const Navbar: React.FC = () => {
                   className="text-secondary bold text-decoration-none font-weight-bold w-25 dropdown-toggle-hover"
 
                 >
-                  {session ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#fe6c32"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-user-check"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx={9} cy={7} r={4} />
-                      <polyline points="16 11 18 13 22 9" />
-                    </svg>
-                  ) : (
+                  {!session ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={24}
@@ -199,33 +181,39 @@ const Navbar: React.FC = () => {
                     </svg>
 
 
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#fe6c32"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-user-check"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx={9} cy={7} r={4} />
+                      <polyline points="16 11 18 13 22 9" />
+                    </svg>
+
                   )}
                 </span>
 
                 <div className="dropdown-menu px-lg-2">
-                  {auth_Links.map(({ href, label, icon, onclick }, idx) => {
-                     if (!session) {
-                      // Show only "Register" and "Login" when logged out
-                      if (label === "Dashboard" || label === "Log out") return null;
-                    } else {
-                      // Hide "Register" and "Login" when logged in
-                      if (label === "Register" || label === "Login") return null;
-                    }
-
-                    return (
-                      <Link
-                        prefetch={true}
-                        key={idx}
-                        href={href}
-                        className="dropdown-item d-flex align-items-center px-3 py-2 text-dark"
-                        onClick={idx === 3 ? handleLogout : undefined} // Add `onClick` for the third link
-                      >
-                       <span className="mr-2 fg-theme">{icon}</span>
-
-                       <span>{label}</span>
-                      </Link>
-                    );
-                  })}
+                  {getAuthLinks().map(({ href, label, icon }, idx) => (
+                    <Link
+                      key={idx}
+                      href={label === "Log out" ? "#" : href}
+                      className="dropdown-item d-flex align-items-center px-3 py-2 text-dark"
+                      onClick={label === "Log out" ? handleLogout : undefined}
+                    >
+                      <span className="mr-2 fg-theme">{icon}</span>
+                      <span>{label}</span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </li>

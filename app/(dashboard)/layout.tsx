@@ -2,8 +2,12 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { CustomTrigger } from "@/components/customSidebarTrigger";
-// import { ThemeToggler } from "./(main_components)/ThemeToggleButton";
-// import { ThemeProvider } from "@/components/theme-provider";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "User Dashboard",
+  description: "Checkout your dashboard",
+};
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
