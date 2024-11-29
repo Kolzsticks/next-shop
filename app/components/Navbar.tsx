@@ -15,7 +15,12 @@ import useProductStore from "../(main)/store/useProductStore";
 // Updated handleLogout function
 const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
   event.preventDefault();
-  handleSignOut();
+  try {
+    // Redirect to home page after signing out
+    await handleSignOut();
+  } catch (error) {
+    console.error('Logout failed', error);
+  }
   window.location.reload();
 };
 
@@ -41,6 +46,7 @@ const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
   const totalItems = useCartStore((state) => state.totalItems);
   const loadTotalItems = useCartStore((state) => state.loadCart);
+ 
 
   useEffect(() => {
     loadTotalItems(); 

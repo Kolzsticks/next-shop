@@ -3,22 +3,29 @@
 import { OverviewCards } from "@/components/overview_card";
 import { ShoppingBag, DollarSign, Heart } from "lucide-react"; // Import icons
 import useCartStore from "@/app/(main)/store/CartStore";
+import { useSession } from "next-auth/react";
 
 const Overview = () => {
   const { cartItems, totalItems, loadCart, removeFromCart, updateQuantity } =
-  useCartStore();
+    useCartStore();
+  const { data: session, status } = useSession();
+
 
   return (
-    <div className="flex flex-col w-full  gap-8">
+    <div className="flex flex-col w-full gap-8">
       <section className="flex items-center gap-2">
         <img
           className="rounded-full w-[100px]"
-          src="/img/placeholder-male.jpg"
+          src={session ? session.user.image || '/img/placeholder-male.jpg' : '/img/placeholder-male.jpg'}
           alt="Profile Picture"
         />
         <div className="flex flex-col">
-          <h2 className="text-2xl font-bold">Welcome back, David</h2>
-          <p className="text-sm dark:text-zinc-400">Customer Id: #189284787</p>
+          <h2 className="text-2xl font-bold">
+            Welcome back, {session?.user?.name || 'Guest'}
+          </h2>
+          <p className="text-sm dark:text-zinc-400">
+            Customer Id: #{session?.user?.id || 'N/A'}
+          </p>
         </div>
       </section>
       <div className="flex lg:flex-row flex-col w-full items-center justify-between gap-4">
