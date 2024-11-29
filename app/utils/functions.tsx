@@ -20,3 +20,14 @@ export const fetchProducts = async (): Promise<Product[]> => {
     return [];
   }
 };
+
+// debounce.ts
+export function debounce(fn: Function, delay: number) {
+  let timeout: NodeJS.Timeout;
+
+  return function (...args: any[]) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn(...args), delay);
+  };
+}
+
