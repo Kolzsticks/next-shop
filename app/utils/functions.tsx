@@ -31,3 +31,21 @@ export function debounce(fn: Function, delay: number) {
   };
 }
 
+
+export const truncateText = (text: string, maxLength: number) => {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + "..."; // Truncate and add ellipsis
+  }
+  return text;
+};
+
+
+// Helper function to clean the text for robust searching
+export const normalizeText = (text: string) => {
+  return text
+    .toLowerCase()
+    .replace(/['",.-]/g, "") // Remove apostrophes, commas, hyphens, and periods
+    .normalize("NFD") // Normalize characters with accents
+    .replace(/[\u0300-\u036f]/g, ""); // Remove diacritics
+};
+

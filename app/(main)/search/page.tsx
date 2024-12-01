@@ -1,63 +1,48 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { debounce, fetchProducts } from "@/app/utils/functions";
+import { useState, useEffect, useMemo } from "react";
+import Fuse from "fuse.js"; // Import Fuse.js
+import { fetchProducts, truncateText } from "@/app/utils/functions";
 import Link from "next/link";
 
-// Helper function to clean the text for robust searching
-const normalizeText = (text: string) => {
-  return text
-    .toLowerCase()
-    .replace(/['",.-]/g, "") // Remove apostrophes, commas, hyphens, and periods
-    .normalize("NFD") // Normalize characters with accents
-    .replace(/[\u0300-\u036f]/g, ""); // Remove diacritics
-};
-
-// Truncate text if it's too long
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length > maxLength) {
-    return text.substring(0, maxLength) + "..."; // Truncate and add ellipsis
-  }
-  return text;
-};
-
-const page: React.FC = () => {
+const Page: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState<any[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
   const [popularSearches, setPopularSearches] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false); // Loading state for the search
+  const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal open state
 
-  // Debounced search handler
-  const handleSearch = debounce((query: string) => {
-    if (query === "") {
-      setFilteredProducts(products.slice(0, 3)); // Show initial products when query is empty
-    } else {
-      setLoading(true); // Show loading spinner
-      const cleanedQuery = normalizeText(query);
+  // Fuse.js configuration
+  const options = useMemo(
+    () => ({
+      keys: ["name", "category"],
+      includeScore: true,
+      isCaseSensitive: false,
+      threshold: 0.3,
+      distance: 100,
+      minMatchCharLength: 1,
+      ignoreLocation: true,
+      shouldSort: true,
+      findAllMatches: true,
+      useExtendedSearch: true,
+    }),
+    []
+  );
 
-      // Perform filtering based on cleaned query
-      const results = products.filter((product) =>
-        normalizeText(product.name).includes(cleanedQuery)
-      );
-      setFilteredProducts(results);
-      setLoading(false); // Hide loading spinner after search is done
-    }
-  }, 500);
+  const fuse = useMemo(() => new Fuse(products, options), [products, options]);
 
   // Fetch initial data and popular searches
   useEffect(() => {
     const fetchData = async () => {
-      const initialProducts = await fetchProducts(); // Get all products from API
+      const initialProducts = await fetchProducts();
       setProducts(initialProducts);
 
-      // Set top 3 popular products based on rating
       const topProducts = initialProducts
         .sort((a: any, b: any) => b.rating.stars - a.rating.stars)
         .slice(0, 3);
       setPopularSearches(topProducts);
 
-      // Initially display the first 3 products
       setFilteredProducts(initialProducts.slice(0, 3));
     };
     fetchData();
@@ -67,92 +52,192 @@ const page: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
-    handleSearch(query); // Call the debounced search function
+    setLoading(true);
+
+    if (query.trim() === "") {
+      setFilteredProducts(products.slice(0, 3));
+      setLoading(false);
+    } else {
+      const results = fuse.search(query);
+      setFilteredProducts(results.map((result) => result.item));
+      setLoading(false);
+    }
+  };
+
+  // Clear search input
+  const clearSearch = () => {
+    setSearchQuery("");
+    setFilteredProducts(products.slice(0, 3));
   };
 
   // Handle click on popular search item
   const handlePopularSearchClick = (productName: string) => {
-    setSearchQuery(productName); // Set clicked popular product as the query
-    handleSearch(productName); // Trigger search
+    setSearchQuery(productName);
+    const results = fuse.search(productName);
+    setFilteredProducts(results.map((result) => result.item));
+  };
+
+  // Open the modal
+  const openSearchModal = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden"; // Prevent scrolling on the body
+  };
+
+  // Close the modal
+  const closeSearchModal = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = "auto"; // Allow scrolling on the body again
+    clearSearch();
+  };
+
+  // Close modal if click is outside of modal content
+  const handleClickOutside = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).classList.contains("modal")) {
+      closeSearchModal();
+    }
   };
 
   return (
-    <>
-      <div style={{ backgroundColor: "#fff", height: "100svh" }}>
-        <form className="container" style={{ marginTop: "100px" }}>
-          <div className="row justify-content-center">
-            <div className="col-lg-10">
-              <div className="input-group">
+    <div style={{ backgroundColor: "#fff", height: "100vh" }}>
+      {/* Search Button / Bar */}
+      <div className="container mt-5 text-center">
+        <input
+          type="text"
+          className="form-control d-inline w-75 w-md-50 position-relative" // Adjusted width for mobile
+          placeholder="Search here..."
+          value={searchQuery}
+          onClick={openSearchModal} // Opens modal on click
+          onChange={handleInputChange}
+        />
+        {/* Clear 'x' button inside the search input */}
+        {searchQuery && (
+          <button
+            type="button"
+            className="btn-close position-absolute end-0 top-0 m-3"
+            onClick={clearSearch}
+            aria-label="Clear"
+          />
+        )}
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div
+          className="modal d-block"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            height: "100%",
+            width: "100%",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 1050,
+          }}
+          onClick={handleClickOutside} // Close modal on clicking outside
+        >
+          <div
+            className="modal-dialog modal-dialog-centered"
+            style={{
+              maxWidth: "90%",
+              height: "75%",
+              margin: "auto",
+              marginTop: "20px", // Added top margin
+            }}
+          >
+            <div className="modal-content h-100">
+              <div
+                className="modal-header"
+                style={{
+                  borderBottom: "none",
+                  justifyContent: "center",
+                  paddingBottom: 0,
+                }}
+              >
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control w-75"
                   placeholder="Search here..."
                   value={searchQuery}
                   onChange={handleInputChange}
                 />
+                <button
+                  type="button"
+                  className="btn-close position-absolute end-0 top-0 m-3"
+                  onClick={closeSearchModal}
+                />
               </div>
-              <ul className="list-unstyled list-inline mt-2">
-                <li className="list-inline-item">Popular Search: </li>
-                {popularSearches.map((product: any) => (
-                  <li className="list-inline-item" key={product.id}>
-                    <a
-                      href="#"
-                      className="text-secondary badge badge-light"
-                      onClick={() => handlePopularSearchClick(product.name)}
-                    >
-                      {product.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
 
-              {/* Display loading spinner if search is in progress */}
-              {loading && (
-                <div className="d-flex justify-content-center mt-3">
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
+              <div className="modal-body overflow-auto">
+                {/* Popular Searches */}
+                <ul className="list-inline text-center mt-2">
+                  <li className="list-inline-item">Popular Search: </li>
+                  {popularSearches.map((product: any) => (
+                    <li className="list-inline-item" key={product.id}>
+                      <a
+                        href="#"
+                        className="text-secondary badge badge-light"
+                        onClick={() => handlePopularSearchClick(product.name)}
+                      >
+                        {product.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Loading Spinner */}
+                {loading && (
+                  <div className="d-flex justify-content-center mt-3">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
                   </div>
-                </div>
-              )}
-
-              {/* Display filtered products */}
-              <div className="mt-3">
-                {filteredProducts.length > 0 ? (
-                  <ul className="list-group" style={{overflowY: 'scroll', maxHeight: '500px'}}>
-                    {filteredProducts.map((product: any) => (
-                      <li key={product.id} className="list-group-item">
-                        <div className="d-flex align-items-center">
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="img-thumbnail"
-                            style={{ width: "80px", height: "80px", marginRight: "16px" }}
-                          />
-                          <div className="ms-3">
-                            <h6>
-                              <Link
-                                href={`/product/product-detail/${product.id}#top-nav`}
-                                className="font-bold fg-theme"
-                              >
-                                {product.name}
-                              </Link>
-                            </h6>
-                            <p className="mt-2">{truncateText(product.description, 100)}</p> {/* Truncate description to 100 chars */}
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="font-bold text-center">No products found</p>
                 )}
+
+                {/* Filtered Products */}
+                <div className="mt-3">
+                  {filteredProducts.length > 0 ? (
+                    <ul className="list-group">
+                      {filteredProducts.map((product: any) => (
+                        <li key={product.id} className="list-group-item">
+                          <div className="d-flex align-items-center">
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="img-thumbnail"
+                              style={{
+                                width: "50px", // Reduced image size
+                                height: "50px",
+                                marginRight: "16px",
+                              }}
+                            />
+                            <div className="ms-3">
+                              <h6>
+                                <Link
+                                  href={`/product/product-detail/${product.id}#top-nav`}
+                                  className="font-bold fg-theme"
+                                >
+                                  {product.name}
+                                </Link>
+                              </h6>
+                              <p className="mt-2">
+                                {truncateText(product.description, 50)} {/* Truncate text to 50 characters */}
+                              </p>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="font-bold text-center">No products found</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </form>
-      </div>
-    </>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default page;
+export default Page;
