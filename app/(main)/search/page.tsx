@@ -12,41 +12,8 @@ const Page: React.FC = () => {
   const [popularSearches, setPopularSearches] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal open state
-
-  // Fuse.js configuration
-  const options = useMemo(
-    () => ({
-      keys: ["name", "category"],
-      includeScore: true,
-      isCaseSensitive: false,
-      threshold: 0.3,
-      distance: 100,
-      minMatchCharLength: 1,
-      ignoreLocation: true,
-      shouldSort: true,
-      findAllMatches: true,
-      useExtendedSearch: true,
-    }),
-    []
-  );
-
-  const fuse = useMemo(() => new Fuse(products, options), [products, options]);
-
-  // Fetch initial data and popular searches
-  useEffect(() => {
-    const fetchData = async () => {
-      const initialProducts = await fetchProducts();
-      setProducts(initialProducts);
-
-      const topProducts = initialProducts
-        .sort((a: any, b: any) => b.rating.stars - a.rating.stars)
-        .slice(0, 3);
-      setPopularSearches(topProducts);
-
-      setFilteredProducts(initialProducts.slice(0, 3));
-    };
-    fetchData();
-  }, []);
+  const [searchField, setSearchField] = useState("All"); // Default search field
+  const [dropdownOpen, setDropdownOpen] = useState(false); // Dropdown menu state
 
   // Handle input change for search
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,33 +31,78 @@ const Page: React.FC = () => {
     }
   };
 
-  // Clear search input
+  // Fetch initial data and popular searches
+  useEffect(() => {
+    const fetchData = async () => {
+      const initialProducts = await fetchProducts();
+      setProducts(initialProducts);
+
+      const topProducts = initialProducts
+        .sort((a: any, b: any) => b.rating.stars - a.rating.stars)
+        .slice(0, 3);
+      setPopularSearches(topProducts);
+
+      setFilteredProducts(initialProducts.slice(0, 3));
+    };
+    fetchData();
+  }, []);
+
+  // Handle search field change
+  const handleSearchFieldChange = (field: string) => {
+    setSearchField(field);
+    setDropdownOpen(false); // Close dropdown when an option is selected
+  };
+
+  // Handle clear input
   const clearSearch = () => {
     setSearchQuery("");
     setFilteredProducts(products.slice(0, 3));
   };
 
-  // Handle click on popular search item
+  // Handle popular search click
   const handlePopularSearchClick = (productName: string) => {
     setSearchQuery(productName);
     const results = fuse.search(productName);
     setFilteredProducts(results.map((result) => result.item));
   };
 
-  // Open the modal
+  // Fuse.js configuration (based on searchField)
+  const fuse = useMemo(() => {
+    let keys: string[] = [];
+    if (searchField === "All") {
+      keys = ["name", "category", "subCategory", "keywords", "description"];
+    } else {
+      keys = [searchField.toLowerCase()];
+    }
+
+    return new Fuse(products, {
+      keys,
+      includeScore: true,
+      isCaseSensitive: false,
+      threshold: 0.3,
+      distance: 100,
+      minMatchCharLength: 1,
+      ignoreLocation: true,
+      shouldSort: true,
+      findAllMatches: true,
+      useExtendedSearch: true,
+    });
+  }, [products, searchField]);
+
+  // Open modal
   const openSearchModal = () => {
     setIsModalOpen(true);
     document.body.style.overflow = "hidden"; // Prevent scrolling on the body
   };
 
-  // Close the modal
+  // Close modal
   const closeSearchModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "auto"; // Allow scrolling on the body again
     clearSearch();
   };
 
-  // Close modal if click is outside of modal content
+  // Close modal when clicked outside
   const handleClickOutside = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).classList.contains("modal")) {
       closeSearchModal();
@@ -103,7 +115,7 @@ const Page: React.FC = () => {
       <div className="container mt-5 text-center">
         <input
           type="text"
-          className="form-control d-inline w-75 w-md-50 position-relative" // Adjusted width for mobile
+          className="form-control d-inline w-75 w-md-50 position-relative"
           placeholder="Search here..."
           value={searchQuery}
           onClick={openSearchModal} // Opens modal on click
@@ -141,7 +153,7 @@ const Page: React.FC = () => {
               maxWidth: "90%",
               height: "75%",
               margin: "auto",
-              marginTop: "20px", // Added top margin
+              marginTop: "20px",
             }}
           >
             <div className="modal-content h-100">
@@ -168,6 +180,43 @@ const Page: React.FC = () => {
               </div>
 
               <div className="modal-body overflow-auto">
+                {/* Custom Dropdown */}
+                <div className="relative mb-3">
+                  <label htmlFor="searchField" className="form-label block mb-2">
+                    Search By:
+                  </label>
+                  <div
+                    className="cursor-pointer border p-3 rounded-md bg-white"
+                    onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown
+                  >
+                    <div className="flex justify-between items-center">
+                      <span>{searchField}</span>
+                      <span className="material-icons">
+                        <svg style={{ width: '20px', height: '20px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                          {/*!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.*/}
+                          <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
+                        </svg>
+
+                      </span>
+                    </div>
+                    {dropdownOpen && (
+                      <ul className="absolute bg-white w-full mt-1 shadow-lg border rounded-md z-10" style={{left: '0'}}>
+                        {["All", "name", "category", "subCategory", "keywords", "description"].map(
+                          (option) => (
+                            <li
+                              key={option}
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => handleSearchFieldChange(option)}
+                            >
+                              {option}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+
                 {/* Popular Searches */}
                 <ul className="list-inline text-center mt-2">
                   <li className="list-inline-item">Popular Search: </li>
@@ -216,11 +265,11 @@ const Page: React.FC = () => {
                                   href={`/product/product-detail/${product.id}#top-nav`}
                                   className="font-bold fg-theme"
                                 >
-                                  {product.name}
+                                  {truncateText(product.name, 20)}
                                 </Link>
                               </h6>
-                              <p className="mt-2">
-                                {truncateText(product.description, 50)} {/* Truncate text to 50 characters */}
+                              <p className="text-secondary">
+                                {truncateText(product.description, 30)}
                               </p>
                             </div>
                           </div>
@@ -228,8 +277,10 @@ const Page: React.FC = () => {
                       ))}
                     </ul>
                   ) : (
-                    <p className="font-bold text-center">No products found</p>
+                    <p>No products found.</p>
                   )}
+
+
                 </div>
               </div>
             </div>
