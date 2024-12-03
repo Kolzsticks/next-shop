@@ -151,7 +151,6 @@ const Page: React.FC = () => {
       repeat: Infinity,
       repeatType: "reverse",  // This will make the animation reverse for a smoother effect
       duration: 3,
-      delay: 0.2,
     }}
   >
         <Image
