@@ -1,183 +1,246 @@
 "use client";
-
-import { useState, useEffect, useMemo } from "react";
-import Fuse from "fuse.js";
-import { fetchProducts, truncateText } from "@/app/utils/functions";
+import Image from "next/image";
 import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { z } from "zod";
+import ErrorMessage from "@/components/error-message";
+import LoadingButton from "@/components/loading-button";
+import { motion } from "framer-motion";
+import { registerSchema } from "@/lib/zod";
+import GoogleLoginButton from "@/app/components/GoogleLoginButton";
+import { handleGoogleSignIn } from "../../actions/authActions";
+import { useRouter } from "next/navigation";
 
-const Page: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [products, setProducts] = useState<any[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
-  const [popularSearches, setPopularSearches] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+export default function Register() {
+  const [globalError, setGlobalError] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const router = useRouter();
 
-  const options = useMemo(
-    () => ({
-      keys: ["name", "category"],
-      includeScore: true,
-      isCaseSensitive: false,
-      threshold: 0.3,
-      distance: 100,
-      minMatchCharLength: 1,
-      ignoreLocation: true,
-      shouldSort: true,
-      findAllMatches: true,
-      useExtendedSearch: true,
-    }),
-    []
-  );
+  // Initialize form with zod schema validation
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
-  const fuse = useMemo(() => new Fuse(products, options), [products, options]);
+  const onSubmit = async (values: z.infer<typeof registerSchema>) => {
+    try {
+      const response = await fetch(
+        "https://ecommerce-api-kfwt.onrender.com/api/v1/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: values.username,
+            email: values.email,
+            password: values.password,
+          }),
+        }
+      );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const initialProducts = await fetchProducts();
-      setProducts(initialProducts);
-
-      const topProducts = initialProducts
-        .sort((a: any, b: any) => b.rating.stars - a.rating.stars)
-        .slice(0, 3);
-      setPopularSearches(topProducts);
-
-      setFilteredProducts(initialProducts.slice(0, 3));
-    };
-    fetchData();
-  }, []);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    setLoading(true);
-
-    if (query.trim() === "") {
-      setFilteredProducts(products.slice(0, 3));
-      setLoading(false);
-    } else {
-      const results = fuse.search(query);
-      setFilteredProducts(results.map((result) => result.item));
-      setLoading(false);
+      if (!response.ok) {
+        const errorData = await response.json();
+        setGlobalError(
+          errorData.message || "Registration failed. Please try again."
+        );
+      } else {
+        setSuccessMessage(
+          "Registration successful! Please check your email to verify your account."
+        );
+        setGlobalError("");
+        form.reset();
+        router.push('/auth/signin')
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+      setGlobalError("An unexpected error occurred. Please try again.");
     }
   };
 
-  const clearSearch = () => {
-    setSearchQuery("");
-    setFilteredProducts(products.slice(0, 3));
-  };
-
-  const handlePopularSearchClick = (productName: string) => {
-    setSearchQuery(productName);
-    const results = fuse.search(productName);
-    setFilteredProducts(results.map((result) => result.item));
-  };
-
   return (
-    <div>
-      {/* Mobile-only Background Image */}
+    <div className="flex lg:h-screen h-svh">
+      {/* Desktop-only Side Image */}
       <div
-        className="position-absolute top-0 start-0 end-0 bottom-0"
-        style={{
-          backgroundImage: "url('/img/mobile_bg.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          zIndex: -1,
-        }}
+        className="hidden md:flex w-1/2 bg-cover bg-center relative"
+        style={{ backgroundImage: "url('/img/bg_1.webp')" }}
       >
-        <div
-          className="position-absolute top-0 start-0 end-0 bottom-0"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-        ></div>
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="z-10 flex flex-col items-center justify-center text-center w-full p-10 text-white space-y-5">
+          <motion.h1
+            className="flex gap-4 text-5xl font-extrabold"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 3, ease: "easeOut", repeat: Infinity,
+              repeatDelay: 1,
+            }}
+
+          >
+            <Image
+              width={50}
+              height={30}
+              src="/img/logo.png"
+              alt="OnyxShop logo"
+            />
+            <span className="fg-theme">Onyx</span>Shop
+          </motion.h1>
+          <motion.p
+            className="text-lg max-w-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 3, ease: "easeInOut", repeat: Infinity,
+              repeatDelay: 1
+            }}
+          >
+            Welcome! Join our store to discover exclusive products and great
+            deals.
+          </motion.p>
+        </div>
       </div>
 
-      <form className="container" style={{ marginTop: "100px" }}>
-        <div className="row justify-content-center">
-          <div className="col-lg-10">
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search here..."
-                value={searchQuery}
-                onChange={handleInputChange}
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary"
-                  onClick={clearSearch}
-                >
-                  &times;
-                </button>
-              )}
-            </div>
-            <ul className="list-unstyled list-inline mt-2">
-              <li className="list-inline-item">Popular Search: </li>
-              {popularSearches.map((product: any) => (
-                <li className="list-inline-item" key={product.id}>
-                  <a
-                    href="#"
-                    className="text-secondary badge badge-light"
-                    onClick={() => handlePopularSearchClick(product.name)}
-                  >
-                    {product.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+      {/* Mobile-only Background Image */}
+      <div
+        className="block md:hidden absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/img/mobile_bg.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
 
-            {loading && (
-              <div className="d-flex justify-content-center mt-3">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              </div>
+      {/* Registration Form Section */}
+      <div className="relative flex w-full md:w-1/2 items-center justify-center p-4 lg:p-16 lg:bg-gray-300 md:bg-gray-300">
+        <Card className="w-full max-w-md space-y-2 z-10 lg:bg-gray-200">
+          <CardHeader>
+            <CardTitle className="text-2xl lg:text-4xl font-bold text-center text-gray-800 flex items-center">
+              <Link href='/' className="mr-2"><span className="icon-home"></span></Link>     Create an Account
+            </CardTitle>
+            <p className="text-center text-gray-600">Register to get started</p>
+          </CardHeader>
+          <CardContent>
+            {globalError && <ErrorMessage error={globalError} />}
+            {successMessage && (
+              <p className="text-green-600">{successMessage}</p>
             )}
-
-            <div className="mt-3">
-              {filteredProducts.length > 0 ? (
-                <ul
-                  className="list-group"
-                  style={{ overflowY: "scroll", maxHeight: "500px" }}
-                >
-                  {filteredProducts.map((product: any) => (
-                    <li key={product.id} className="list-group-item">
-                      <div className="d-flex align-items-center">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="img-thumbnail"
-                          style={{
-                            width: "80px",
-                            height: "80px",
-                            marginRight: "16px",
-                          }}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-2"
+              >
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem className="space-y-0">
+                      <FormLabel className="text-gray-700">Username</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-white"
+                          placeholder="Enter your username"
+                          autoComplete="off"
+                          {...field}
                         />
-                        <div className="ms-3">
-                          <h6>
-                            <Link
-                              href={`/product/product-detail/${product.id}#top-nav`}
-                              className="font-bold fg-theme"
-                            >
-                              {product.name}
-                            </Link>
-                          </h6>
-                          <p className="mt-2">
-                            {truncateText(product.description, 100)}
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="font-bold text-center">No products found</p>
-              )}
-            </div>
-          </div>
-        </div>
-      </form>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-700">Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-white"
+                          type="email"
+                          placeholder="Enter your email address"
+                          autoComplete="off"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-700">Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-white"
+                          type="password"
+                          placeholder="Enter password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-700">
+                        Confirm Password
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-white"
+                          type="password"
+                          placeholder="Confirm password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <LoadingButton pending={form.formState.isSubmitting} />
+              </form>
+            </Form>
+            <span className="text-sm text-gray-500 text-center block my-2">
+              or
+            </span>
+            <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+              <GoogleLoginButton text="Sign up with Google" onSubmit={handleGoogleSignIn} />
+            </form>
+          </CardContent>
+          <p className="text-center text-gray-600 mb-4">
+            Already have an account?{" "}
+            <Link href="/auth/signin" className="fg-theme hover:underline">
+              Log in here
+            </Link>
+          </p>
+        </Card>
+      </div>
     </div>
   );
-};
-
-export default Page;
+}

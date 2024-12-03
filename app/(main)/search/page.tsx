@@ -4,6 +4,9 @@ import { useState, useEffect, useMemo } from "react";
 import Fuse from "fuse.js"; // Import Fuse.js
 import { fetchProducts, truncateText } from "@/app/utils/functions";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 const Page: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -14,6 +17,9 @@ const Page: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal open state
   const [searchField, setSearchField] = useState("All"); // Default search field
   const [dropdownOpen, setDropdownOpen] = useState(false); // Dropdown menu state
+  const router = useRouter();
+
+
 
   // Handle input change for search
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +98,7 @@ const Page: React.FC = () => {
   // Open modal
   const openSearchModal = () => {
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling on the body
+
   };
 
   // Close modal
@@ -125,12 +131,57 @@ const Page: React.FC = () => {
         {searchQuery && (
           <button
             type="button"
-            className="btn-close position-absolute end-0 top-0 m-3"
+            className="btn btn-close position-absolute end-0 top-0 m-3 text-black"
             onClick={clearSearch}
             aria-label="Clear"
-          />
+          >x</button>
         )}
       </div>
+
+      <div className="container text-center py-5">
+      <motion.h1
+        className="d-flex justify-content-center align-items-center gap-4 text-white display-1 font-weight-bold"
+        style={{fontSize: '30px'}}
+        initial={{ opacity: 0, y: -50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{
+      type: "spring",
+      stiffness: 100,
+      damping: 10,
+      repeat: Infinity,
+      repeatType: "reverse",  // This will make the animation reverse for a smoother effect
+      duration: 3,
+      delay: 0.2,
+    }}
+  >
+        <Image
+          width={50}
+          height={30}
+          src="/img/logo.png"
+          alt="OnyxShop logo"
+        />
+        <span className="fg-theme">Onyx</span>
+        <span className="text-dark">Shop</span>
+      </motion.h1>
+
+      <motion.p
+        className="lead text-dark max-w-md mx-auto mt-4"
+        style={{fontSize: '16px'}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1.5,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatDelay: 1,
+        }}
+      >
+        Welcome! Explore our store to uncover exclusive products and amazing deals. Begin your journey by searching!
+      </motion.p>
+    </div>
+  
+
+
 
       {/* Modal */}
       {isModalOpen && (
@@ -156,28 +207,80 @@ const Page: React.FC = () => {
               marginTop: "20px",
             }}
           >
-            <div className="modal-content h-100">
+            <div className="modal-content h-100 mb-4">
               <div
-                className="modal-header"
+                className="modal-header position-relative d-flex align-items-center justify-content-center"
                 style={{
                   borderBottom: "none",
-                  justifyContent: "center",
                   paddingBottom: 0,
                 }}
               >
-                <input
-                  type="text"
-                  className="form-control w-75"
-                  placeholder="Search here..."
-                  value={searchQuery}
-                  onChange={handleInputChange}
-                />
+                <div
+                  className="position-relative w-75"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {/* Search Input */}
+                  <input
+                    type="text"
+                    className="form-control w-100"
+                    placeholder="Search here..."
+                    value={searchQuery}
+                    onChange={handleInputChange}
+                    style={{
+                      paddingRight: "40px", // Add padding to prevent overlap with button
+                    }}
+                  />
+                  {/* Clear 'x' Button Inside Input */}
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      className="position-absolute"
+                      onClick={clearSearch}
+                      aria-label="Clear"
+                      style={{
+                        right: "10px", // Align to the right inside the input
+                        top: "50%",
+                        transform: "translateY(-50%)", // Center vertically
+                        fontSize: "30px",
+                        backgroundColor: "transparent",
+                        border: "none",
+                        color: "#6c757d", // Muted text color
+                        cursor: "pointer",
+                      }}
+                    >
+                      &times;
+                    </button>
+                  )}
+                </div>
+                {/* Close Modal Button */}
                 <button
                   type="button"
-                  className="btn-close position-absolute end-0 top-0 m-3"
+                  className="btn position-absolute"
                   onClick={closeSearchModal}
-                />
+                  aria-label="Close"
+                  style={{
+                    top: "10px",
+                    right: "10px",
+                    fontSize: "40px",
+                    border: "none",
+                    color: "#000",
+                    borderRadius: "50%",
+                    width: "30px",
+                    height: "45px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  &times;
+                </button>
               </div>
+
+
 
               <div className="modal-body overflow-auto">
                 {/* Custom Dropdown */}
@@ -200,7 +303,7 @@ const Page: React.FC = () => {
                       </span>
                     </div>
                     {dropdownOpen && (
-                      <ul className="absolute bg-white w-full mt-1 shadow-lg border rounded-md z-10" style={{left: '0'}}>
+                      <ul className="absolute bg-white w-full mt-1 shadow-lg border rounded-md z-10" style={{ left: '0' }}>
                         {["All", "name", "category", "subCategory", "keywords", "description"].map(
                           (option) => (
                             <li
