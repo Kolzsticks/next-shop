@@ -49,3 +49,15 @@ export const normalizeText = (text: string) => {
     .replace(/[\u0300-\u036f]/g, ""); // Remove diacritics
 };
 
+
+export const getFirstName = (fullName: string) => {
+  // Check if the full name exists and is a string
+  if (fullName) {
+    const nameParts = fullName.split(" ");
+    return nameParts[0]; // Return the first part (first name)
+  }
+  
+  return 'Guest'; // Return 'Guest' if no name is provided
+};
+
+

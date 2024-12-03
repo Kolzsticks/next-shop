@@ -139,46 +139,46 @@ const Page: React.FC = () => {
       </div>
 
       <div className="container text-center py-5">
-      <motion.h1
-        className="d-flex justify-content-center align-items-center gap-4 text-white display-1 font-weight-bold"
-        style={{fontSize: '30px'}}
-        initial={{ opacity: 0, y: -50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{
-      type: "spring",
-      stiffness: 100,
-      damping: 10,
-      repeat: Infinity,
-      repeatType: "reverse",  // This will make the animation reverse for a smoother effect
-      duration: 3,
-    }}
-  >
-        <Image
-          width={50}
-          height={30}
-          src="/img/logo.png"
-          alt="OnyxShop logo"
-        />
-        <span className="fg-theme">Onyx</span>
-        <span className="text-dark">Shop</span>
-      </motion.h1>
+        <motion.h1
+          className="d-flex justify-content-center align-items-center gap-4 text-white display-1 font-weight-bold"
+          style={{ fontSize: '30px' }}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+            repeat: Infinity,
+            repeatType: "reverse",  // This will make the animation reverse for a smoother effect
+            duration: 3,
+          }}
+        >
+          <Image
+            width={50}
+            height={30}
+            src="/img/logo.png"
+            alt="OnyxShop logo"
+          />
+          <span className="fg-theme">Onyx</span>
+          <span className="text-dark">Shop</span>
+        </motion.h1>
 
-      <motion.p
-        className="lead text-dark max-w-md mx-auto mt-4"
-        style={{fontSize: '16px'}}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 1.5,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatDelay: 1,
-        }}
-      >
-        Welcome! Explore our store to uncover exclusive products and amazing deals. Begin your journey by searching!
-      </motion.p>
-    </div>
-  
+        <motion.p
+          className="lead text-dark max-w-md mx-auto mt-4"
+          style={{ fontSize: '16px' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            duration: 1.5,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatDelay: 1,
+          }}
+        >
+          Welcome! Explore our store to uncover exclusive products and amazing deals. Begin your journey by searching!
+        </motion.p>
+      </div>
+
 
 
 

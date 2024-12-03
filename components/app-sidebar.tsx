@@ -37,7 +37,8 @@ import {
   DropdownMenuItem,
 } from "./ui/dropdown-menu";
 import { handleSignOut } from "@/app/(auth)/actions/authActions";
-import { Button } from "./ui/button";
+import { useSession } from "next-auth/react";
+import { getFirstName } from "@/app/utils/functions";
 
 const items = [
   {
@@ -85,6 +86,8 @@ const items = [
 export function AppSidebar() {
   const { toggleSidebar } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
+  const { data: session, status } = useSession();
+  const initials = getFirstName(session?.user?.name || 'Guest');
 
   useEffect(() => {
     const handleResize = () => {
@@ -159,7 +162,7 @@ export function AppSidebar() {
                 asChild
               >
                 <SidebarMenuButton className="focus:outline-none ">
-                  <User /> David
+                  <User /> {initials}
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
